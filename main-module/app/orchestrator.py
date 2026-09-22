@@ -10,6 +10,20 @@ class MaskingOrchestrator:
     def __init__(self, providers: list[MaskingProvider]) -> None:
         self._providers = providers
 
+    async def start(self) -> None:
+        """Инициализирует провайдеров (например, прогревает пулы соединений)."""
+        for provider in self._providers:
+            start = getattr(provider, "start", None)
+            if start is not None:
+                await start()
+
+    async def close(self) -> None:
+        """Освобождает ресурсы провайдеров (закрывает пулы соединений)."""
+        for provider in self._providers:
+            close = getattr(provider, "close", None)
+            if close is not None:
+                await close()
+
     async def mask(self, text: str) -> str:
         """Маскирует строку всеми провайдерами параллельно.
 

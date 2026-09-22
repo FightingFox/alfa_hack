@@ -5,6 +5,7 @@ import httpx
 import websockets
 
 from app.config import MaskingServiceConfig
+from app.ws_pool import WebSocketPool, WebSocketPoolError
 
 
 class MaskingProviderError(Exception):
@@ -42,15 +43,25 @@ class RestMaskingProvider(MaskingProvider):
 
 
 class WebSocketMaskingProvider(MaskingProvider):
-    """WebSocket-провайдер маскирования."""
+    """WebSocket-провайдер маскирования с автоматически расширяемым пулом соединений."""
+
+    def __init__(self, config: MaskingServiceConfig) -> None:
+        super().__init__(config)
+        self._pool = WebSocketPool(config.url, config.pool)
+
+    async def start(self) -> None:
+        await self._pool.start()
+
+    async def close(self) -> None:
+        await self._pool.close()
 
     async def mask(self, text: str) -> str:
         try:
-            async with websockets.connect(self.config.url) as ws:
+            async with self._pool.connection() as ws:
                 await asyncio.wait_for(ws.send(text), timeout=self.config.timeout)
                 result = await asyncio.wait_for(ws.recv(), timeout=self.config.timeout)
                 return str(result)
-        except (websockets.WebSocketException, asyncio.TimeoutError) as exc:
+        except (websockets.WebSocketException, asyncio.TimeoutError, WebSocketPoolError) as exc:
             raise MaskingProviderError(
                 f"websocket provider '{self.config.name}' error: {exc}"
             ) from exc
