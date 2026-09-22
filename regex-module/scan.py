@@ -4,9 +4,11 @@
 """
 
 import re
+import time
 from typing import Any
 
 from data_type import DataType
+from models import Entity, ProcessResponse
 
 # Типы ПДн и соответствующие регулярные выражения.
 # Порядок в словаре определяет порядок результатов в scan().
@@ -296,3 +298,26 @@ def scan(text: str) -> list[dict[str, Any]]:
 
     results.sort(key=lambda r: (r["slice"][0], r["slice"][1]))
     return results
+
+
+def process_text(text: str) -> ProcessResponse:
+    """Прогнать текст через regex-правила и вернуть сущности в формате gliner_famous."""
+    start = time.perf_counter()
+    detected = scan(text)
+    elapsed = time.perf_counter() - start
+    entities = [
+        Entity(
+            text=d["text"],
+            type=[d["type"].name],
+            score=round(d["score"], 3),
+            slice=[d["slice"][0], d["slice"][1]],
+            will_be_used=True,
+        )
+        for d in detected
+    ]
+    return ProcessResponse(
+        work_time=round(elapsed, 3),
+        length=len(text),
+        count=len(entities),
+        data=entities,
+    )
