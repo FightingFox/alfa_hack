@@ -9,8 +9,9 @@ services:
       DEBUG: "false"
       HOST: 0.0.0.0
       PORT: 8000
+      WORKERS: 4
       REDIS_URL: redis://redis:6379/0
-      MASKING_SERVICES: '[{"name":"default","protocol":"rest","url":"http://localhost:9000","timeout":10.0}]'
+      MASKING_SERVICES: '[{"name":"default","protocol":"websocket","url":"ws://localhost:9000","timeout":10.0,"pool":{"min_connections":4,"max_connections":64}}]'
     depends_on:
       redis:
         condition: service_healthy
