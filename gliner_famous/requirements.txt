@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+websockets
+pydantic
+gliner
+transformers
+torch
+tiktoken
