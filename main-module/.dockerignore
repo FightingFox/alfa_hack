@@ -9,5 +9,4 @@ __pycache__/
 dist/
 build/
 tests/
-docker-compose.yml
 Dockerfile
