@@ -1,0 +1,6 @@
+{
+  "code": "CARDHOLDER",
+  "name": "CARDHOLDER",
+  "dim": 512,
+  "threshold": 0.5
+}

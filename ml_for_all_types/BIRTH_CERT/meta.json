@@ -1,0 +1,6 @@
+{
+  "code": "BIRTH_CERT",
+  "name": "BIRTH_CERT",
+  "dim": 512,
+  "threshold": 0.5
+}
