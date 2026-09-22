@@ -34,6 +34,7 @@ participant "WebSocketMaskingProvider" as Ws #E3EEFF
 participant "Nginx LB" as LB #FCE8E6
 participant "gliner_famous\nреплика" as Gliner #C8E6C9
 participant "llm_service\nреплика" as Llm #E1BEE7
+participant "ml_for_all_types\nреплика" as Ml #B2DFDB
 database "Redis" as Redis #FDE9D9
 
 Client -> Main : POST /process\n{payload, payload_id}
@@ -69,6 +70,18 @@ par Параллельно с таймаутом
     Ws --> Orch : result
     deactivate Ws
     deactivate Llm
+
+    Orch -> Ws : mask(payload)
+    activate Ws
+    Ws -> LB : WS /ml-for-all-types/ws
+    LB -> Ml : round-robin
+    activate Ml
+    Ml -> Ml : numpy ensemble NER
+    Ml --> LB : {entities}
+    LB --> Ws : result
+    Ws --> Orch : result
+    deactivate Ws
+    deactivate Ml
 end
 
 Orch --> Main : результат последнего успешного провайдера
