@@ -1,0 +1,6 @@
+{
+  "code": "PHONE",
+  "name": "PHONE",
+  "dim": 512,
+  "threshold": 0.5
+}

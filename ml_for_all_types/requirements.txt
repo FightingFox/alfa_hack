@@ -2,7 +2,4 @@ fastapi
 uvicorn[standard]
 websockets
 pydantic
-gliner
-transformers
-torch<2.6
-tiktoken
+numpy

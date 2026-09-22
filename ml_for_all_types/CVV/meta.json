@@ -1,0 +1,6 @@
+{
+  "code": "CVV",
+  "name": "CVV",
+  "dim": 512,
+  "threshold": 0.5
+}
