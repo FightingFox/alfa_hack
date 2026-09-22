@@ -1,0 +1,81 @@
+@startuml sequence
+!theme plain
+title Sequence: маскирование текста через main-module
+
+skinparam shadowing false
+skinparam defaultFontName "Helvetica"
+skinparam defaultFontSize 12
+skinparam sequence {
+    ArrowColor #555555
+    MessageAlign center
+    LifeLineBorderColor #333333
+}
+skinparam actor {
+    BackgroundColor #FFD54F
+    BorderColor #B8860B
+    FontColor #4A3B00
+}
+skinparam participant {
+    BackgroundColor #FFFFFF
+    BorderColor #333333
+    FontColor #1A1A1A
+}
+skinparam database {
+    BackgroundColor #FDE9D9
+    BorderColor #B8860B
+    FontColor #4A3B00
+}
+
+actor "Клиент" as Client
+participant "main-module\n(FastAPI)" as Main #D2E3FC
+participant "MaskingOrchestrator" as Orch #D2E3FC
+participant "RestMaskingProvider" as Rest #E3EEFF
+participant "WebSocketMaskingProvider" as Ws #E3EEFF
+participant "Nginx LB" as LB #FCE8E6
+participant "gliner_famous\nреплика" as Gliner #C8E6C9
+participant "llm_service\nреплика" as Llm #E1BEE7
+database "Redis" as Redis #FDE9D9
+
+Client -> Main : POST /process\n{payload, payload_id}
+activate Main
+
+Main -> Redis : GET pd:{payload_id}
+Redis --> Main : null (нет записи)
+
+Main -> Orch : mask(payload)
+activate Orch
+
+par Параллельно с таймаутом
+    Orch -> Rest : mask(payload)
+    activate Rest
+    Rest -> LB : POST /gliner-famous/process
+    LB -> Gliner : round-robin
+    activate Gliner
+    Gliner --> Gliner : GLiNER NER + PII map + famous check
+    Gliner --> LB : {entities}
+    LB --> Rest : {entities}
+    Rest --> Orch : result
+    deactivate Rest
+    deactivate Gliner
+
+    Orch -> Ws : mask(payload)
+    activate Ws
+    Ws -> LB : WS /llm-service/ws
+    LB -> Llm : round-robin
+    activate Llm
+    Llm -> Llm : LLM (ALFA, SSE) NER
+    Llm --> LB : {entities}
+    LB --> Ws : result
+    Ws --> Orch : result
+    deactivate Ws
+    deactivate Llm
+end
+
+Orch --> Main : результат последнего успешного провайдера
+deactivate Orch
+
+Main -> Redis : PUT pd:{payload_id}\n{original, masked}
+Main --> Client : {result: masked}
+deactivate Main
+
+@enduml

@@ -8,6 +8,196 @@
 - `llm_service/` — сервис распознавания сущностей на базе LLM (провайдер ALFA), тот же контракт, что и `gliner_famous`.
 - `load_balanser/` — балансировщик нагрузки на базе Nginx.
 
+## Архитектура
+
+Компонентная и sequence-диаграммы (PlantUML) лежат в `docs/`:
+
+- `docs/component.puml` — компонентная диаграмма системы;
+- `docs/sequence.puml` — sequence-диаграмма маскирования текста через `main-module`.
+
+```plantuml
+@startuml component
+!theme plain
+title Компонентная диаграмма ALFA Hack
+
+skinparam componentStyle rectangle
+skinparam shadowing false
+skinparam defaultFontName "Helvetica"
+skinparam defaultFontSize 12
+skinparam component {
+    BackgroundColor #FFFFFF
+    BorderColor #333333
+    FontColor #1A1A1A
+    ArrowColor #555555
+}
+skinparam actor {
+    BackgroundColor #FFD54F
+    BorderColor #B8860B
+    FontColor #4A3B00
+}
+skinparam package {
+    BackgroundColor #F5F7FA
+    BorderColor #9AA5B1
+    FontColor #2C3E50
+}
+skinparam arrow {
+    Color #555555
+    FontColor #555555
+}
+
+' ===== Внешние акторы =====
+actor "Клиент" as Client
+
+' ===== main-module =====
+package "main-module" #E8F0FE {
+    component "FastAPI app" as MainApp #D2E3FC
+    component "MaskingOrchestrator" as Orchestrator #D2E3FC
+    component "RestMaskingProvider" as RestProvider #E3EEFF
+    component "WebSocketMaskingProvider" as WsProvider #E3EEFF
+    component "CorrelationStore" as Store #E3EEFF
+    component "Redis" as Redis #FDE9D9
+}
+
+' ===== load_balanser =====
+component "Nginx Load Balancer" as LB #FCE8E6
+
+' ===== gliner_famous =====
+package "gliner_famous" #E6F4EA {
+    component "FastAPI (POST /process, WS /ws)" as GlinerApi #C8E6C9
+    component "GLiNER NER model" as GlinerModel #DCEDC8
+    component "PII type mapper" as PiiMapper #DCEDC8
+    component "Famous person check" as FamousCheck #DCEDC8
+}
+
+' ===== llm_service =====
+package "llm_service" #F3E8FD {
+    component "FastAPI (POST /process, WS /ws)" as LlmApi #E1BEE7
+    component "ALFA LLM client (SSE)" as LlmClient #EDE7F6
+}
+
+' ===== regex-module =====
+package "regex-module" #FFF8E1 {
+    component "FastAPI (WS /scan)" as RegexApi #FFECB3
+    component "Regex scanner" as RegexScan #FFF3CD
+}
+
+' ===== training_data =====
+package "training_data" #ECEFF1 {
+    component "Dataset & training scripts" as Training #CFD8DC
+}
+
+' ===== Связи =====
+Client --> MainApp : POST /process (payload, payload_id)
+Client --> LB : WS /gliner-famous/ws, /llm-service/ws
+
+MainApp --> Orchestrator : mask(text)
+Orchestrator --> RestProvider : parallel, timeout
+Orchestrator --> WsProvider : parallel, timeout
+RestProvider --> LB : POST /gliner-famous/process, /llm-service/process
+WsProvider --> LB : WS /gliner-famous/ws, /llm-service/ws
+MainApp --> Store : put/get payload_id
+Store --> Redis : pd:{payload_id}
+
+LB --> GlinerApi : round-robin
+LB --> LlmApi : round-robin
+
+GlinerApi --> GlinerModel : extract_entities_long()
+GlinerApi --> PiiMapper : map_to_pii_types()
+GlinerApi --> FamousCheck : is_famous()
+LlmApi --> LlmClient : /chat/completions (SSE)
+
+RegexApi --> RegexScan : scan(text)
+
+Training ..> GlinerModel : обученная модель
+Training ..> FamousCheck : база известных персон
+
+@enduml
+```
+
+```plantuml
+@startuml sequence
+!theme plain
+title Sequence: маскирование текста через main-module
+
+skinparam shadowing false
+skinparam defaultFontName "Helvetica"
+skinparam defaultFontSize 12
+skinparam sequence {
+    ArrowColor #555555
+    MessageAlign center
+    LifeLineBorderColor #333333
+}
+skinparam actor {
+    BackgroundColor #FFD54F
+    BorderColor #B8860B
+    FontColor #4A3B00
+}
+skinparam participant {
+    BackgroundColor #FFFFFF
+    BorderColor #333333
+    FontColor #1A1A1A
+}
+skinparam database {
+    BackgroundColor #FDE9D9
+    BorderColor #B8860B
+    FontColor #4A3B00
+}
+
+actor "Клиент" as Client
+participant "main-module\n(FastAPI)" as Main #D2E3FC
+participant "MaskingOrchestrator" as Orch #D2E3FC
+participant "RestMaskingProvider" as Rest #E3EEFF
+participant "WebSocketMaskingProvider" as Ws #E3EEFF
+participant "Nginx LB" as LB #FCE8E6
+participant "gliner_famous\nреплика" as Gliner #C8E6C9
+participant "llm_service\nреплика" as Llm #E1BEE7
+database "Redis" as Redis #FDE9D9
+
+Client -> Main : POST /process\n{payload, payload_id}
+activate Main
+
+Main -> Redis : GET pd:{payload_id}
+Redis --> Main : null (нет записи)
+
+Main -> Orch : mask(payload)
+activate Orch
+
+par Параллельно с таймаутом
+    Orch -> Rest : mask(payload)
+    activate Rest
+    Rest -> LB : POST /gliner-famous/process
+    LB -> Gliner : round-robin
+    activate Gliner
+    Gliner --> Gliner : GLiNER NER + PII map + famous check
+    Gliner --> LB : {entities}
+    LB --> Rest : {entities}
+    Rest --> Orch : result
+    deactivate Rest
+    deactivate Gliner
+
+    Orch -> Ws : mask(payload)
+    activate Ws
+    Ws -> LB : WS /llm-service/ws
+    LB -> Llm : round-robin
+    activate Llm
+    Llm -> Llm : LLM (ALFA, SSE) NER
+    Llm --> LB : {entities}
+    LB --> Ws : result
+    Ws --> Orch : result
+    deactivate Ws
+    deactivate Llm
+end
+
+Orch --> Main : результат последнего успешного провайдера
+deactivate Orch
+
+Main -> Redis : PUT pd:{payload_id}\n{original, masked}
+Main --> Client : {result: masked}
+deactivate Main
+
+@enduml
+```
+
 ## Запуск реплик контейнеров
 
 ### 1. Сборка и запуск реплик `gliner_famous`
