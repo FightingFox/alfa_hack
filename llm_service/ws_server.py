@@ -44,7 +44,7 @@ PII_CODES = [
 ]
 
 SYSTEM_PROMPT = """Ты — система распознавания персональных данных (ПД) в русском тексте.
-Найди ВСЕ сущности, содержащие персональные данные, и верни их строго в формате JSON.
+Найди ВСЕ сущности с ПД и верни их строго в формате JSON.
 
 Допустимые коды типов ПД:
 PASSPORT, LICENSE, CITIZENSHIP, ISSUING_AUTHORITY, ISSUE_CODE, DATE, ADDRESS,
@@ -53,19 +53,15 @@ MILITARY_ID, FOREIGN_PASSPORT, SNILS, BIRTH_CERT, OMS, DMC, MIGRATION_CARD,
 SOCIAL_LOGIN, IP_ADDRESS, MAC_ADDRESS, PASSWORD, PROFESSION, COMPANY.
 
 Правила:
-- FIO — ФИО обычного человека (маскируется).
-- FAM_FIO — ФИО известной/публичной персоны (не маскируется). Используй FAM_FIO
-  только для реально известных личностей (политики, актёры, писатели, спортсмены,
-  учёные и т.п.), а не для обычных людей.
-- COMPANY — название организации/компании (не маскируется).
+- FIO — ФИО обычного человека.
+- FAM_FIO — ФИО известной/публичной персоны (политики, актёры, писатели,
+  спортсмены, учёные и т.п.), а не обычных людей.
+- COMPANY — название организации/компании.
 - ADDRESS — полный адрес.
-- Для каждого найденного фрагмента укажи точные позиции start и end (индексы
-  символов в исходном тексте, [start, end)).
-- score — уверенность от 0 до 1.
-- will_be_used — false для FAM_FIO и COMPANY (не маскируются), true для остальных.
+- text — точный фрагмент исходного текста без изменений.
 
 Верни ТОЛЬКО JSON-массив объектов вида:
-[{"text": "...", "type": ["FIO"], "score": 0.95, "slice": [start, end], "will_be_used": true}]
+[{"text": "Иван Петров", "type": ["FIO"]}]
 Без пояснений и markdown-обёрток."""
 
 
@@ -145,26 +141,18 @@ def _parse_entities(raw: str, text: str) -> list[Entity]:
         types = [t for t in types if isinstance(t, str) and t in PII_CODES]
         if not types:
             continue
-        sl = it.get("slice") or it.get("start_end") or []
-        if len(sl) != 2:
-            # Позиции не указаны — ищем фрагмент в тексте.
-            pos = text.find(ent_text)
-            if pos == -1:
-                continue
-            sl = [pos, pos + len(ent_text)]
-        try:
-            s, e = int(sl[0]), int(sl[1])
-        except (TypeError, ValueError):
+        # Позиции ищем на сервере: LLM часто ошибается в индексах.
+        pos = text.find(ent_text)
+        if pos == -1:
             continue
-        s = max(0, min(s, len(text)))
-        e = max(s, min(e, len(text)))
-        score = float(it.get("score", 0.9))
-        score = max(0.0, min(1.0, score))
-        will_be_used = bool(it.get("will_be_used", True))
+        s, e = pos, pos + len(ent_text)
+        # score и will_be_used вычисляем на сервере, чтобы не генерировать их в LLM.
+        score = 0.95
+        will_be_used = not any(t in ("FAM_FIO", "COMPANY") for t in types)
         result.append(Entity(
             text=ent_text,
             type=types,
-            score=round(score, 3),
+            score=score,
             slice=[s, e],
             will_be_used=will_be_used,
         ))
@@ -185,7 +173,7 @@ async def extract_entities_llm(text: str) -> list[Entity]:
             {"role": "user", "content": text},
         ],
         "temperature": 0.0,
-        "max_tokens": 4096,
+        "max_tokens": 2048,
         "stream": True,
     }
     content = ""
