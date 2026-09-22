@@ -1,0 +1,6 @@
+{
+  "code": "MILITARY_ID",
+  "name": "MILITARY_ID",
+  "dim": 512,
+  "threshold": 0.5
+}

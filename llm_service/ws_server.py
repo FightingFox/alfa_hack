@@ -104,6 +104,10 @@ def get_client() -> httpx.AsyncClient:
             headers={"Authorization": f"Bearer {LLM_API_KEY}"},
             timeout=LLM_TIMEOUT,
             verify=LLM_VERIFY_SSL,
+            limits=httpx.Limits(
+                max_connections=100,
+                max_keepalive_connections=20,
+            ),
         )
     return _client
 
@@ -173,7 +177,7 @@ async def extract_entities_llm(text: str) -> list[Entity]:
             {"role": "user", "content": text},
         ],
         "temperature": 0.0,
-        "max_tokens": 2048,
+        "max_tokens": 1024,
         "stream": True,
     }
     content = ""
@@ -233,15 +237,19 @@ async def process_endpoint(request: ProcessRequest) -> ProcessResponse:
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket) -> None:
     await websocket.accept()
+
+    async def handle(text: str) -> None:
+        try:
+            result = await process_text(text)
+            await websocket.send_json(WsResponse(ok=True, **result.model_dump()).model_dump())
+        except Exception as exc:  # noqa: BLE001
+            logger.exception("Ошибка обработки")
+            await websocket.send_json(WsResponse(ok=False, error=str(exc)).model_dump())
+
     try:
         while True:
             text = await websocket.receive_text()
-            try:
-                result = await process_text(text)
-                await websocket.send_json(WsResponse(ok=True, **result.model_dump()).model_dump())
-            except Exception as exc:  # noqa: BLE001
-                logger.exception("Ошибка обработки")
-                await websocket.send_json(WsResponse(ok=False, error=str(exc)).model_dump())
+            asyncio.create_task(handle(text))
     except WebSocketDisconnect:
         logger.info("Клиент отключился")
 

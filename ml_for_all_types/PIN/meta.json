@@ -1,0 +1,6 @@
+{
+  "code": "PIN",
+  "name": "PIN",
+  "dim": 512,
+  "threshold": 0.5
+}

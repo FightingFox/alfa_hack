@@ -1,0 +1,6 @@
+{
+  "code": "IP_ADDRESS",
+  "name": "IP_ADDRESS",
+  "dim": 512,
+  "threshold": 0.5
+}

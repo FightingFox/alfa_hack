@@ -1,0 +1,6 @@
+{
+  "code": "FOREIGN_PASSPORT",
+  "name": "FOREIGN_PASSPORT",
+  "dim": 512,
+  "threshold": 0.5
+}

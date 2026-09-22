@@ -1,0 +1,6 @@
+{
+  "code": "CARD_NUMBER",
+  "name": "CARD_NUMBER",
+  "dim": 512,
+  "threshold": 0.5
+}

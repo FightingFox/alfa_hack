@@ -6,7 +6,23 @@
 
 - `gliner_famous/` — сервис на базе GLiNER для распознавания сущностей (FastAPI + WebSocket).
 - `llm_service/` — сервис распознавания сущностей на базе LLM (провайдер ALFA), тот же контракт, что и `gliner_famous`.
+- `ml_for_all_types/` — ансамбль лёгковесных ML-детекторов ПД (numpy, без тяжёлых зависимостей), тот же контракт.
 - `load_balanser/` — балансировщик нагрузки на базе Nginx.
+
+## Архитектура
+
+Компонентная и sequence-диаграммы (PlantUML) лежат в `docs/`:
+
+- `docs/component.puml` — компонентная диаграмма системы;
+- `docs/sequence.puml` — sequence-диаграмма маскирования текста через `main-module`.
+
+### Компонентная диаграмма
+
+![Компонентная диаграмма](docs/component.png)
+
+### Sequence-диаграмма
+
+![Sequence-диаграмма](docs/sequence.png)
 
 ## Запуск реплик контейнеров
 
@@ -71,7 +87,38 @@ curl -X POST http://localhost:8003/process \
 > Примечание: `.env` не коммитится в git (добавлен в `.gitignore`). Для локального
 > запуска без Docker скопируйте `.env.example` в `.env` и заполните ключ.
 
-### 3. Сборка и запуск `load_balanser`
+### 3. Сборка и запуск `ml_for_all_types`
+
+Сервис делает то же, что и `gliner_famous` (тот же контракт: `POST /process` и `WS /ws`),
+но использует ансамбль лёгковесных numpy-классификаторов (по одному на каждый тип ПД)
+вместо тяжёлой модели GLiNER. Не требует GPU и тяжёлых зависимостей.
+
+Соберите образ:
+
+```bash
+docker build -t ml_for_all_types ./ml_for_all_types
+```
+
+Запустите реплики на разных портах:
+
+```bash
+docker run -d --name ml1 -p 8005:8000 ml_for_all_types
+docker run -d --name ml2 -p 8006:8000 ml_for_all_types
+```
+
+Сервис слушает порт `8000` внутри контейнера и отдаёт те же эндпоинты, что и `gliner_famous`:
+- `POST /process` — обработка текста (JSON `{"text": "..."}`);
+- `WS /ws` — WebSocket-обработка текста.
+
+Проверка:
+
+```bash
+curl -X POST http://localhost:8005/process \
+  -H "Content-Type: application/json" \
+  -d '{"text": "Иван Петров работает в Альфа-Банке"}'
+```
+
+### 4. Сборка и запуск `load_balanser`
 
 Соберите образ балансировщика:
 
@@ -79,26 +126,30 @@ curl -X POST http://localhost:8003/process \
 docker build -t load_balanser ./load_balanser
 ```
 
-Запустите его, передав списки бэкендов через переменные окружения `GLINER_BACKENDS` и `LLM_BACKENDS` (имена хостов через пробел):
+Запустите его, передав списки бэкендов через переменные окружения `GLINER_BACKENDS`, `LLM_BACKENDS` и `ML_BACKENDS` (имена хостов через пробел):
 
 ```bash
 docker run -d --name lb -p 8080:80 \
   -e GLINER_BACKENDS="gliner1:8000 gliner2:8000" \
   -e LLM_BACKENDS="llm1:8000 llm2:8000" \
-  --link gliner1 --link gliner2 --link llm1 --link llm2 \
+  -e ML_BACKENDS="ml1:8000 ml2:8000" \
+  --link gliner1 --link gliner2 --link llm1 --link llm2 --link ml1 --link ml2 \
   load_balanser
 ```
 
 Если `GLINER_BACKENDS` не задан, по умолчанию используется один бэкенд `gliner1:8000`.
 Если `LLM_BACKENDS` не задан, по умолчанию используется один бэкенд `llm1:8000`.
+Если `ML_BACKENDS` не задан, по умолчанию используется один бэкенд `ml1:8000`.
 
 Балансировщик слушает порт `80` внутри контейнера и проксирует запросы на реплики:
 - `WS /gliner-famous/ws` → `/ws` (WebSocket, round-robin);
 - `POST /gliner-famous/process` → `/process`;
 - `WS /llm-service/ws` → `/ws` (WebSocket, round-robin);
-- `POST /llm-service/process` → `/process`.
+- `POST /llm-service/process` → `/process`;
+- `WS /ml-for-all-types/ws` → `/ws` (WebSocket, round-robin);
+- `POST /ml-for-all-types/process` → `/process`.
 
-### 4. Проверка
+### 5. Проверка
 
 HTTP-запрос через балансировщик:
 
@@ -126,6 +177,20 @@ WebSocket-подключение к `llm_service` через балансиро�
 
 ```bash
 wscat -c ws://localhost:8080/llm-service/ws
+```
+
+HTTP-запрос к `ml_for_all_types` через балансировщик:
+
+```bash
+curl -X POST http://localhost:8080/ml-for-all-types/process \
+  -H "Content-Type: application/json" \
+  -d '{"text": "Иван Петров работает в Альфа-Банке"}'
+```
+
+WebSocket-подключение к `ml_for_all_types` через балансировщик:
+
+```bash
+wscat -c ws://localhost:8080/ml-for-all-types/ws
 ```
 
 > Примечание: для связи контейнеров по именам (`gliner1`, `gliner2`) используйте общую Docker-сеть вместо `--link` (устаревший флаг), например `docker network create alfa-net` и подключите все контейнеры к ней.

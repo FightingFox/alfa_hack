@@ -1,0 +1,104 @@
+@startuml component
+!theme plain
+title Компонентная диаграмма ALFA Hack
+
+skinparam componentStyle rectangle
+skinparam shadowing false
+skinparam defaultFontName "Helvetica"
+skinparam defaultFontSize 12
+skinparam component {
+    BackgroundColor #FFFFFF
+    BorderColor #333333
+    FontColor #1A1A1A
+    ArrowColor #555555
+}
+skinparam actor {
+    BackgroundColor #FFD54F
+    BorderColor #B8860B
+    FontColor #4A3B00
+}
+skinparam package {
+    BackgroundColor #F5F7FA
+    BorderColor #9AA5B1
+    FontColor #2C3E50
+}
+skinparam arrow {
+    Color #555555
+    FontColor #555555
+}
+
+' ===== Внешние акторы =====
+actor "Клиент" as Client
+
+' ===== main-module =====
+package "main-module" #E8F0FE {
+    component "FastAPI app" as MainApp #D2E3FC
+    component "MaskingOrchestrator" as Orchestrator #D2E3FC
+    component "RestMaskingProvider" as RestProvider #E3EEFF
+    component "WebSocketMaskingProvider" as WsProvider #E3EEFF
+    component "CorrelationStore" as Store #E3EEFF
+    component "Redis" as Redis #FDE9D9
+}
+
+' ===== load_balanser =====
+component "Nginx Load Balancer" as LB #FCE8E6
+
+' ===== gliner_famous =====
+package "gliner_famous" #E6F4EA {
+    component "FastAPI (POST /process, WS /ws)" as GlinerApi #C8E6C9
+    component "GLiNER NER model" as GlinerModel #DCEDC8
+    component "PII type mapper" as PiiMapper #DCEDC8
+    component "Famous person check" as FamousCheck #DCEDC8
+}
+
+' ===== llm_service =====
+package "llm_service" #F3E8FD {
+    component "FastAPI (POST /process, WS /ws)" as LlmApi #E1BEE7
+    component "ALFA LLM client (SSE)" as LlmClient #EDE7F6
+}
+
+' ===== ml_for_all_types =====
+package "ml_for_all_types" #E0F2F1 {
+    component "FastAPI (POST /process, WS /ws)" as MlApi #B2DFDB
+    component "Ensemble of numpy detectors" as MlEnsemble #B2DFDB
+}
+
+' ===== regex-module =====
+package "regex-module" #FFF8E1 {
+    component "FastAPI (WS /scan)" as RegexApi #FFECB3
+    component "Regex scanner" as RegexScan #FFF3CD
+}
+
+' ===== training_data =====
+package "training_data" #ECEFF1 {
+    component "Dataset & training scripts" as Training #CFD8DC
+}
+
+' ===== Связи =====
+Client --> MainApp : POST /process (payload, payload_id)
+Client --> LB : WS /gliner-famous/ws, /llm-service/ws, /ml-for-all-types/ws
+
+MainApp --> Orchestrator : mask(text)
+Orchestrator --> RestProvider : parallel, timeout
+Orchestrator --> WsProvider : parallel, timeout
+RestProvider --> LB : POST /gliner-famous/process, /llm-service/process, /ml-for-all-types/process
+WsProvider --> LB : WS /gliner-famous/ws, /llm-service/ws, /ml-for-all-types/ws
+MainApp --> Store : put/get payload_id
+Store --> Redis : pd:{payload_id}
+
+LB --> GlinerApi : round-robin
+LB --> LlmApi : round-robin
+LB --> MlApi : round-robin
+
+GlinerApi --> GlinerModel : extract_entities_long()
+GlinerApi --> PiiMapper : map_to_pii_types()
+GlinerApi --> FamousCheck : is_famous()
+LlmApi --> LlmClient : /chat/completions (SSE)
+MlApi --> MlEnsemble : detect_spans_with_positions()
+
+RegexApi --> RegexScan : scan(text)
+
+Training ..> GlinerModel : обученная модель
+Training ..> FamousCheck : база известных персон
+
+@enduml
