@@ -11,6 +11,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY main.py .
 COPY scan.py .
 COPY data_type.py .
+COPY models.py .
 
 EXPOSE 8000
 

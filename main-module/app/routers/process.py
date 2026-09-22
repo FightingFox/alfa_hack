@@ -29,11 +29,16 @@ async def process(request: ProcessRequest) -> ProcessResponse:
                 detail=str(exc),
             ) from exc
         store.put(request.payload_id, Record(original=request.payload, masked=masked))
-        return ProcessResponse(result=masked)
+        return ProcessResponse(results=masked)
 
     # Обратный шаг: демаскирование
-    if request.payload == existing.masked:
-        return ProcessResponse(result=existing.original)
+    payload = (
+        {k: v.model_dump() for k, v in request.payload.items()}
+        if isinstance(request.payload, dict)
+        else request.payload
+    )
+    if payload == existing.masked:
+        return ProcessResponse(results=existing.original)
 
     # payload_id известен, но payload не совпадает с ранее возвращённой маской
     raise HTTPException(

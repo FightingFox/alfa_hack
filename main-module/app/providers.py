@@ -1,4 +1,5 @@
 import asyncio
+import json
 from abc import ABC, abstractmethod
 
 import httpx
@@ -19,23 +20,23 @@ class MaskingProvider(ABC):
         self.config = config
 
     @abstractmethod
-    async def mask(self, text: str) -> str:
+    async def mask(self, text: str) -> list[dict]:
         """Маскирует строку. Должен быть ограничен таймаутом из конфига."""
 
 
 class RestMaskingProvider(MaskingProvider):
     """REST-провайдер маскирования."""
 
-    async def mask(self, text: str) -> str:
+    async def mask(self, text: str) -> list[dict]:
         try:
-            async with httpx.AsyncClient(timeout=self.config.timeout) as client:
+            async with httpx.AsyncClient(timeout=None) as client:
                 response = await client.post(
                     self.config.url,
                     json={"text": text},
                 )
                 response.raise_for_status()
                 data = response.json()
-                return data["result"]
+                return data["data"]
         except (httpx.HTTPError, KeyError, ValueError) as exc:
             raise MaskingProviderError(
                 f"rest provider '{self.config.name}' error: {exc}"
@@ -55,13 +56,20 @@ class WebSocketMaskingProvider(MaskingProvider):
     async def close(self) -> None:
         await self._pool.close()
 
-    async def mask(self, text: str) -> str:
+    async def mask(self, text: str) -> list[dict]:
         try:
             async with self._pool.connection() as ws:
-                await asyncio.wait_for(ws.send(text), timeout=self.config.timeout)
-                result = await asyncio.wait_for(ws.recv(), timeout=self.config.timeout)
-                return str(result)
-        except (websockets.WebSocketException, asyncio.TimeoutError, WebSocketPoolError) as exc:
+                await ws.send(text)
+                result = await ws.recv()
+                data = json.loads(result)
+                return data["data"]
+        except (
+            websockets.WebSocketException,
+            asyncio.TimeoutError,
+            WebSocketPoolError,
+            json.JSONDecodeError,
+            KeyError,
+        ) as exc:
             raise MaskingProviderError(
                 f"websocket provider '{self.config.name}' error: {exc}"
             ) from exc

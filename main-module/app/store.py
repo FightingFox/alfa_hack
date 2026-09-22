@@ -9,7 +9,7 @@ from app.config import get_settings
 @dataclass
 class Record:
     original: str
-    masked: str
+    masked: dict[str, dict[str, list[dict] | float | None]]
 
 
 class CorrelationStore:

@@ -8,16 +8,33 @@ client = TestClient(app)
 
 
 class FakeOrchestrator:
-    def __init__(self, result: str | None = None, error: Exception | None = None) -> None:
+    def __init__(
+        self,
+        result: dict[str, dict[str, list[dict] | float | None]] | None = None,
+        error: Exception | None = None,
+    ) -> None:
         self.result = result
         self.error = error
         self.calls: list[str] = []
 
-    async def mask(self, text: str) -> str:
+    async def mask(self, text: str) -> dict[str, dict[str, list[dict] | float | None]]:
         self.calls.append(text)
         if self.error:
             raise self.error
-        return self.result or f"masked({text})"
+        return self.result or {
+            "regex": {
+                "result": [
+                    {
+                        "text": f"masked({text})",
+                        "type": ["FIO"],
+                        "score": 1.0,
+                        "slice": [0, len(text)],
+                        "will_be_used": True,
+                    }
+                ],
+                "elapsed": 0.1,
+            }
+        }
 
 
 class FakeStore:
@@ -50,8 +67,21 @@ def test_process_mask_then_unmask(monkeypatch) -> None:
         json={"payload": original, "payload_id": payload_id},
     )
     assert mask_resp.status_code == 200
-    masked = mask_resp.json()["result"]
-    assert masked == f"masked({original})"
+    masked = mask_resp.json()["results"]
+    assert masked == {
+        "regex": {
+            "result": [
+                {
+                    "text": f"masked({original})",
+                    "type": ["FIO"],
+                    "score": 1.0,
+                    "slice": [0, len(original)],
+                    "will_be_used": True,
+                }
+            ],
+            "elapsed": 0.1,
+        }
+    }
     assert fake_orchestrator.calls == [original]
 
     # Обратный шаг: демаскирование
@@ -60,7 +90,7 @@ def test_process_mask_then_unmask(monkeypatch) -> None:
         json={"payload": masked, "payload_id": payload_id},
     )
     assert unmask_resp.status_code == 200
-    assert unmask_resp.json()["result"] == original
+    assert unmask_resp.json()["results"] == original
 
 
 def test_process_unknown_payload_id_returns_400(monkeypatch) -> None:
