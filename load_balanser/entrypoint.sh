@@ -45,11 +45,23 @@ for b in $MAIN_BACKENDS; do
 "
 done
 
+# Список бэкендов ml_for_all_types через пробел, например:
+#   ML_BACKENDS="ml1:8000 ml2:8000"
+# Если не задан — используем один локальный бэкенд.
+ML_BACKENDS="${ML_BACKENDS:-ml1:8000}"
+
+ML_UPSTREAM=""
+for b in $ML_BACKENDS; do
+    ML_UPSTREAM="${ML_UPSTREAM}    server ${b};
+"
+done
+
 # Подставляем upstream-блоки в шаблон и кладём в рабочий конфиг.
 export GLINER_UPSTREAM="$UPSTREAM"
 export LLM_UPSTREAM="$LLM_UPSTREAM"
+export ML_UPSTREAM="$ML_UPSTREAM"
 export REGEX_UPSTREAM="$REGEX_UPSTREAM"
 export MAIN_UPSTREAM="$MAIN_UPSTREAM"
-envsubst '${GLINER_UPSTREAM} ${LLM_UPSTREAM} ${REGEX_UPSTREAM} ${MAIN_UPSTREAM}' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
+envsubst '${GLINER_UPSTREAM} ${LLM_UPSTREAM} ${ML_UPSTREAM} ${REGEX_UPSTREAM} ${MAIN_UPSTREAM}' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
 
 exec nginx -g "daemon off;"

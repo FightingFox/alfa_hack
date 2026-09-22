@@ -1,0 +1,6 @@
+{
+  "code": "MAC_ADDRESS",
+  "name": "MAC_ADDRESS",
+  "dim": 512,
+  "threshold": 0.5
+}

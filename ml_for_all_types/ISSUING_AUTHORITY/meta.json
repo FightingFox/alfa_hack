@@ -1,0 +1,6 @@
+{
+  "code": "ISSUING_AUTHORITY",
+  "name": "ISSUING_AUTHORITY",
+  "dim": 512,
+  "threshold": 0.5
+}
