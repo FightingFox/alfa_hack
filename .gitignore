@@ -13,3 +13,6 @@ llm_service.env
 *.egg-info/
 dist/
 build/
+jmeter.log
+jmeter/*
+presentation.html
