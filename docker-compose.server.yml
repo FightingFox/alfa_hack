@@ -10,7 +10,7 @@ services:
       WORKERS: 4
       ROOT_PATH: /main-module
       REDIS_URL: redis://redis:6379/0
-      MASKING_SERVICES: '[{"name":"regex","protocol":"websocket","url":"ws://load-balancer/regex-module/scan","timeout":1.0,"pool":{"min_connections":4,"max_connections":64}},{"name":"llm","protocol":"rest","url":"http://load-balancer/llm-service/process","timeout":1.0},{"name":"gliner","protocol":"rest","url":"http://load-balancer/gliner-famous/process","timeout":1.0},{"name":"ml","protocol":"rest","url":"http://load-balancer/ml-for-all-types/process","timeout":1.0}]'
+      MASKING_SERVICES: '[{"name":"regex","protocol":"websocket","url":"ws://load-balancer/regex-module/scan","timeout":1.0,"pool":{"min_connections":4,"max_connections":64}},{"name":"llm","protocol":"rest","url":"http://load-balancer/llm-service/process","timeout":2.5},{"name":"gliner","protocol":"rest","url":"http://load-balancer/gliner-famous/process","timeout":2.5},{"name":"ml","protocol":"rest","url":"http://load-balancer/ml-for-all-types/process","timeout":1.0}]'
     depends_on:
       redis:
         condition: service_healthy
@@ -29,7 +29,7 @@ services:
       WORKERS: 4
       ROOT_PATH: /main-module
       REDIS_URL: redis://redis:6379/0
-      MASKING_SERVICES: '[{"name":"regex","protocol":"websocket","url":"ws://load-balancer/regex-module/scan","timeout":1.0,"pool":{"min_connections":4,"max_connections":64}},{"name":"llm","protocol":"rest","url":"http://load-balancer/llm-service/process","timeout":1.0},{"name":"gliner","protocol":"rest","url":"http://load-balancer/gliner-famous/process","timeout":1.0},{"name":"ml","protocol":"rest","url":"http://load-balancer/ml-for-all-types/process","timeout":1.0}]'
+      MASKING_SERVICES: '[{"name":"regex","protocol":"websocket","url":"ws://load-balancer/regex-module/scan","timeout":1.0,"pool":{"min_connections":4,"max_connections":64}},{"name":"llm","protocol":"rest","url":"http://load-balancer/llm-service/process","timeout":2.5},{"name":"gliner","protocol":"rest","url":"http://load-balancer/gliner-famous/process","timeout":2.5},{"name":"ml","protocol":"rest","url":"http://load-balancer/ml-for-all-types/process","timeout":1.0}]'
     depends_on:
       redis:
         condition: service_healthy

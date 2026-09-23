@@ -18,6 +18,7 @@ from contextlib import asynccontextmanager
 import httpx
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
+from prometheus_client import Counter
 from prometheus_fastapi_instrumentator import Instrumentator
 from pydantic import BaseModel, Field
 
@@ -26,6 +27,7 @@ load_dotenv()
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("llm_service")
 
+# Провайдер ALFA (текущий, внутренний).
 LLM_BASE_URL = os.getenv("LLM_BASE_URL", "https://alfagen.alfabank.ru/continue-dev/").rstrip("/")
 LLM_API_KEY = os.getenv("LLM_API_KEY", "")
 LLM_MODEL = os.getenv("LLM_MODEL", "deepseek-ai/DeepSeek-V4-Flash-0731")
@@ -33,6 +35,17 @@ LLM_TIMEOUT = float(os.getenv("LLM_TIMEOUT", "30"))
 # Внутренний эндпоинт ALFA использует приватный CA — отключаем проверку SSL,
 # если задано LLM_VERIFY_SSL=false (см. .env).
 LLM_VERIFY_SSL = os.getenv("LLM_VERIFY_SSL", "true").lower() not in ("false", "0", "no")
+
+# Провайдер DeepSeek (новый, публичный). Участвует в гонке с ALFA.
+DS_BASE_URL = os.getenv("DS_BASE_URL", "https://api.deepseek.com/v1").rstrip("/")
+DS_API_KEY = os.getenv("DS_API_KEY", "")
+DS_MODEL = os.getenv("DS_MODEL", "deepseek-flash")
+DS_MAX_TOKENS = int(os.getenv("DS_MAX_TOKENS", "4096"))
+DS_VERIFY_SSL = os.getenv("DS_VERIFY_SSL", "true").lower() not in ("false", "0", "no")
+
+# Метрики гонки: какой провайдер победил и сколько гонок прошло.
+RACE_WINNER = Counter("llm_race_winner", "Победитель гонки моделей", ["provider"])
+RACE_TOTAL = Counter("llm_race_total", "Всего гонок моделей")
 
 # Коды типов ПД, которые может вернуть LLM (совпадают с реестром gliner_famous).
 PII_CODES = [
@@ -94,23 +107,35 @@ class WsResponse(BaseModel):
     error: str | None = Field(default=None, description="Сообщение об ошибке")
 
 
-_client: httpx.AsyncClient | None = None
+_client_alfa: httpx.AsyncClient | None = None
+_client_ds: httpx.AsyncClient | None = None
 
 
-def get_client() -> httpx.AsyncClient:
-    global _client
-    if _client is None:
-        _client = httpx.AsyncClient(
-            base_url=LLM_BASE_URL,
-            headers={"Authorization": f"Bearer {LLM_API_KEY}"},
-            timeout=LLM_TIMEOUT,
-            verify=LLM_VERIFY_SSL,
-            limits=httpx.Limits(
-                max_connections=100,
-                max_keepalive_connections=20,
-            ),
-        )
-    return _client
+def _make_client(base_url: str, api_key: str, verify_ssl: bool) -> httpx.AsyncClient:
+    return httpx.AsyncClient(
+        base_url=base_url,
+        headers={"Authorization": f"Bearer {api_key}"},
+        timeout=LLM_TIMEOUT,
+        verify=verify_ssl,
+        limits=httpx.Limits(
+            max_connections=100,
+            max_keepalive_connections=20,
+        ),
+    )
+
+
+def get_client_alfa() -> httpx.AsyncClient:
+    global _client_alfa
+    if _client_alfa is None:
+        _client_alfa = _make_client(LLM_BASE_URL, LLM_API_KEY, LLM_VERIFY_SSL)
+    return _client_alfa
+
+
+def get_client_ds() -> httpx.AsyncClient:
+    global _client_ds
+    if _client_ds is None:
+        _client_ds = _make_client(DS_BASE_URL, DS_API_KEY, DS_VERIFY_SSL)
+    return _client_ds
 
 
 def _parse_entities(raw: str, text: str) -> list[Entity]:
@@ -164,21 +189,25 @@ def _parse_entities(raw: str, text: str) -> list[Entity]:
     return result
 
 
-async def extract_entities_llm(text: str) -> list[Entity]:
-    """Один запрос к LLM возвращает все сущности ПД.
+async def _extract_from_provider(
+    client: httpx.AsyncClient,
+    model: str,
+    max_tokens: int,
+    text: str,
+) -> list[Entity]:
+    """Один запрос к LLM-провайдеру возвращает все сущности ПД.
 
-    Эндпоинт ALFA работает только в режиме стриминга (SSE), поэтому читаем
-    поток и собираем контент по частям.
+    Эндпоинты работают в режиме стриминга (SSE), поэтому читаем поток и
+    собираем контент по частям.
     """
-    client = get_client()
     payload = {
-        "model": LLM_MODEL,
+        "model": model,
         "messages": [
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": text},
         ],
         "temperature": 0.0,
-        "max_tokens": 1024,
+        "max_tokens": max_tokens,
         "stream": True,
     }
     content = ""
@@ -201,10 +230,43 @@ async def extract_entities_llm(text: str) -> list[Entity]:
     return _parse_entities(content, text)
 
 
+async def extract_entities_race(text: str) -> list[Entity]:
+    """Гонка двух моделей: отвечаем результатом первой, вернувшей валидный ответ.
+
+    Запрос уходит одновременно в ALFA и DeepSeek. Побеждает первый провайдер,
+    вернувший валидный (непустой, парсящийся) результат. Если победитель по
+    времени вернул пустой/битый ответ (известный сбой deepseek-flash), ждём
+    результат следующего завершившегося.
+    """
+    RACE_TOTAL.inc()
+    tasks = {
+        asyncio.create_task(
+            _extract_from_provider(get_client_alfa(), LLM_MODEL, 1024, text)
+        ): "alfa",
+        asyncio.create_task(
+            _extract_from_provider(get_client_ds(), DS_MODEL, DS_MAX_TOKENS, text)
+        ): "deepseek",
+    }
+    pending = set(tasks)
+    while pending:
+        done, pending = await asyncio.wait(pending, return_when=asyncio.FIRST_COMPLETED)
+        for t in done:
+            try:
+                result = t.result()
+            except Exception as exc:  # noqa: BLE001
+                logger.warning("Провайдер %s вернул ошибку: %s", tasks[t], exc)
+                continue
+            for p in pending:
+                p.cancel()
+            RACE_WINNER.labels(provider=tasks[t]).inc()
+            return result
+    raise ValueError("Обе модели не вернули валидный результат")
+
+
 async def process_text(text: str) -> ProcessResponse:
     """Обработать текст и вернуть результат в формате gliner_famous."""
     start = time.perf_counter()
-    entities = await extract_entities_llm(text)
+    entities = await extract_entities_race(text)
     elapsed = time.perf_counter() - start
     return ProcessResponse(
         work_time=round(elapsed, 3),
@@ -216,10 +278,12 @@ async def process_text(text: str) -> ProcessResponse:
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    logger.info("LLM-сервис запущен (модель %s)", LLM_MODEL)
+    logger.info("LLM-сервис запущен (гонка: %s + %s)", LLM_MODEL, DS_MODEL)
     yield
-    if _client is not None:
-        await _client.aclose()
+    if _client_alfa is not None:
+        await _client_alfa.aclose()
+    if _client_ds is not None:
+        await _client_ds.aclose()
 
 
 app = FastAPI(title="LLM NER Service", version="1.0.0", lifespan=lifespan)
