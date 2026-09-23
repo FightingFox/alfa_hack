@@ -19,4 +19,7 @@ COPY BASE/ BASE/
 
 EXPOSE 8000
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Число воркеров uvicorn. По умолчанию 4, переопределяется через WORKERS.
+ENV WORKERS=4
+
+CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port 8000 --workers ${WORKERS}"]

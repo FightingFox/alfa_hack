@@ -41,10 +41,10 @@ class FakeStore:
     def __init__(self) -> None:
         self._records: dict[str, Record] = {}
 
-    def get(self, payload_id: str) -> Record | None:
+    async def get(self, payload_id: str) -> Record | None:
         return self._records.get(payload_id)
 
-    def put(self, payload_id: str, record: Record) -> None:
+    async def put(self, payload_id: str, record: Record) -> None:
         self._records[payload_id] = record
 
 
