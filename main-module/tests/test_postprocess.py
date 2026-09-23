@@ -14,9 +14,8 @@ def _entity(text, types, score=1.0, start=0, end=None, will_be_used=True):
 
 def test_load_names_returns_non_empty() -> None:
     names = load_names()
+    assert len(names) > 0
     assert "иван" in names
-    assert "петров" in names
-    assert "иванович" in names
 
 
 def test_keeps_fio_with_known_name() -> None:
@@ -54,3 +53,21 @@ def test_fam_fio_is_filtered_too() -> None:
 def test_case_insensitive_match() -> None:
     entities = [_entity("ИВАН ПЕТРОВ", ["FIO"])]
     assert filter_fio_entities(entities) == entities
+
+
+def test_keeps_declined_forms() -> None:
+    for text in ["Ивана", "Ивану", "Иваном", "Иване", "Петрова", "Петрову", "Сергеевич"]:
+        entities = [_entity(text, ["FIO"])]
+        assert filter_fio_entities(entities) == entities, f"должно сохранить {text!r}"
+
+
+def test_keeps_short_name_declined_forms() -> None:
+    for text in ["Анны", "Анне", "Ольги", "Ольге", "Марии", "Марию"]:
+        entities = [_entity(text, ["FIO"])]
+        assert filter_fio_entities(entities) == entities, f"должно сохранить {text!r}"
+
+
+def test_drops_false_positive_with_common_prefixes() -> None:
+    text = "ла, который должен стать настольной книгой для сотрудников н"
+    entities = [_entity(text, ["FIO"])]
+    assert filter_fio_entities(entities) == []
