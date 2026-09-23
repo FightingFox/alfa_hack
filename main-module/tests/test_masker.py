@@ -166,6 +166,26 @@ def test_none_result_is_skipped() -> None:
     assert result.masked_text == "{{ FIO 1 }}"
 
 
+def test_fio_without_known_name_is_filtered() -> None:
+    text = "ла, который должен стать настольной книгой для сотрудников н"
+    results = _results(
+        ml=[_entity(text, ["FIO"], 0.998, 0, len(text))],
+    )
+    result = mask_text(text, results)
+    assert result.masked_text == text
+    assert result.replacements == []
+
+
+def test_fio_with_known_name_is_kept() -> None:
+    text = "Иван Петров"
+    results = _results(
+        ml=[_entity(text, ["FIO"], 0.998, 0, len(text))],
+    )
+    result = mask_text(text, results)
+    assert result.masked_text == "{{ FIO 1 }}"
+    assert len(result.replacements) == 1
+
+
 def test_no_explicit_entities_returns_unchanged() -> None:
     text = "компания"
     results = _results(
