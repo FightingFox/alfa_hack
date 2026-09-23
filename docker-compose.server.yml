@@ -42,6 +42,8 @@ services:
     container_name: regex-module-1
     expose:
       - "8000"
+    environment:
+      WORKERS: 4
     restart: unless-stopped
 
   regex-module-2:
@@ -49,6 +51,8 @@ services:
     container_name: regex-module-2
     expose:
       - "8000"
+    environment:
+      WORKERS: 4
     restart: unless-stopped
 
   regex-module-3:
@@ -56,6 +60,8 @@ services:
     container_name: regex-module-3
     expose:
       - "8000"
+    environment:
+      WORKERS: 4
     restart: unless-stopped
 
   regex-module-4:

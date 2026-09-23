@@ -22,6 +22,107 @@ ${UPSTREAM_DIRECTIVES}
             stub_status;
         }
 
+        # WebSocket-эндпоинт: /gliner-famous/ws -> /ws
+        location /gliner-famous/ws {
+            proxy_pass http://$gliner_backend/ws;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection $connection_upgrade;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_read_timeout 3600s;
+            proxy_send_timeout 3600s;
+        }
+
+        # HTTP-эндпоинт: /gliner-famous/process -> /process
+        location /gliner-famous/process {
+            proxy_pass http://$gliner_backend/process;
+            proxy_http_version 1.1;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_read_timeout 300s;
+        }
+
+        # WebSocket-эндпоинт: /llm-service/ws -> /ws
+        location /llm-service/ws {
+            proxy_pass http://$llm_backend/ws;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection $connection_upgrade;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_read_timeout 3600s;
+            proxy_send_timeout 3600s;
+        }
+
+        # HTTP-эндпоинт: /llm-service/process -> /process
+        location /llm-service/process {
+            proxy_pass http://$llm_backend/process;
+            proxy_http_version 1.1;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_read_timeout 300s;
+        }
+
+        # WebSocket-эндпоинт: /regex-module/scan -> /scan
+        location /regex-module/scan {
+            proxy_pass http://regex_upstream/scan;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection $connection_upgrade;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_read_timeout 3600s;
+            proxy_send_timeout 3600s;
+        }
+
+        # HTTP-эндпоинт: /main-module/process -> /process
+        location /main-module/process {
+            proxy_pass http://$main_backend/process;
+            proxy_http_version 1.1;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_read_timeout 300s;
+        }
+
+        # HTTP-эндпоинт: /main-module/health -> /health
+        location /main-module/health {
+            proxy_pass http://$main_backend/health;
+            proxy_http_version 1.1;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_read_timeout 300s;
+        }
+
+        # WebSocket-эндпоинт: /ml-for-all-types/ws -> /ws
+        location /ml-for-all-types/ws {
+            proxy_pass http://$ml_backend/ws;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection $connection_upgrade;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_read_timeout 3600s;
+            proxy_send_timeout 3600s;
+        }
+
+        # HTTP-эндпоинт: /ml-for-all-types/process -> /process
+        location /ml-for-all-types/process {
+            proxy_pass http://$ml_backend/process;
+            proxy_http_version 1.1;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_read_timeout 300s;
+        }
 ${LOCATION_DIRECTIVES}
     }
 }

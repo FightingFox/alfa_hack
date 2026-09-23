@@ -3,6 +3,7 @@
 Принимает строку текста по WebSocket и возвращает результат process_text() из scan.py.
 """
 
+import asyncio
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
@@ -34,6 +35,10 @@ async def scan_endpoint(websocket: WebSocket) -> None:
     try:
         while True:
             text = await websocket.receive_text()
-            await websocket.send_json(process_text(text).model_dump())
+            # process_text() — CPU-bound (regex + КЛАДР). Выполняем в пуле потоков,
+            # чтобы не блокировать event loop и обслуживать соединения параллельно.
+            await websocket.send_json(
+                (await asyncio.to_thread(process_text, text)).model_dump()
+            )
     except WebSocketDisconnect:
         return

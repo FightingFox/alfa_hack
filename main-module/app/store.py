@@ -1,7 +1,7 @@
 import json
 from dataclasses import dataclass
 
-import redis
+import redis.asyncio as redis
 
 from app.config import get_settings
 
@@ -15,11 +15,11 @@ class CorrelationStore:
     """Хранит соответствие payload_id -> (исходная, замаскированная) строка в Redis."""
 
     def __init__(self, redis_url: str, ttl: int = 3600) -> None:
-        self._redis = redis.Redis.from_url(redis_url, decode_responses=True)
+        self._redis = redis.from_url(redis_url, decode_responses=True)
         self._ttl = ttl
 
-    def get(self, payload_id: str) -> Record | None:
-        raw = self._redis.get(f"pd:{payload_id}")
+    async def get(self, payload_id: str) -> Record | None:
+        raw = await self._redis.get(f"pd:{payload_id}")
         if raw is None:
             return None
         data = json.loads(raw)
@@ -27,13 +27,13 @@ class CorrelationStore:
             replacements=data.get("replacements"),
         )
 
-    def put(self, payload_id: str, record: Record) -> None:
+    async def put(self, payload_id: str, record: Record) -> None:
         raw = json.dumps(
             {
                 "replacements": record.replacements,
             }
         )
-        self._redis.set(f"pd:{payload_id}", raw, ex=self._ttl)
+        await self._redis.set(f"pd:{payload_id}", raw, ex=self._ttl)
 
 
 _store: CorrelationStore | None = None

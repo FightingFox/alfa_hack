@@ -335,20 +335,20 @@ def scan(text: str) -> list[dict[str, Any]]:
 
 
 def process_text(text: str) -> ProcessResponse:
-    """Прогнать текст через regex-правила и вернуть сущности в формате gliner_famous."""
+    """Прогнать текст через regex-правила и вернуть сущности в формате спеки."""
     start = time.perf_counter()
     detected = scan(text)
-    elapsed = time.perf_counter() - start
     entities = [
         Entity(
             text=d["text"],
             type=[d["type"].name],
-            score=round(d["score"], 3),
+            score=d["score"],
             slice=[d["slice"][0], d["slice"][1]],
             will_be_used=True,
         )
         for d in detected
     ]
+    elapsed = time.perf_counter() - start
     return ProcessResponse(
         work_time=round(elapsed, 3),
         length=len(text),

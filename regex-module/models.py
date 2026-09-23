@@ -1,7 +1,7 @@
 """Pydantic-модели ответа regex-module.
 
-Формат полностью совпадает с gliner_famous, llm_service и ml_for_all_types:
-сущности с полями text, type, score, slice, will_be_used.
+Формат соответствует остальным сервисам маскирования (gliner_famous, ml_for_all_types):
+ProcessResponse содержит поле data со списком найденных сущностей.
 """
 
 from pydantic import BaseModel, Field
@@ -10,7 +10,7 @@ from pydantic import BaseModel, Field
 class Entity(BaseModel):
     text: str = Field(..., description="Фрагмент текста, где найден тип ПД")
     type: list[str] = Field(..., description="Коды типов ПД")
-    score: float = Field(..., description="Уверенность модели")
+    score: float = Field(..., description="Уверенность")
     slice: list[int] = Field(..., description="[start, end) позиции в тексте")
     will_be_used: bool = Field(..., description="Будет ли сущность использована")
 
