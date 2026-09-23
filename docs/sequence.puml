@@ -32,6 +32,7 @@ participant "MaskingOrchestrator" as Orch #D2E3FC
 participant "RestMaskingProvider" as Rest #E3EEFF
 participant "WebSocketMaskingProvider" as Ws #E3EEFF
 participant "Nginx LB" as LB #FCE8E6
+participant "regex-module\nреплика" as Regex #FFECB3
 participant "gliner_famous\nреплика" as Gliner #C8E6C9
 participant "llm_service\nреплика" as Llm #E1BEE7
 participant "ml_for_all_types\nреплика" as Ml #B2DFDB
@@ -47,48 +48,70 @@ Main -> Orch : mask(payload)
 activate Orch
 
 par Параллельно с таймаутом
+    Orch -> Ws : mask(payload)
+    activate Ws
+    Ws -> LB : WS /regex-module/scan
+    LB -> Regex : round-robin
+    activate Regex
+    Regex -> Regex : regex scan + КЛАДР lookup
+    Regex --> LB : {entities}
+    LB --> Ws : result
+    Ws --> Orch : result
+    deactivate Ws
+    deactivate Regex
+
     Orch -> Rest : mask(payload)
     activate Rest
     Rest -> LB : POST /gliner-famous/process
     LB -> Gliner : round-robin
     activate Gliner
-    Gliner --> Gliner : GLiNER NER + PII map + famous check
+    Gliner -> Gliner : GLiNER NER + PII map + famous check
     Gliner --> LB : {entities}
     LB --> Rest : {entities}
     Rest --> Orch : result
     deactivate Rest
     deactivate Gliner
 
-    Orch -> Ws : mask(payload)
-    activate Ws
-    Ws -> LB : WS /llm-service/ws
+    Orch -> Rest : mask(payload)
+    activate Rest
+    Rest -> LB : POST /llm-service/process
     LB -> Llm : round-robin
     activate Llm
     Llm -> Llm : LLM (ALFA, SSE) NER
     Llm --> LB : {entities}
-    LB --> Ws : result
-    Ws --> Orch : result
-    deactivate Ws
+    LB --> Rest : result
+    Rest --> Orch : result
+    deactivate Rest
     deactivate Llm
 
-    Orch -> Ws : mask(payload)
-    activate Ws
-    Ws -> LB : WS /ml-for-all-types/ws
+    Orch -> Rest : mask(payload)
+    activate Rest
+    Rest -> LB : POST /ml-for-all-types/process
     LB -> Ml : round-robin
     activate Ml
     Ml -> Ml : numpy ensemble NER
     Ml --> LB : {entities}
-    LB --> Ws : result
-    Ws --> Orch : result
-    deactivate Ws
+    LB --> Rest : result
+    Rest --> Orch : result
+    deactivate Rest
     deactivate Ml
 end
 
-Orch --> Main : результат последнего успешного провайдера
+Orch --> Main : {results по сервисам}
 deactivate Orch
 
-Main -> Redis : PUT pd:{payload_id}\n{original, masked}
-Main --> Client : {result: masked}
+Main -> Main : merge + filter FIO + mask\n({{ TYPE1,TYPE2 N }})
+Main -> Redis : PUT pd:{payload_id}\n{original, masked_text, replacements}
+Main --> Client : {results, masked_text, replacements}
 deactivate Main
+
+alt Демаскирование (повторный запрос с тем же payload_id)
+    Client -> Main : POST /process\n{payload == masked_text, payload_id}
+    activate Main
+    Main -> Redis : GET pd:{payload_id}
+    Redis --> Main : {original, masked_text, replacements}
+    Main --> Client : {results: original}
+    deactivate Main
+end
 
 @enduml

@@ -1,15 +1,46 @@
 # ALFA Hack
 
-Проект для хакатона Альфа.
+Проект для хакатона Альфа: маскирование персональных данных (ПДн) в тексте.
 
 ## Структура
 
-- `gliner_famous/` — сервис на базе GLiNER для распознавания сущностей (FastAPI + WebSocket).
-- `llm_service/` — сервис распознавания сущностей на базе LLM (провайдер ALFA), тот же контракт, что и `gliner_famous`.
-- `ml_for_all_types/` — ансамбль лёгковесных ML-детекторов ПД (numpy, без тяжёлых зависимостей), тот же контракт.
+- `main-module/` — точка входа: FastAPI-приложение, которое параллельно опрашивает
+  все сервисы-детекторы, объединяет результаты, маскирует явные ПДн и хранит
+  корреляцию `payload_id` в Redis (поддерживает демаскирование).
+- `regex-module/` — детектор ПДн на регулярных выражениях + справочник адресов
+  (КЛАДР), WebSocket-эндпоинт `/scan`.
+- `gliner_famous/` — сервис на базе GLiNER для распознавания сущностей
+  (FastAPI + WebSocket), с проверкой «известных персон».
+- `llm_service/` — сервис распознавания сущностей на базе LLM (провайдер ALFA),
+  тот же контракт, что и `gliner_famous`.
+- `ml_for_all_types/` — ансамбль лёгковесных ML-детекторов ПД (numpy, без тяжёлых
+  зависимостей), тот же контракт.
 - `load_balanser/` — балансировщик нагрузки на базе Nginx.
+- `monitoring/` — Prometheus + Grafana (+ cAdvisor) для мониторинга всех сервисов.
+- `e2e_tests/` — end-to-end тесты всей цепочки маскирования по датасету.
+- `test-data/` — датасеты и вспомогательные данные для тестов.
+- `training_data/` — данные и скрипты обучения моделей.
+- `docker-compose.yml` — полный стек (все сервисы + мониторинг);
+  `docker-compose.services.yml` — только сервисы;
+  `docker-compose.server.yml` — конфигурация для деплоя на Yandex Cloud.
+- `setup-server.sh`, `build-push.sh` — скрипты сборки/публикации образов и
+  развёртывания на сервере Yandex Cloud.
 
 ## Архитектура
+
+Клиент обращается к `main-module` (`POST /process` с `{payload, payload_id}`).
+`main-module` параллельно (с таймаутом) опрашивает четыре детектора через
+балансировщик:
+
+- `regex-module` (WebSocket `/scan`);
+- `llm-service` (REST `/process`);
+- `gliner_famous` (REST `/process`);
+- `ml_for_all_types` (REST `/process`).
+
+Полученные сущности объединяются, фильтруются (ФИО сверяются со справочником
+имён), а явные ПДн заменяются на маски вида `{{ TYPE1,TYPE2 N }}`. Результат и
+исходный текст сохраняются в Redis по `payload_id`, что позволяет демаскировать
+строку повторным запросом с тем же `payload_id`.
 
 Компонентная и sequence-диаграммы (PlantUML) лежат в `docs/`:
 
@@ -24,34 +55,83 @@
 
 ![Sequence-диаграмма](docs/sequence.png)
 
-## Запуск реплик контейнеров
+## Быстрый старт (docker compose)
 
-### 1. Сборка и запуск реплик `gliner_famous`
-
-Соберите образ сервиса:
+Поднимите весь стек (все сервисы + Redis + балансировщик + мониторинг):
 
 ```bash
-docker build -t gliner_famous ./gliner_famous
+docker compose up -d --build
 ```
 
-Запустите несколько реплик (например, две) на разных портах:
+Проверьте, что `main-module` поднялся:
 
 ```bash
-docker run -d --name gliner1 -p 8001:8000 gliner_famous
-docker run -d --name gliner2 -p 8002:8000 gliner_famous
+curl http://localhost:8000/health
 ```
 
-Сервис слушает порт `8000` внутри контейнера и отдаёт два эндпоинта:
+### API `main-module`
+
+`main-module` — точка входа для маскирования/демаскирования:
+
+- `POST /process` — тело `{"payload": "<текст>", "payload_id": "<id>"}`.
+  Возвращает `results` (сущности по каждому сервису), `masked_text`
+  (замаскированный текст) и `replacements` (список замен).
+- `POST /process` с тем же `payload_id` и `payload`, равным ранее возвращённому
+  `masked_text`, — демаскирование (возвращает исходную строку в `results`).
+- `GET /health` — проверка живости.
+- `GET /metrics` — метрики Prometheus.
+
+Пример маскирования:
+
+```bash
+curl -X POST http://localhost:8000/process \
+  -H "Content-Type: application/json" \
+  -d '{"payload": "Иван Петров, тел. +7 900 123-45-67", "payload_id": "demo-1"}'
+```
+
+Пример демаскирования (тем же `payload_id` и замаскированной строкой):
+
+```bash
+curl -X POST http://localhost:8000/process \
+  -H "Content-Type: application/json" \
+  -d '{"payload": "{{ FIO 1 }}, тел. {{ PHONE 2 }}", "payload_id": "demo-1"}'
+```
+
+### Конфигурация `main-module`
+
+Список детекторов задаётся переменной окружения `MASKING_SERVICES` (JSON-массив).
+Каждый элемент: `name`, `protocol` (`rest` | `websocket`), `url`, `timeout`,
+опционально `pool` (для WebSocket-пула). По умолчанию в `docker-compose.yml`
+подключены `regex` (WS), `llm` (REST), `gliner` (REST), `ml` (REST).
+
+Корреляция `payload_id` хранится в Redis (`REDIS_URL`).
+
+## Сервисы-детекторы
+
+Все детекторы отдают сущности в едином контракте `Entity`:
+`{text, type[], score, slice, will_be_used}`.
+
+### `regex-module`
+
+Детектор на регулярных выражениях + справочник адресов (КЛАДР). При старте
+загружает адресную книгу из `BASE/`. Эндпоинт:
+
+- `WS /scan` — принимает текст, возвращает найденные ПДн.
+
+### `gliner_famous`
+
+Детектор на базе GLiNER (FastAPI + WebSocket) с проверкой «известных персон».
+Эндпоинты:
+
 - `POST /process` — обработка текста (JSON `{"text": "..."}`);
 - `WS /ws` — WebSocket-обработка текста.
 
-### 2. Сборка и запуск `llm_service`
+### `llm_service`
 
-Сервис делает то же, что и `gliner_famous` (тот же контракт: `POST /process` и `WS /ws`),
-но вместо локальной модели GLiNER использует запрос к LLM провайдера ALFA.
+Детектор на базе LLM провайдера ALFA (тот же контракт, что и `gliner_famous`).
 Ориентирован на скорость: один запрос к LLM возвращает все сущности сразу.
 
-Креды провайдера ALFA задаются в `.env` (см. `.env.example`):
+Креды провайдера ALFA задаются в `llm_service/.env` (см. `.env.example`):
 
 ```bash
 LLM_BASE_URL=https://alfagen.alfabank.ru/continue-dev/
@@ -59,99 +139,31 @@ LLM_API_KEY=<ваш ключ>
 LLM_MODEL=deepseek-ai/DeepSeek-V4-Flash-0731
 ```
 
-Соберите образ:
-
-```bash
-docker build -t llm_service ./llm_service
-```
-
-Запустите реплики на разных портах:
-
-```bash
-docker run -d --name llm1 -p 8003:8000 llm_service
-docker run -d --name llm2 -p 8004:8000 llm_service
-```
-
-Сервис слушает порт `8000` внутри контейнера и отдаёт те же эндпоинты, что и `gliner_famous`:
-- `POST /process` — обработка текста (JSON `{"text": "..."}`);
-- `WS /ws` — WebSocket-обработка текста.
-
-Проверка:
-
-```bash
-curl -X POST http://localhost:8003/process \
-  -H "Content-Type: application/json" \
-  -d '{"text": "Иван Петров работает в Альфа-Банке"}'
-```
-
 > Примечание: `.env` не коммитится в git (добавлен в `.gitignore`). Для локального
-> запуска без Docker скопируйте `.env.example` в `.env` и заполните ключ.
+> запуска скопируйте `.env.example` в `.env` и заполните ключ.
 
-### 3. Сборка и запуск `ml_for_all_types`
+### `ml_for_all_types`
 
-Сервис делает то же, что и `gliner_famous` (тот же контракт: `POST /process` и `WS /ws`),
-но использует ансамбль лёгковесных numpy-классификаторов (по одному на каждый тип ПД)
-вместо тяжёлой модели GLiNER. Не требует GPU и тяжёлых зависимостей.
+Ансамбль лёгковесных numpy-классификаторов (по одному на каждый тип ПД), тот же
+контракт, что и `gliner_famous`. Не требует GPU и тяжёлых зависимостей.
 
-Соберите образ:
+## Балансировщик (`load_balanser`)
 
-```bash
-docker build -t ml_for_all_types ./ml_for_all_types
-```
+Nginx-балансировщик слушает порт `80` и проксирует запросы на бэкенды
+(имена задаются переменными окружения `*_BACKENDS`, по умолчанию — один бэкенд):
 
-Запустите реплики на разных портах:
-
-```bash
-docker run -d --name ml1 -p 8005:8000 ml_for_all_types
-docker run -d --name ml2 -p 8006:8000 ml_for_all_types
-```
-
-Сервис слушает порт `8000` внутри контейнера и отдаёт те же эндпоинты, что и `gliner_famous`:
-- `POST /process` — обработка текста (JSON `{"text": "..."}`);
-- `WS /ws` — WebSocket-обработка текста.
-
-Проверка:
-
-```bash
-curl -X POST http://localhost:8005/process \
-  -H "Content-Type: application/json" \
-  -d '{"text": "Иван Петров работает в Альфа-Банке"}'
-```
-
-### 4. Сборка и запуск `load_balanser`
-
-Соберите образ балансировщика:
-
-```bash
-docker build -t load_balanser ./load_balanser
-```
-
-Запустите его, передав списки бэкендов через переменные окружения `GLINER_BACKENDS`, `LLM_BACKENDS` и `ML_BACKENDS` (имена хостов через пробел):
-
-```bash
-docker run -d --name lb -p 8080:80 \
-  -e GLINER_BACKENDS="gliner1:8000 gliner2:8000" \
-  -e LLM_BACKENDS="llm1:8000 llm2:8000" \
-  -e ML_BACKENDS="ml1:8000 ml2:8000" \
-  --link gliner1 --link gliner2 --link llm1 --link llm2 --link ml1 --link ml2 \
-  load_balanser
-```
-
-Если `GLINER_BACKENDS` не задан, по умолчанию используется один бэкенд `gliner1:8000`.
-Если `LLM_BACKENDS` не задан, по умолчанию используется один бэкенд `llm1:8000`.
-Если `ML_BACKENDS` не задан, по умолчанию используется один бэкенд `ml1:8000`.
-
-Балансировщик слушает порт `80` внутри контейнера и проксирует запросы на реплики:
-- `WS /gliner-famous/ws` → `/ws` (WebSocket, round-robin);
+- `WS /gliner-famous/ws` → `/ws`;
 - `POST /gliner-famous/process` → `/process`;
-- `WS /llm-service/ws` → `/ws` (WebSocket, round-robin);
+- `WS /llm-service/ws` → `/ws`;
 - `POST /llm-service/process` → `/process`;
-- `WS /ml-for-all-types/ws` → `/ws` (WebSocket, round-robin);
-- `POST /ml-for-all-types/process` → `/process`.
+- `WS /regex-module/scan` → `/scan`;
+- `POST /main-module/process` → `/process`;
+- `GET /main-module/health` → `/health`;
+- `WS /ml-for-all-types/ws` → `/ws`;
+- `POST /ml-for-all-types/process` → `/process`;
+- `GET /nginx_status` — метрики nginx для Prometheus.
 
-### 5. Проверка
-
-HTTP-запрос через балансировщик:
+Пример запроса к детектору через балансировщик:
 
 ```bash
 curl -X POST http://localhost:8080/gliner-famous/process \
@@ -159,51 +171,31 @@ curl -X POST http://localhost:8080/gliner-famous/process \
   -d '{"text": "Иван Петров работает в Альфа-Банке"}'
 ```
 
-WebSocket-подключение через балансировщик:
+## End-to-end тесты
+
+Тесты в `e2e_tests/` прогоняют датасет через `POST /process` `main-module` и
+сверяют найденные сущности с ожидаемыми `personal_data`.
 
 ```bash
-wscat -c ws://localhost:8080/gliner-famous/ws
+cd e2e_tests
+pip install -e .
+MAIN_MODULE_URL=http://localhost:8000 pytest test_e2e_dataset.py
 ```
 
-HTTP-запрос к `llm_service` через балансировщик:
-
-```bash
-curl -X POST http://localhost:8080/llm-service/process \
-  -H "Content-Type: application/json" \
-  -d '{"text": "Иван Петров работает в Альфа-Банке"}'
-```
-
-WebSocket-подключение к `llm_service` через балансировщик:
-
-```bash
-wscat -c ws://localhost:8080/llm-service/ws
-```
-
-HTTP-запрос к `ml_for_all_types` через балансировщик:
-
-```bash
-curl -X POST http://localhost:8080/ml-for-all-types/process \
-  -H "Content-Type: application/json" \
-  -d '{"text": "Иван Петров работает в Альфа-Банке"}'
-```
-
-WebSocket-подключение к `ml_for_all_types` через балансировщик:
-
-```bash
-wscat -c ws://localhost:8080/ml-for-all-types/ws
-```
-
-> Примечание: для связи контейнеров по именам (`gliner1`, `gliner2`) используйте общую Docker-сеть вместо `--link` (устаревший флаг), например `docker network create alfa-net` и подключите все контейнеры к ней.
+Переменные окружения: `MAIN_MODULE_URL` (по умолчанию `http://localhost:8000`) и
+`DATASET_PATH` (по умолчанию `test-data/deepseek_json_20260922_merged.json`).
 
 ## Мониторинг (Prometheus + Grafana)
 
-Все сервисы отдают метрики Prometheus на эндпоинте `/metrics` (FastAPI-сервисы через
-`prometheus-fastapi-instrumentator`), а балансировщик — через sidecar-контейнер
-`nginx-prometheus-exporter` (эндпоинт `/nginx_status`).
+Все FastAPI-сервисы отдают метрики Prometheus на эндпоинте `/metrics` (через
+`prometheus-fastapi-instrumentator`), балансировщик — через sidecar-контейнер
+`nginx-prometheus-exporter` (эндпоинт `/nginx_status`), а cAdvisor собирает
+метрики CPU/RAM контейнеров.
 
 ### Запуск
 
-Prometheus и Grafana поднимаются вместе со стеком через `docker-compose.yml`:
+Prometheus, Grafana и cAdvisor поднимаются вместе со стеком через
+`docker-compose.yml`:
 
 ```bash
 docker compose up -d
@@ -215,12 +207,13 @@ docker compose up -d
 |-------------|------------------------------|--------------|
 | Prometheus  | http://localhost:9090        | —            |
 | Grafana     | http://localhost:3000        | admin/admin  |
+| cAdvisor    | http://localhost:8081        | —            |
 
 ### Преднастройки
 
 - **Prometheus** (`monitoring/prometheus/prometheus.yml`) — скрейпит все сервисы
-  (`main-module`, `regex-module`, `llm-service`, `gliner-famous`, `ml-for-all-types`)
-  и балансировщик через exporter.
+  (`main-module`, `regex-module`, `llm-service`, `gliner-famous`, `ml-for-all-types`),
+  балансировщик через exporter и cAdvisor.
 - **Grafana** (`monitoring/grafana/`) — авто-провижининг datasource Prometheus и
   готовый дашборд **«ALFA Hack — Мониторинг сервисов»**:
   - статус сервисов (`up`);
@@ -228,7 +221,8 @@ docker compose up -d
   - задержка ответа (p95/p99);
   - ошибки 4xx/5xx;
   - запросы по эндпоинтам;
-  - метрики nginx (RPS, соединения).
+  - метрики nginx (RPS, соединения);
+  - метрики CPU/RAM контейнеров (cAdvisor).
 
 Дашборд доступен сразу после старта Grafana (обновляется каждые 10 секунд).
 
@@ -248,3 +242,35 @@ curl http://localhost:9113/metrics
 docker build -t alfa-prometheus ./monitoring/prometheus
 docker build -t alfa-grafana ./monitoring/grafana
 ```
+
+## Деплой на Yandex Cloud
+
+Образы публикуются в Yandex Container Registry, а сервер разворачивается через
+`docker-compose.server.yml`.
+
+### 1. Сборка и публикация образов
+
+```bash
+./build-push.sh            # тег latest
+./build-push.sh v1.0.0     # конкретный тег
+```
+
+Скрипт собирает и пушит образы `main-module`, `regex-module`, `llm-service`,
+`gliner-famous`, `ml-for-all-types`, `load-balancer` в реестр
+`cr.yandex/crpjr8em43c2vgubc740`.
+
+### 2. Настройка сервера
+
+Скопируйте на сервер `docker-compose.server.yml`, `llm_service.env` и
+`monitoring/`, затем выполните:
+
+```bash
+./setup-server.sh
+```
+
+Скрипт установит `yc` CLI, настроит авторизацию (OAuth-токен или сервисный
+аккаунт с ролью `container-registry.images.puller`), настроит Docker для реестра
+и запустит контейнеры через `docker compose -f docker-compose.server.yml up -d`.
+
+> Примечание: `docker-compose.server.yml` использует готовые образы из реестра
+> (без `build:`), а `docker-compose.yml` собирает образы локально.

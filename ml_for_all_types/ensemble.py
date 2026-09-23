@@ -16,6 +16,7 @@ from __future__ import annotations
 import re
 from functools import lru_cache
 from pathlib import Path
+from typing import Any
 
 import _common
 
@@ -82,7 +83,7 @@ def detect(text: str, threshold: float = DEFAULT_THRESHOLD) -> list[dict]:
     Отсортировано по убыванию вероятности.
     """
     names = _type_names()
-    results = []
+    results: list[dict[str, Any]] = []
     for code, det in load_all().items():
         s = det.score(text)
         if s >= threshold:
@@ -103,7 +104,7 @@ def detect_types(text: str, threshold: float = DEFAULT_THRESHOLD) -> list[str]:
 def detect_with_scores(text: str) -> list[dict]:
     """Все типы с вероятностями (без порога), отсортированы по убыванию."""
     names = _type_names()
-    results = []
+    results: list[dict[str, Any]] = []
     for code, det in load_all().items():
         results.append({
             "code": code,
@@ -146,7 +147,7 @@ def detect_spans(text: str, threshold: float = DEFAULT_THRESHOLD) -> list[dict]:
             s = det.score(win)
             if s > best.get(code, 0.0):
                 best[code] = s
-    results = [
+    results: list[dict[str, Any]] = [
         {"code": code, "name": names.get(code, load_all()[code].name), "score": round(s, 4)}
         for code, s in best.items() if s >= threshold
     ]
@@ -219,7 +220,7 @@ def detect_spans_with_positions(text: str, threshold: float = DEFAULT_THRESHOLD)
             s = det.score(win)
             if s > best.get(code, (0.0, 0, 0, ""))[0]:
                 best[code] = (s, start, end, win)
-    results = []
+    results: list[dict[str, Any]] = []
     for code, (s, start, end, win) in best.items():
         if s < threshold:
             continue

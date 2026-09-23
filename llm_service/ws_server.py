@@ -87,11 +87,11 @@ class ProcessResponse(BaseModel):
 
 class WsResponse(BaseModel):
     ok: bool = Field(..., description="Успех обработки")
-    work_time: float | None = Field(None, description="Время обработки, сек")
-    length: int | None = Field(None, description="Длина входного текста")
-    count: int | None = Field(None, description="Количество найденных сущностей")
-    data: list[Entity] | None = Field(None, description="Найденные сущности")
-    error: str | None = Field(None, description="Сообщение об ошибке")
+    work_time: float | None = Field(default=None, description="Время обработки, сек")
+    length: int | None = Field(default=None, description="Длина входного текста")
+    count: int | None = Field(default=None, description="Количество найденных сущностей")
+    data: list[Entity] | None = Field(default=None, description="Найденные сущности")
+    error: str | None = Field(default=None, description="Сообщение об ошибке")
 
 
 _client: httpx.AsyncClient | None = None

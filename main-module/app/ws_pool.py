@@ -5,6 +5,7 @@ from collections import deque
 from typing import AsyncIterator
 
 import websockets
+from websockets.asyncio.client import ClientConnection
 from websockets.asyncio.connection import State
 
 from app.config import WebSocketPoolConfig
@@ -27,7 +28,7 @@ class WebSocketPool:
     def __init__(self, url: str, config: WebSocketPoolConfig) -> None:
         self._url = url
         self._config = config
-        self._idle: deque[websockets.WebSocketClientProtocol] = deque()
+        self._idle: deque[ClientConnection] = deque()
         self._total = 0
         self._lock = asyncio.Lock()
         self._shrink_task: asyncio.Task | None = None
@@ -79,7 +80,7 @@ class WebSocketPool:
             await self._safe_close(ws)
 
     @contextlib.asynccontextmanager
-    async def connection(self) -> AsyncIterator[websockets.WebSocketClientProtocol]:
+    async def connection(self) -> AsyncIterator[ClientConnection]:
         """Возвращает соединение из пула, переиспользуя простаивающие."""
         ws = await self._acquire()
         try:
@@ -87,7 +88,7 @@ class WebSocketPool:
         finally:
             await self._release(ws)
 
-    async def _acquire(self) -> websockets.WebSocketClientProtocol:
+    async def _acquire(self) -> ClientConnection:
         if self._closed:
             raise WebSocketPoolError("pool is closed")
 
@@ -106,7 +107,7 @@ class WebSocketPool:
         # Достигнут максимум — ждём освобождения соединения.
         return await self._wait_for_idle()
 
-    async def _acquire_new(self) -> websockets.WebSocketClientProtocol:
+    async def _acquire_new(self) -> ClientConnection:
         async with self._lock:
             if self._total >= self._config.max_connections:
                 return await self._wait_for_idle()
@@ -120,7 +121,7 @@ class WebSocketPool:
             self._total += 1
             return ws
 
-    async def _wait_for_idle(self) -> websockets.WebSocketClientProtocol:
+    async def _wait_for_idle(self) -> ClientConnection:
         while True:
             if self._idle:
                 ws = self._idle.popleft()
@@ -131,7 +132,7 @@ class WebSocketPool:
                 continue
             await asyncio.sleep(0.01)
 
-    async def _release(self, ws: websockets.WebSocketClientProtocol) -> None:
+    async def _release(self, ws: ClientConnection) -> None:
         if self._closed or not self._is_open(ws):
             self._total -= 1
             await self._safe_close(ws)
@@ -151,10 +152,10 @@ class WebSocketPool:
             self._total -= 1
             await self._safe_close(ws)
 
-    async def _safe_close(self, ws: websockets.WebSocketClientProtocol) -> None:
+    async def _safe_close(self, ws: ClientConnection) -> None:
         with contextlib.suppress(websockets.WebSocketException):
             await ws.close()
 
     @staticmethod
-    def _is_open(ws: websockets.WebSocketClientProtocol) -> bool:
+    def _is_open(ws: ClientConnection) -> bool:
         return getattr(ws, "state", None) == State.OPEN
