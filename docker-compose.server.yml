@@ -10,7 +10,7 @@ services:
       WORKERS: 4
       ROOT_PATH: /main-module
       REDIS_URL: redis://redis:6379/0
-      MASKING_SERVICES: '[{"name":"regex","protocol":"websocket","url":"ws://load-balancer/regex-module/scan","timeout":1.0,"pool":{"min_connections":4,"max_connections":64}},{"name":"llm","protocol":"rest","url":"http://load-balancer/llm-service/process","timeout":2.5},{"name":"gliner","protocol":"rest","url":"http://load-balancer/gliner-famous/process","timeout":2.5},{"name":"ml","protocol":"rest","url":"http://load-balancer/ml-for-all-types/process","timeout":1.0}]'
+      MASKING_SERVICES: '[{"name":"regex","protocol":"websocket","url":"ws://load-balancer/regex-module/scan","timeout":1.0,"pool":{"min_connections":4,"max_connections":64}},{"name":"ml","protocol":"rest","url":"http://load-balancer/ml-for-all-types/process","timeout":1.0}]'
     depends_on:
       redis:
         condition: service_healthy
@@ -29,7 +29,7 @@ services:
       WORKERS: 4
       ROOT_PATH: /main-module
       REDIS_URL: redis://redis:6379/0
-      MASKING_SERVICES: '[{"name":"regex","protocol":"websocket","url":"ws://load-balancer/regex-module/scan","timeout":1.0,"pool":{"min_connections":4,"max_connections":64}},{"name":"llm","protocol":"rest","url":"http://load-balancer/llm-service/process","timeout":2.5},{"name":"gliner","protocol":"rest","url":"http://load-balancer/gliner-famous/process","timeout":2.5},{"name":"ml","protocol":"rest","url":"http://load-balancer/ml-for-all-types/process","timeout":1.0}]'
+      MASKING_SERVICES: '[{"name":"regex","protocol":"websocket","url":"ws://load-balancer/regex-module/scan","timeout":1.0,"pool":{"min_connections":4,"max_connections":64}},{"name":"ml","protocol":"rest","url":"http://load-balancer/ml-for-all-types/process","timeout":1.0}]'
     depends_on:
       redis:
         condition: service_healthy
@@ -47,6 +47,20 @@ services:
   regex-module-2:
     image: cr.yandex/crpjr8em43c2vgubc740/regex-module:latest
     container_name: regex-module-2
+    expose:
+      - "8000"
+    restart: unless-stopped
+
+  regex-module-3:
+    image: cr.yandex/crpjr8em43c2vgubc740/regex-module:latest
+    container_name: regex-module-3
+    expose:
+      - "8000"
+    restart: unless-stopped
+
+  regex-module-4:
+    image: cr.yandex/crpjr8em43c2vgubc740/regex-module:latest
+    container_name: regex-module-4
     expose:
       - "8000"
     restart: unless-stopped
@@ -97,17 +111,22 @@ services:
       - "8000"
     restart: unless-stopped
 
+  ml-for-all-types-3:
+    image: cr.yandex/crpjr8em43c2vgubc740/ml-for-all-types:latest
+    container_name: ml-for-all-types-3
+    expose:
+      - "8000"
+    restart: unless-stopped
+
   load-balancer:
     image: cr.yandex/crpjr8em43c2vgubc740/load-balancer:latest
     container_name: load-balancer
     ports:
       - "8080:80"
     environment:
-      GLINER_BACKENDS: "gliner-famous-1:8000 gliner-famous-2:8000"
-      LLM_BACKENDS: "llm-service-1:8000 llm-service-2:8000"
-      REGEX_BACKENDS: "regex-module-1:8000 regex-module-2:8000"
+      REGEX_BACKENDS: "regex-module-1:8000 regex-module-2:8000 regex-module-3:8000 regex-module-4:8000"
       MAIN_BACKENDS: "main-module-1:8000 main-module-2:8000"
-      ML_BACKENDS: "ml-for-all-types-1:8000 ml-for-all-types-2:8000"
+      ML_BACKENDS: "ml-for-all-types-1:8000 ml-for-all-types-2:8000 ml-for-all-types-3:8000"
     restart: unless-stopped
 
   load-balancer-exporter:
