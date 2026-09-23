@@ -10,6 +10,8 @@ from app.config import get_settings
 class Record:
     original: str
     masked: dict[str, dict[str, list[dict] | float | None]]
+    masked_text: str | None = None
+    replacements: list[dict] | None = None
 
 
 class CorrelationStore:
@@ -24,10 +26,22 @@ class CorrelationStore:
         if raw is None:
             return None
         data = json.loads(raw)
-        return Record(original=data["original"], masked=data["masked"])
+        return Record(
+            original=data["original"],
+            masked=data["masked"],
+            masked_text=data.get("masked_text"),
+            replacements=data.get("replacements"),
+        )
 
     def put(self, payload_id: str, record: Record) -> None:
-        raw = json.dumps({"original": record.original, "masked": record.masked})
+        raw = json.dumps(
+            {
+                "original": record.original,
+                "masked": record.masked,
+                "masked_text": record.masked_text,
+                "replacements": record.replacements,
+            }
+        )
         self._redis.set(f"pd:{payload_id}", raw, ex=self._ttl)
 
 

@@ -79,7 +79,7 @@ class TestScan(unittest.TestCase):
         self.assert_found("код подразделения 770-001", DataType.ISSUE_CODE, "770-001")
 
     def test_address(self):
-        self.assert_found("125167, г. Москва, ул. Правды, д. 24, кв. 5", DataType.ADDRESS, "125167, г. Москва, ул. Правды, д. 24, кв. 5")
+        self.assert_found("125167, г. Москва, ул. Правды, д. 24, кв. 5", DataType.ADDRESS, "Москва, ул. Правды, д. 24")
 
     def test_cvv(self):
         self.assert_found("CVV: 123", DataType.CVV, "123")

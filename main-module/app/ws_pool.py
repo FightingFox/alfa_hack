@@ -42,10 +42,29 @@ class WebSocketPool:
         return len(self._idle)
 
     async def start(self) -> None:
-        """Запускает фоновую задачу сжатия пула и прогревает min-соединений."""
+        """Запускает фоновую задачу сжатия пула и прогревает min-соединений.
+
+        Прогрев устойчив к временной недоступности бэкенда: если соединение
+        не удалось установить (например, бэкенд ещё стартует), пул повторяет
+        попытку с экспоненциальной задержкой, пока не наберёт min_connections
+        или не будет закрыт.
+        """
         self._shrink_task = asyncio.create_task(self._shrink_loop())
-        for _ in range(self._config.min_connections):
-            ws = await self._acquire_new()
+        delay = self._config.connect_retry_delay
+        while len(self._idle) < self._config.min_connections and not self._closed:
+            try:
+                ws = await self._acquire_new()
+            except WebSocketPoolError:
+                if self._closed:
+                    break
+                logger.warning(
+                    "failed to pre-warm connection to '%s', retrying in %.1fs",
+                    self._url,
+                    delay,
+                )
+                await asyncio.sleep(delay)
+                delay = min(delay * 2, self._config.connect_retry_max_delay)
+                continue
             self._idle.append(ws)
 
     async def close(self) -> None:

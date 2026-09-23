@@ -9,6 +9,7 @@ WORKDIR /app
 COPY ca-bundle.pem /etc/ssl/certs/ca-bundle.pem
 COPY pyproject.toml ./
 COPY app ./app
+COPY data ./data
 COPY run.py ./
 
 RUN pip install --no-cache-dir .

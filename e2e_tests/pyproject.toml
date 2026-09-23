@@ -1,0 +1,12 @@
+[project]
+name = "e2e-tests"
+version = "0.1.0"
+description = "End-to-end tests: main-module + вся цепочка сервисов маскирования"
+requires-python = ">=3.11"
+dependencies = [
+    "httpx>=0.27.0",
+    "pytest>=8.0.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["."]
