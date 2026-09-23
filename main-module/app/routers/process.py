@@ -1,5 +1,8 @@
+from dataclasses import asdict
+
 from fastapi import APIRouter, HTTPException, status
 
+from app.masker import mask_text
 from app.orchestrator import MaskingProviderError, get_orchestrator
 from app.schemas import ProcessRequest, ProcessResponse
 from app.store import Record, get_store
@@ -28,16 +31,24 @@ async def process(request: ProcessRequest) -> ProcessResponse:
                 status_code=status.HTTP_502_BAD_GATEWAY,
                 detail=str(exc),
             ) from exc
-        store.put(request.payload_id, Record(original=request.payload, masked=masked))
-        return ProcessResponse(results=masked)
+        mask_result = mask_text(request.payload, masked)
+        store.put(
+            request.payload_id,
+            Record(
+                original=request.payload,
+                masked=masked,
+                masked_text=mask_result.masked_text,
+                replacements=[asdict(r) for r in mask_result.replacements],
+            ),
+        )
+        return ProcessResponse(
+            results=masked,
+            masked_text=mask_result.masked_text,
+            replacements=[asdict(r) for r in mask_result.replacements],
+        )
 
     # Обратный шаг: демаскирование
-    payload = (
-        {k: v.model_dump() for k, v in request.payload.items()}
-        if isinstance(request.payload, dict)
-        else request.payload
-    )
-    if payload == existing.masked:
+    if isinstance(request.payload, str) and request.payload == existing.masked_text:
         return ProcessResponse(results=existing.original)
 
     # payload_id известен, но payload не совпадает с ранее возвращённой маской

@@ -102,6 +102,43 @@ def test_pool_shrinks_when_idle() -> None:
     asyncio.run(run())
 
 
+def test_pool_start_retries_when_backend_unavailable() -> None:
+    async def run() -> None:
+        # Выбираем свободный порт, но не поднимаем сервер сразу.
+        probe = await asyncio.start_server(lambda r, w: None, "127.0.0.1", 0)
+        port = probe.sockets[0].getsockname()[1]
+        probe.close()
+        await probe.wait_closed()
+
+        url = f"ws://127.0.0.1:{port}"
+        pool = WebSocketPool(
+            url,
+            WebSocketPoolConfig(
+                min_connections=1,
+                max_connections=4,
+                connect_retry_delay=0.01,
+                connect_retry_max_delay=0.05,
+            ),
+        )
+        start_task = asyncio.create_task(pool.start())
+        # Даём пулу время провалить первую попытку и начать ретраить.
+        await asyncio.sleep(0.05)
+        assert pool.total == 0
+
+        # Поднимаем сервер на том же порту — пул должен донабрать min_connections.
+        server = await websockets.serve(_echo_server, "127.0.0.1", port)
+        try:
+            await asyncio.wait_for(start_task, timeout=2.0)
+            assert pool.total == 1
+            assert pool.idle_count == 1
+        finally:
+            server.close()
+            await server.wait_closed()
+        await pool.close()
+
+    asyncio.run(run())
+
+
 def test_pool_respects_max_connections() -> None:
     async def run() -> None:
         server, url = await _serve()

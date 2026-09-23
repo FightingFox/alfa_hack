@@ -21,7 +21,22 @@ class ProcessRequest(BaseModel):
     payload_id: str = Field(description="Идентификатор корреляции")
 
 
+class Replacement(BaseModel):
+    slice: list[int] = Field(description="[start, end) позиции в исходном тексте")
+    types: list[str] = Field(description="Типы ПД представителя кластера")
+    mask: str = Field(description="Маска вида {{ TYPE1,TYPE2 N }}")
+    original_text: str = Field(description="Исходный фрагмент text[start:end]")
+
+
 class ProcessResponse(BaseModel):
     results: dict[str, ServiceResult] | str = Field(
         description="Результаты обработки по каждому сервису или исходная строка при демаскировании"
+    )
+    masked_text: str | None = Field(
+        default=None,
+        description="Замаскированный текст (только при маскировании)",
+    )
+    replacements: list[Replacement] | None = Field(
+        default=None,
+        description="Список замен (только при маскировании)",
     )

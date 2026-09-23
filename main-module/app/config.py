@@ -13,6 +13,8 @@ class WebSocketPoolConfig(BaseModel):
     idle_shrink_interval: float = Field(default=5.0, gt=0)
     idle_shrink_ratio: float = Field(default=0.5, gt=0, le=1.0)
     connect_timeout: float = Field(default=10.0, gt=0)
+    connect_retry_delay: float = Field(default=1.0, gt=0)
+    connect_retry_max_delay: float = Field(default=30.0, gt=0)
 
 
 class MaskingServiceConfig(BaseModel):

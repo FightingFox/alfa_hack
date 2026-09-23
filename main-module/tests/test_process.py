@@ -67,8 +67,8 @@ def test_process_mask_then_unmask(monkeypatch) -> None:
         json={"payload": original, "payload_id": payload_id},
     )
     assert mask_resp.status_code == 200
-    masked = mask_resp.json()["results"]
-    assert masked == {
+    body = mask_resp.json()
+    assert body["results"] == {
         "regex": {
             "result": [
                 {
@@ -82,12 +82,21 @@ def test_process_mask_then_unmask(monkeypatch) -> None:
             "elapsed": 0.1,
         }
     }
+    assert body["masked_text"] == "{{ FIO 1 }}"
+    assert body["replacements"] == [
+        {
+            "slice": [0, len(original)],
+            "types": ["FIO"],
+            "mask": "{{ FIO 1 }}",
+            "original_text": original,
+        }
+    ]
     assert fake_orchestrator.calls == [original]
 
-    # Обратный шаг: демаскирование
+    # Обратный шаг: демаскирование по masked_text
     unmask_resp = client.post(
         "/process",
-        json={"payload": masked, "payload_id": payload_id},
+        json={"payload": body["masked_text"], "payload_id": payload_id},
     )
     assert unmask_resp.status_code == 200
     assert unmask_resp.json()["results"] == original
