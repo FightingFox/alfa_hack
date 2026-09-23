@@ -43,9 +43,6 @@ async def process(request: ProcessRequest) -> ProcessResponse:
         store.put(
             request.payload_id,
             Record(
-                original=request.payload,
-                masked=masked,
-                masked_text=mask_result.masked_text,
                 replacements=[asdict(r) for r in mask_result.replacements],
             ),
         )
@@ -56,11 +53,15 @@ async def process(request: ProcessRequest) -> ProcessResponse:
         )
 
     # Обратный шаг: демаскирование
-    if isinstance(request.payload, str) and request.payload == existing.masked_text:
-        return ProcessResponse(results=existing.original)
+    if isinstance(request.payload, str):
+        # TODO: замена в request.payload значений из existing.replacements
+        restored = request.payload
+        for rep in existing.replacements or []:
+            restored = restored.replace(rep["mask"], rep["original_text"])
+        return ProcessResponse(results=restored)
 
-    # payload_id известен, но payload не совпадает с ранее возвращённой маской
+    # payload_id известен, но payload не является строкой
     raise HTTPException(
         status_code=status.HTTP_400_BAD_REQUEST,
-        detail="payload не соответствует ранее замаскированной строке для данного payload_id",
+        detail="payload должен быть строкой для демаскирования",
     )

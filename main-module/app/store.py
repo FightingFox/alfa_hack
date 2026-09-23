@@ -8,10 +8,7 @@ from app.config import get_settings
 
 @dataclass
 class Record:
-    original: str
-    masked: dict[str, dict[str, list[dict] | float | None]]
-    masked_text: str | None = None
-    replacements: list[dict] | None = None
+    replacements: list[dict]
 
 
 class CorrelationStore:
@@ -27,18 +24,12 @@ class CorrelationStore:
             return None
         data = json.loads(raw)
         return Record(
-            original=data["original"],
-            masked=data["masked"],
-            masked_text=data.get("masked_text"),
             replacements=data.get("replacements"),
         )
 
     def put(self, payload_id: str, record: Record) -> None:
         raw = json.dumps(
             {
-                "original": record.original,
-                "masked": record.masked,
-                "masked_text": record.masked_text,
                 "replacements": record.replacements,
             }
         )

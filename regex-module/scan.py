@@ -195,6 +195,21 @@ def _is_valid_date(value: str) -> bool:
     return False
 
 
+def _is_valid_card(value: str) -> bool:
+    """Проверяет контрольную сумму номера карты (алгоритм Луна)."""
+    digits = [int(c) for c in value if c.isdigit()]
+    if len(digits) < 13 or len(digits) > 19:
+        return False
+    total = 0
+    for i, d in enumerate(reversed(digits)):
+        if i % 2 == 1:
+            d *= 2
+            if d > 9:
+                d -= 9
+        total += d
+    return total % 10 == 0
+
+
 def _is_valid_inn(value: str) -> bool:
     """Проверяет контрольную сумму ИНН (10 или 12 цифр)."""
     if len(value) == 10:
@@ -248,6 +263,8 @@ def scan(text: str) -> list[dict[str, Any]]:
             if pii_type == DataType.DATE and not _is_valid_date(value):
                 continue
             if pii_type == DataType.INN and not _is_valid_inn(value):
+                continue
+            if pii_type == DataType.CARD_NUMBER and not _is_valid_card(value):
                 continue
             if pii_type == DataType.PASSWORD and score < 1.0 and not _is_strong_password(value):
                 continue
