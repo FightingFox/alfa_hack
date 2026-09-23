@@ -1,9 +1,30 @@
-"""Pytest-хуки для сбора результатов e2e-тестов и генерации HTML-отчёта."""
+"""Pytest-хуки для сбора результатов e2e-тестов и генерации HTML-отчёта.
+
+Поддерживает параллельный запуск через pytest-xdist:
+    - каждый воркер сохраняет свои данные в отдельный JSON-файл;
+    - главный процесс собирает данные всех воркеров и формирует общий отчёт.
+"""
 
 from __future__ import annotations
 
 import pytest
-from report import collector
+
+from report import (
+    ReportCollector,
+    clear_worker_data,
+    collector,
+    load_all_worker_data,
+    save_worker_data,
+)
+
+
+def _is_worker(session) -> bool:
+    """True, если текущий процесс — воркер pytest-xdist."""
+    return hasattr(session.config, "workerinput")
+
+
+def _worker_id(session) -> str:
+    return session.config.workerinput.get("workerid", "unknown")
 
 
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
@@ -35,9 +56,21 @@ def pytest_runtest_makereport(item, call):
 
 
 def pytest_sessionfinish(session, exitstatus):
-    if not collector.rows:
+    if _is_worker(session):
+        # Воркер: сохраняем свои данные во временный файл.
+        if collector.rows:
+            save_worker_data(_worker_id(session), collector.to_dict())
         return
-    html_path = collector.save()
-    json_path = collector.save_json()
+
+    # Главный процесс: собираем данные всех воркеров и формируем отчёт.
+    merged = ReportCollector()
+    for data in load_all_worker_data():
+        merged.merge(ReportCollector.from_dict(data))
+    if not merged.rows:
+        return
+
+    html_path = merged.save()
+    json_path = merged.save_json()
+    clear_worker_data()
     print(f"\nE2E отчёт сохранён: {html_path}")
     print(f"JSON с данными: {json_path}")

@@ -135,5 +135,54 @@ class ReportCollector:
         path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
         return path
 
+    def to_dict(self) -> dict[str, Any]:
+        return {"services": self.services, "rows": self.rows}
+
+    @classmethod
+    def from_dict(cls, data: dict[str, Any]) -> ReportCollector:
+        collector = cls()
+        collector.services = list(data.get("services", []))
+        collector.rows = list(data.get("rows", []))
+        return collector
+
+    def merge(self, other: ReportCollector) -> None:
+        """Объединяет данные другого коллектора в текущий."""
+        for name in other.services:
+            self.add_service(name)
+        self.rows.extend(other.rows)
+
+
+def worker_data_dir() -> Path:
+    """Директория для временных данных воркеров при параллельном запуске."""
+    path = Path(os.getenv("E2E_WORKER_DATA_DIR", PROJECT_ROOT / ".e2e_worker_data"))
+    path.mkdir(parents=True, exist_ok=True)
+    return path
+
+
+def save_worker_data(worker_id: str, data: dict[str, Any]) -> Path:
+    path = worker_data_dir() / f"worker_{worker_id}.json"
+    path.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+    return path
+
+
+def load_all_worker_data() -> list[dict[str, Any]]:
+    """Читает данные всех воркеров из временной директории."""
+    results: list[dict[str, Any]] = []
+    for path in sorted(worker_data_dir().glob("worker_*.json")):
+        try:
+            results.append(json.loads(path.read_text(encoding="utf-8")))
+        except (json.JSONDecodeError, OSError):
+            continue
+    return results
+
+
+def clear_worker_data() -> None:
+    """Удаляет временные данные воркеров."""
+    for path in worker_data_dir().glob("worker_*.json"):
+        try:
+            path.unlink()
+        except OSError:
+            continue
+
 
 collector = ReportCollector()

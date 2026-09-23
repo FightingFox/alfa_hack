@@ -30,6 +30,7 @@ DATASET_PATH = Path(
 )
 
 PROCESS_URL = f"{MAIN_MODULE_URL}/process"
+E2E_TIMEOUT = float(os.getenv("E2E_TIMEOUT", "120"))
 
 
 def _load_dataset() -> list[dict]:
@@ -97,7 +98,7 @@ def _report_mismatch(query: dict, expected: dict, entity: dict | None) -> str:
 
 @pytest.fixture(scope="module")
 def client() -> httpx.Client:
-    return httpx.Client(timeout=30.0)
+    return httpx.Client(timeout=E2E_TIMEOUT)
 
 
 @pytest.fixture(scope="module")

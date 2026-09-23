@@ -10,10 +10,814 @@
       "query_id": 1,
       "char_count": 101,
       "elapsed_by_service": {
-        "regex": 0.06199999999989814,
-        "ml": 0.09499999999934516,
-        "llm": 0.23599999999896681,
-        "gliner": 0.4599999999991269
+        "regex": 0.17300000000250293,
+        "ml": 0.5270000000018626,
+        "llm": 0.70600000000195,
+        "gliner": 3.617999999998574
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 2,
+      "char_count": 153,
+      "elapsed_by_service": {
+        "regex": 0.06499999999869033,
+        "ml": 0.16599999999743886,
+        "llm": 0.1709999999984575,
+        "gliner": 2.7229999999981374
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 3,
+      "char_count": 170,
+      "elapsed_by_service": {
+        "regex": 0.028000000002066372,
+        "ml": 0.05899999999746797,
+        "llm": 0.14899999999761349,
+        "gliner": 2.666000000001077
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 16,
+      "char_count": 153,
+      "elapsed_by_service": {
+        "regex": 0.02600000000165892,
+        "ml": 0.0459999999984575,
+        "llm": 0.1069999999999709,
+        "gliner": 2.941000000002532
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 17,
+      "char_count": 264,
+      "elapsed_by_service": {
+        "ml": 0.06799999999930151,
+        "regex": 0.08699999999953434,
+        "llm": 0.1569999999992433,
+        "gliner": 2.274999999997817
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 18,
+      "char_count": 232,
+      "elapsed_by_service": {
+        "regex": 0.014000000002852175,
+        "ml": 0.046999999998661224,
+        "llm": 0.11899999999877764,
+        "gliner": 2.808000000000902
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 19,
+      "char_count": 144,
+      "elapsed_by_service": {
+        "regex": 0.03299999999944703,
+        "ml": 0.049999999999272404,
+        "llm": 0.11799999999857391,
+        "gliner": 2.618000000002212
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 20,
+      "char_count": 262,
+      "elapsed_by_service": {
+        "regex": 0.018000000000029104,
+        "ml": 0.059999999997671694,
+        "llm": 0.15999999999985448,
+        "gliner": 2.6589999999996508
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 36,
+      "char_count": 122,
+      "elapsed_by_service": {
+        "regex": 0.021999999997206032,
+        "ml": 0.03499999999985448,
+        "llm": 0.11300000000119326,
+        "gliner": 2.1019999999989523
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 37,
+      "char_count": 139,
+      "elapsed_by_service": {
+        "regex": 0.01900000000023283,
+        "ml": 0.03600000000005821,
+        "llm": 0.13500000000203727,
+        "gliner": 2.311999999998079
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 38,
+      "char_count": 139,
+      "elapsed_by_service": {
+        "ml": 0.03800000000046566,
+        "regex": 0.04199999999764259,
+        "llm": 0.12600000000020373,
+        "gliner": 2.7700000000004366
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 45,
+      "char_count": 161,
+      "elapsed_by_service": {
+        "regex": 0.04899999999906868,
+        "ml": 0.09499999999752617,
+        "llm": 0.17800000000352156,
+        "gliner": 3.326999999997497
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 46,
+      "char_count": 140,
+      "elapsed_by_service": {
+        "ml": 0.04500000000189175,
+        "regex": 0.06699999999909778,
+        "llm": 0.147000000000844,
+        "gliner": 3.032999999999447
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 51,
+      "char_count": 138,
+      "elapsed_by_service": {
+        "ml": 0.06199999999807915,
+        "regex": 0.06299999999828287,
+        "llm": 0.14099999999962165,
+        "gliner": 2.7599999999983993
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 55,
+      "char_count": 1515,
+      "elapsed_by_service": {
+        "regex": 0.13000000000101863,
+        "llm": 0.13699999999880674,
+        "ml": 0.6719999999986612,
+        "gliner": 8.984000000000378
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 59,
+      "char_count": 4801,
+      "elapsed_by_service": {
+        "llm": 0.11699999999837019,
+        "regex": 0.16500000000087311,
+        "ml": 0.9420000000027358,
+        "gliner": 30.337999999999738
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 63,
+      "char_count": 2994,
+      "elapsed_by_service": {
+        "regex": 0.08399999999892316,
+        "llm": 0.20600000000194996,
+        "ml": 0.5679999999993015,
+        "gliner": 37.28900000000067
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 67,
+      "char_count": 4261,
+      "elapsed_by_service": {
+        "gliner": 0.147000000000844,
+        "regex": 0.40899999999965075,
+        "llm": 0.4099999999998545,
+        "ml": 1.5829999999987194
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 4,
+      "char_count": 317,
+      "elapsed_by_service": {
+        "regex": 0.1110000000007858,
+        "ml": 0.4639999999999418,
+        "llm": 0.8100000000013097,
+        "gliner": 3.580999999998312
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 5,
+      "char_count": 334,
+      "elapsed_by_service": {
+        "regex": 0.02200000000084401,
+        "ml": 0.1320000000014261,
+        "llm": 0.18700000000171713,
+        "gliner": 3.2839999999996508
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 6,
+      "char_count": 70,
+      "elapsed_by_service": {
+        "regex": 0.007000000001426088,
+        "ml": 0.014000000002852175,
+        "llm": 0.13000000000101863,
+        "gliner": 2.6519999999982247
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 7,
+      "char_count": 491,
+      "elapsed_by_service": {
+        "regex": 0.07200000000011642,
+        "ml": 0.14600000000064028,
+        "llm": 0.1900000000023283,
+        "gliner": 5.031999999999243
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 21,
+      "char_count": 166,
+      "elapsed_by_service": {
+        "regex": 0.012000000002444722,
+        "ml": 0.039999999997235136,
+        "llm": 0.16500000000087311,
+        "gliner": 2.5679999999993015
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 22,
+      "char_count": 139,
+      "elapsed_by_service": {
+        "regex": 0.006000000001222361,
+        "ml": 0.03499999999985448,
+        "llm": 0.12700000000040745,
+        "gliner": 2.4510000000009313
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 23,
+      "char_count": 267,
+      "elapsed_by_service": {
+        "regex": 0.01599999999962165,
+        "ml": 0.04899999999906868,
+        "llm": 0.12800000000061118,
+        "gliner": 2.9910000000018044
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 24,
+      "char_count": 171,
+      "elapsed_by_service": {
+        "regex": 0.007999999997991836,
+        "ml": 0.039999999997235136,
+        "llm": 0.13700000000244472,
+        "gliner": 2.602999999999156
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 25,
+      "char_count": 227,
+      "elapsed_by_service": {
+        "regex": 0.008000000001629815,
+        "ml": 0.04199999999764259,
+        "llm": 0.125,
+        "gliner": 2.8430000000007567
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 41,
+      "char_count": 144,
+      "elapsed_by_service": {
+        "regex": 0.029999999998835847,
+        "ml": 0.05700000000069849,
+        "llm": 0.15799999999944703,
+        "gliner": 4.086999999999534
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 42,
+      "char_count": 151,
+      "elapsed_by_service": {
+        "regex": 0.010999999998603016,
+        "ml": 0.033999999999650754,
+        "llm": 0.13500000000203727,
+        "gliner": 3.036000000000058
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 49,
+      "char_count": 223,
+      "elapsed_by_service": {
+        "regex": 0.011999999998806743,
+        "ml": 0.17799999999988358,
+        "llm": 0.2069999999985157,
+        "gliner": 3.4990000000034343
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 53,
+      "char_count": 315,
+      "elapsed_by_service": {
+        "llm": 0.14800000000104774,
+        "regex": 0.14500000000043656,
+        "ml": 0.20200000000113505,
+        "gliner": 6.0349999999998545
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 58,
+      "char_count": 1612,
+      "elapsed_by_service": {
+        "regex": 0.09000000000014552,
+        "llm": 0.19399999999950523,
+        "ml": 0.2929999999978463,
+        "gliner": 9.501000000000204
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 61,
+      "char_count": 3333,
+      "elapsed_by_service": {
+        "regex": 0.10900000000037835,
+        "llm": 0.16200000000026193,
+        "ml": 0.5720000000001164,
+        "gliner": 34.85900000000038
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 65,
+      "char_count": 3200,
+      "elapsed_by_service": {
+        "regex": 0.2570000000014261,
+        "llm": 0.5580000000009022,
+        "ml": 0.8730000000032305,
+        "gliner": 26.167999999997846
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 8,
+      "char_count": 599,
+      "elapsed_by_service": {
+        "regex": 0.2220000000015716,
+        "ml": 0.5850000000027649,
+        "llm": 0.7369999999973516,
+        "gliner": 4.287000000000262
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 9,
+      "char_count": 155,
+      "elapsed_by_service": {
+        "regex": 0.037000000000261934,
+        "ml": 0.04100000000107684,
+        "llm": 0.18699999999807915,
+        "gliner": 2.8250000000007276
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 10,
+      "char_count": 144,
+      "elapsed_by_service": {
+        "regex": 0.027999999998428393,
+        "ml": 0.03800000000046566,
+        "llm": 0.1290000000008149,
+        "gliner": 2.7599999999983993
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 11,
+      "char_count": 139,
+      "elapsed_by_service": {
+        "regex": 0.05099999999947613,
+        "ml": 0.04899999999906868,
+        "llm": 0.13400000000183354,
+        "gliner": 2.7520000000004075
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 30,
+      "char_count": 239,
+      "elapsed_by_service": {
+        "regex": 0.030999999999039574,
+        "ml": 0.052999999999883585,
+        "llm": 0.13900000000285218,
+        "gliner": 2.350000000002183
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 31,
+      "char_count": 154,
+      "elapsed_by_service": {
+        "regex": 0.039999999997235136,
+        "ml": 0.04100000000107684,
+        "llm": 0.12199999999938882,
+        "gliner": 2.463999999999942
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 32,
+      "char_count": 170,
+      "elapsed_by_service": {
+        "ml": 0.037000000000261934,
+        "regex": 0.05700000000069849,
+        "llm": 0.12300000000323053,
+        "gliner": 2.525999999998021
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 33,
+      "char_count": 152,
+      "elapsed_by_service": {
+        "regex": 0.06099999999787542,
+        "ml": 0.062000000001717126,
+        "llm": 0.13400000000183354,
+        "gliner": 2.583999999998923
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 34,
+      "char_count": 154,
+      "elapsed_by_service": {
+        "regex": 0.027000000001862645,
+        "ml": 0.04200000000128057,
+        "llm": 0.11799999999857391,
+        "gliner": 2.856000000003405
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 35,
+      "char_count": 120,
+      "elapsed_by_service": {
+        "regex": 0.03800000000046566,
+        "ml": 0.05500000000029104,
+        "llm": 0.1459999999970023,
+        "gliner": 2.540000000000873
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 43,
+      "char_count": 171,
+      "elapsed_by_service": {
+        "regex": 0.03600000000005821,
+        "ml": 0.04500000000189175,
+        "llm": 0.11899999999877764,
+        "gliner": 3.871999999999389
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 44,
+      "char_count": 150,
+      "elapsed_by_service": {
+        "regex": 0.023999999997613486,
+        "ml": 0.03499999999985448,
+        "llm": 0.147000000000844,
+        "gliner": 2.7619999999988067
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 48,
+      "char_count": 152,
+      "elapsed_by_service": {
+        "regex": 0.05699999999706051,
+        "ml": 0.07400000000052387,
+        "llm": 0.16500000000087311,
+        "gliner": 2.735999999997148
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 52,
+      "char_count": 266,
+      "elapsed_by_service": {
+        "regex": 0.046999999998661224,
+        "ml": 0.05099999999947613,
+        "llm": 0.1389999999992142,
+        "gliner": 3.739000000001397
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 56,
+      "char_count": 1514,
+      "elapsed_by_service": {
+        "regex": 0.16900000000168802,
+        "llm": 0.17799999999988358,
+        "ml": 0.3349999999991269,
+        "gliner": 9.81300000000192
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 60,
+      "char_count": 4447,
+      "elapsed_by_service": {
+        "regex": 0.15500000000247383,
+        "llm": 0.14099999999962165,
+        "ml": 0.6510000000016589,
+        "gliner": 33.65400000000227
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 64,
+      "char_count": 3316,
+      "elapsed_by_service": {
+        "regex": 0.20499999999810825,
+        "llm": 0.2519999999967695,
+        "ml": 0.897000000000844,
+        "gliner": 30.68699999999808
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 68,
+      "char_count": 3655,
+      "elapsed_by_service": {
+        "gliner": 0.27599999999802094,
+        "regex": 0.4819999999999709,
+        "llm": 0.4400000000023283,
+        "ml": 1.4290000000000873
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 12,
+      "char_count": 182,
+      "elapsed_by_service": {
+        "regex": 0.14399999999659485,
+        "ml": 0.45600000000194996,
+        "llm": 0.8249999999970896,
+        "gliner": 3.6670000000012806
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 13,
+      "char_count": 218,
+      "elapsed_by_service": {
+        "regex": 0.09399999999732245,
+        "ml": 0.1720000000022992,
+        "llm": 0.2809999999990396,
+        "gliner": 2.915000000000873
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 14,
+      "char_count": 251,
+      "elapsed_by_service": {
+        "regex": 0.04199999999764259,
+        "ml": 0.06000000000130967,
+        "llm": 0.12600000000020373,
+        "gliner": 3.039999999997235
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 15,
+      "char_count": 207,
+      "elapsed_by_service": {
+        "regex": 0.07099999999991269,
+        "ml": 0.09699999999793363,
+        "llm": 0.1720000000022992,
+        "gliner": 4.812000000001717
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 26,
+      "char_count": 205,
+      "elapsed_by_service": {
+        "ml": 0.04399999999805004,
+        "regex": 0.06299999999828287,
+        "llm": 0.1389999999992142,
+        "gliner": 2.9579999999987194
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 27,
+      "char_count": 193,
+      "elapsed_by_service": {
+        "regex": 0.021999999997206032,
+        "ml": 0.040000000000873115,
+        "llm": 0.14199999999982538,
+        "gliner": 2.55199999999968
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 28,
+      "char_count": 289,
+      "elapsed_by_service": {
+        "regex": 0.029999999998835847,
+        "ml": 0.06800000000293949,
+        "llm": 0.12800000000061118,
+        "gliner": 2.6899999999986903
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 29,
+      "char_count": 201,
+      "elapsed_by_service": {
+        "regex": 0.02899999999863212,
+        "ml": 0.059000000001105946,
+        "llm": 0.11500000000160071,
+        "gliner": 2.6149999999979627
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 39,
+      "char_count": 128,
+      "elapsed_by_service": {
+        "ml": 0.03800000000046566,
+        "regex": 0.05400000000008731,
+        "llm": 0.1430000000000291,
+        "gliner": 2.903999999998632
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 40,
+      "char_count": 158,
+      "elapsed_by_service": {
+        "regex": 0.018000000000029104,
+        "ml": 0.040000000000873115,
+        "llm": 0.13799999999901047,
+        "gliner": 4.086999999999534
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 47,
+      "char_count": 150,
+      "elapsed_by_service": {
+        "regex": 0.030999999999039574,
+        "ml": 0.04200000000128057,
+        "llm": 0.15399999999863212,
+        "gliner": 2.930000000000291
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 50,
+      "char_count": 242,
+      "elapsed_by_service": {
+        "regex": 0.0610000000015134,
+        "ml": 0.13100000000122236,
+        "llm": 0.16999999999825377,
+        "gliner": 3.4180000000014843
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 54,
+      "char_count": 1545,
+      "elapsed_by_service": {
+        "regex": 0.16900000000168802,
+        "llm": 0.1959999999999127,
+        "ml": 0.5849999999991269,
+        "gliner": 9.059999999997672
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 57,
+      "char_count": 1403,
+      "elapsed_by_service": {
+        "regex": 0.03900000000066939,
+        "llm": 0.15099999999802094,
+        "ml": 0.4690000000009604,
+        "gliner": 8.21600000000035
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 62,
+      "char_count": 3508,
+      "elapsed_by_service": {
+        "regex": 0.06299999999828287,
+        "llm": 0.12800000000061118,
+        "ml": 0.4989999999997963,
+        "gliner": 36.72299999999814
+      },
+      "passed": true,
+      "error": null
+    },
+    {
+      "query_id": 66,
+      "char_count": 4320,
+      "elapsed_by_service": {
+        "regex": 0.08500000000276486,
+        "llm": 0.1349999999983993,
+        "ml": 0.8320000000021537,
+        "gliner": 22.78099999999904
       },
       "passed": true,
       "error": null
