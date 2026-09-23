@@ -17,6 +17,11 @@ http {
     server {
         listen 80;
 ${SET_DIRECTIVES}
+        # Метрики nginx для Prometheus (скрейпит nginx-prometheus-exporter)
+        location /nginx_status {
+            stub_status;
+        }
+
         # WebSocket-эндпоинт: /gliner-famous/ws -> /ws
         location /gliner-famous/ws {
             proxy_pass http://$gliner_backend/ws;

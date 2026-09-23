@@ -14,6 +14,7 @@ import time
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
+from prometheus_fastapi_instrumentator import Instrumentator
 from pydantic import BaseModel, Field
 
 import ensemble
@@ -82,6 +83,8 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="ML Ensemble PII Detector", version="1.0.0", lifespan=lifespan)
+
+Instrumentator().instrument(app).expose(app, endpoint="/metrics")
 
 
 @app.post("/process", response_model=ProcessResponse)

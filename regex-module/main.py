@@ -4,12 +4,15 @@
 """
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from prometheus_fastapi_instrumentator import Instrumentator
 
 from scan import process_text
 
 app = FastAPI(
     title="PII Scanner", description="Определение персональных данных в тексте"
 )
+
+Instrumentator().instrument(app).expose(app, endpoint="/metrics")
 
 
 @app.websocket("/scan")

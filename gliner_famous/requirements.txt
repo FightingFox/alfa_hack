@@ -6,3 +6,4 @@ gliner
 transformers
 torch<2.6
 tiktoken
+prometheus-fastapi-instrumentator

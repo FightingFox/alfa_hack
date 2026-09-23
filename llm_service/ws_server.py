@@ -18,6 +18,7 @@ from contextlib import asynccontextmanager
 import httpx
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
+from prometheus_fastapi_instrumentator import Instrumentator
 from pydantic import BaseModel, Field
 
 load_dotenv()
@@ -222,6 +223,8 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="LLM NER Service", version="1.0.0", lifespan=lifespan)
+
+Instrumentator().instrument(app).expose(app, endpoint="/metrics")
 
 
 @app.post("/process", response_model=ProcessResponse)

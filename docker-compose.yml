@@ -62,6 +62,15 @@ services:
       ML_BACKENDS: "ml-for-all-types:8000"
     restart: unless-stopped
 
+  load-balancer-exporter:
+    image: nginx/nginx-prometheus-exporter:1.3.0
+    container_name: load-balancer-exporter
+    command:
+      - -nginx.scrape-uri=http://load-balancer/nginx_status
+    depends_on:
+      - load-balancer
+    restart: unless-stopped
+
   redis:
     image: redis:7-alpine
     container_name: main-module-redis
@@ -76,5 +85,27 @@ services:
       retries: 5
     restart: unless-stopped
 
+  prometheus:
+    build: ./monitoring/prometheus
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - prometheus-data:/prometheus
+    restart: unless-stopped
+
+  grafana:
+    build: ./monitoring/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+
 volumes:
   redis-data:
+  prometheus-data:
+  grafana-data:

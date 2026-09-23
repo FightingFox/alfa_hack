@@ -4,3 +4,4 @@ websockets
 pydantic
 httpx
 python-dotenv
+prometheus-fastapi-instrumentator

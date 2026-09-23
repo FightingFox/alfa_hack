@@ -194,3 +194,57 @@ wscat -c ws://localhost:8080/ml-for-all-types/ws
 ```
 
 > Примечание: для связи контейнеров по именам (`gliner1`, `gliner2`) используйте общую Docker-сеть вместо `--link` (устаревший флаг), например `docker network create alfa-net` и подключите все контейнеры к ней.
+
+## Мониторинг (Prometheus + Grafana)
+
+Все сервисы отдают метрики Prometheus на эндпоинте `/metrics` (FastAPI-сервисы через
+`prometheus-fastapi-instrumentator`), а балансировщик — через sidecar-контейнер
+`nginx-prometheus-exporter` (эндпоинт `/nginx_status`).
+
+### Запуск
+
+Prometheus и Grafana поднимаются вместе со стеком через `docker-compose.yml`:
+
+```bash
+docker compose up -d
+```
+
+### Доступ
+
+| Сервис      | URL                          | Логин/пароль |
+|-------------|------------------------------|--------------|
+| Prometheus  | http://localhost:9090        | —            |
+| Grafana     | http://localhost:3000        | admin/admin  |
+
+### Преднастройки
+
+- **Prometheus** (`monitoring/prometheus/prometheus.yml`) — скрейпит все сервисы
+  (`main-module`, `regex-module`, `llm-service`, `gliner-famous`, `ml-for-all-types`)
+  и балансировщик через exporter.
+- **Grafana** (`monitoring/grafana/`) — авто-провижининг datasource Prometheus и
+  готовый дашборд **«ALFA Hack — Мониторинг сервисов»**:
+  - статус сервисов (`up`);
+  - RPS по сервисам;
+  - задержка ответа (p95/p99);
+  - ошибки 4xx/5xx;
+  - запросы по эндпоинтам;
+  - метрики nginx (RPS, соединения).
+
+Дашборд доступен сразу после старта Grafana (обновляется каждые 10 секунд).
+
+### Проверка метрик
+
+```bash
+# Метрики конкретного сервиса
+curl http://localhost:8000/metrics
+
+# Метрики балансировщика (через exporter)
+curl http://localhost:9113/metrics
+```
+
+### Сборка образов мониторинга отдельно
+
+```bash
+docker build -t alfa-prometheus ./monitoring/prometheus
+docker build -t alfa-grafana ./monitoring/grafana
+```
