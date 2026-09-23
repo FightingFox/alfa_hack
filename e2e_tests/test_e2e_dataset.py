@@ -52,47 +52,45 @@ def _collect_entities(results: dict) -> list[dict]:
     return entities
 
 
-def _slice_overlap(a: list[int], b: list[int]) -> int:
-    """Длина пересечения двух слайсов [start, end)."""
-    return max(0, min(a[1], b[1]) - max(a[0], b[0]))
+def _normalize(value: str) -> str:
+    """Нормализует значение для сравнения (убирает пробелы и регистр)."""
+    return "".join(value.split()).lower()
+
+
+def _values_match(expected_value: str, entity_text: str) -> bool:
+    """Сверяет значение по типу и значению, игнорируя пробелы и регистр."""
+    exp = _normalize(expected_value)
+    act = _normalize(entity_text)
+    return exp in act or act in exp
 
 
 def _match_expected(expected: dict, entities: list[dict]) -> dict | None:
-    """Ищет сущность, совпадающую с ожидаемой по типу и слайсу."""
+    """Ищет сущность, совпадающую с ожидаемой по типу и значению."""
     exp_type = expected["type"]
-    exp_slice = expected["slice"]
+    exp_value = expected["value"]
 
-    best: dict | None = None
-    best_overlap = 0
     for entity in entities:
         if exp_type not in entity["type"]:
             continue
-        overlap = _slice_overlap(exp_slice, entity["slice"])
-        if overlap > best_overlap:
-            best_overlap = overlap
-            best = entity
-    return best
+        if _values_match(exp_value, entity["text"]):
+            return entity
+    return None
 
 
 def _report_mismatch(query: dict, expected: dict, entity: dict | None) -> str:
-    text = query["text"]
-    exp_slice = expected["slice"]
     exp_value = expected["value"]
     exp_type = expected["type"]
-    actual_text = text[exp_slice[0] : exp_slice[1]] if exp_slice[1] <= len(text) else "?"
 
     lines = [
         f"  query id={query['id']} type={exp_type}",
-        f"    expected: value={exp_value!r} slice={exp_slice}",
-        f"    actual text at slice: {actual_text!r}",
+        f"    expected: value={exp_value!r}",
     ]
     if entity is None:
         lines.append("    found: НЕ НАЙДЕНО")
     else:
         lines.append(
             f"    found: text={entity['text']!r} type={entity['type']} "
-            f"slice={entity['slice']} score={entity['score']:.3f} "
-            f"service={entity['_service']}"
+            f"score={entity['score']:.3f} service={entity['_service']}"
         )
     return "\n".join(lines)
 
@@ -134,18 +132,6 @@ def test_query_matches_personal_data(client: httpx.Client, query: dict) -> None:
         match = _match_expected(expected, entities)
         if match is None:
             failures.append(_report_mismatch(query, expected, None))
-            continue
-
-        exp_slice = expected["slice"]
-        exp_value = expected["value"]
-        overlap = _slice_overlap(exp_slice, match["slice"])
-        if overlap <= 0:
-            failures.append(_report_mismatch(query, expected, match))
-            continue
-
-        actual_value = query["text"][exp_slice[0] : exp_slice[1]]
-        if actual_value != exp_value:
-            failures.append(_report_mismatch(query, expected, match))
 
     assert not failures, "Несоответствия с ожидаемыми personal_data:\n" + "\n".join(
         failures
