@@ -9,27 +9,27 @@ scrape_configs:
 
   - job_name: "main-module"
     static_configs:
-      - targets: ["main-module:8000"]
+      - targets: ["main-module-1:8000", "main-module-2:8000"]
     metrics_path: /metrics
 
   - job_name: "regex-module"
     static_configs:
-      - targets: ["regex-module:8000"]
+      - targets: ["regex-module-1:8000", "regex-module-2:8000"]
     metrics_path: /metrics
 
   - job_name: "llm-service"
     static_configs:
-      - targets: ["llm-service:8000"]
+      - targets: ["llm-service-1:8000", "llm-service-2:8000"]
     metrics_path: /metrics
 
   - job_name: "gliner-famous"
     static_configs:
-      - targets: ["gliner-famous:8000"]
+      - targets: ["gliner-famous-1:8000", "gliner-famous-2:8000"]
     metrics_path: /metrics
 
   - job_name: "ml-for-all-types"
     static_configs:
-      - targets: ["ml-for-all-types:8000"]
+      - targets: ["ml-for-all-types-1:8000", "ml-for-all-types-2:8000"]
     metrics_path: /metrics
 
   - job_name: "load-balancer"

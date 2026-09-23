@@ -1,9 +1,7 @@
 services:
-  main-module:
+  main-module-1:
     build: ./main-module
-    container_name: main-module
-    ports:
-      - "8000:8000"
+    container_name: main-module-1
     environment:
       APP_ENV: production
       DEBUG: "false"
@@ -19,32 +17,80 @@ services:
         condition: service_started
     restart: unless-stopped
 
-  regex-module:
+  main-module-2:
+    build: ./main-module
+    container_name: main-module-2
+    environment:
+      APP_ENV: production
+      DEBUG: "false"
+      HOST: 0.0.0.0
+      PORT: 8000
+      WORKERS: 4
+      REDIS_URL: redis://redis:6379/0
+      MASKING_SERVICES: '[{"name":"regex","protocol":"websocket","url":"ws://load-balancer/regex-module/scan","timeout":10.0,"pool":{"min_connections":4,"max_connections":64}},{"name":"llm","protocol":"rest","url":"http://load-balancer/llm-service/process","timeout":10.0},{"name":"gliner","protocol":"rest","url":"http://load-balancer/gliner-famous/process","timeout":10.0},{"name":"ml","protocol":"rest","url":"http://load-balancer/ml-for-all-types/process","timeout":10.0}]'
+    depends_on:
+      redis:
+        condition: service_healthy
+      load-balancer:
+        condition: service_started
+    restart: unless-stopped
+
+  regex-module-1:
     build: ./regex-module
-    container_name: regex-module
+    container_name: regex-module-1
     expose:
       - "8000"
     restart: unless-stopped
 
-  llm-service:
+  regex-module-2:
+    build: ./regex-module
+    container_name: regex-module-2
+    expose:
+      - "8000"
+    restart: unless-stopped
+
+  llm-service-1:
     build: ./llm_service
-    container_name: llm-service
+    container_name: llm-service-1
     env_file:
       - ./llm_service/.env.example
     expose:
       - "8000"
     restart: unless-stopped
 
-  gliner-famous:
-    build: ./gliner_famous
-    container_name: gliner-famous
+  llm-service-2:
+    build: ./llm_service
+    container_name: llm-service-2
+    env_file:
+      - ./llm_service/.env.example
     expose:
       - "8000"
     restart: unless-stopped
 
-  ml-for-all-types:
+  gliner-famous-1:
+    build: ./gliner_famous
+    container_name: gliner-famous-1
+    expose:
+      - "8000"
+    restart: unless-stopped
+
+  gliner-famous-2:
+    build: ./gliner_famous
+    container_name: gliner-famous-2
+    expose:
+      - "8000"
+    restart: unless-stopped
+
+  ml-for-all-types-1:
     build: ./ml_for_all_types
-    container_name: ml-for-all-types
+    container_name: ml-for-all-types-1
+    expose:
+      - "8000"
+    restart: unless-stopped
+
+  ml-for-all-types-2:
+    build: ./ml_for_all_types
+    container_name: ml-for-all-types-2
     expose:
       - "8000"
     restart: unless-stopped
@@ -55,11 +101,11 @@ services:
     ports:
       - "8080:80"
     environment:
-      GLINER_BACKENDS: "gliner-famous:8000"
-      LLM_BACKENDS: "llm-service:8000"
-      REGEX_BACKENDS: "regex-module:8000"
-      MAIN_BACKENDS: "main-module:8000"
-      ML_BACKENDS: "ml-for-all-types:8000"
+      GLINER_BACKENDS: "gliner-famous-1:8000 gliner-famous-2:8000"
+      LLM_BACKENDS: "llm-service-1:8000 llm-service-2:8000"
+      REGEX_BACKENDS: "regex-module-1:8000 regex-module-2:8000"
+      MAIN_BACKENDS: "main-module-1:8000 main-module-2:8000"
+      ML_BACKENDS: "ml-for-all-types-1:8000 ml-for-all-types-2:8000"
     restart: unless-stopped
 
   load-balancer-exporter:

@@ -1,77 +1,42 @@
 #!/bin/sh
 set -e
 
-# Список бэкендов gliner_famous через пробел, например:
+# Список бэкендов через пробел, например:
 #   GLINER_BACKENDS="gliner1:8000 gliner2:8000"
 # Если не задан — используем один локальный бэкенд.
-BACKENDS="${GLINER_BACKENDS:-gliner1:8000}"
-
-GLINER_BACKEND=""
-for b in $BACKENDS; do
-    GLINER_BACKEND="$b"
-    break
-done
-
-# Список бэкендов llm_service через пробел, например:
-#   LLM_BACKENDS="llm1:8000 llm2:8000"
-# Если не задан — используем один локальный бэкенд.
+GLINER_BACKENDS="${GLINER_BACKENDS:-gliner1:8000}"
 LLM_BACKENDS="${LLM_BACKENDS:-llm1:8000}"
-
-LLM_BACKEND=""
-for b in $LLM_BACKENDS; do
-    LLM_BACKEND="$b"
-    break
-done
-
-# Список бэкендов regex_module через пробел, например:
-#   REGEX_BACKENDS="regex1:8000 regex2:8000"
-# Если не задан — используем один локальный бэкенд.
 REGEX_BACKENDS="${REGEX_BACKENDS:-regex1:8000}"
-
-REGEX_BACKEND=""
-for b in $REGEX_BACKENDS; do
-    REGEX_BACKEND="$b"
-    break
-done
-
-# Список бэкендов main_module через пробел, например:
-#   MAIN_BACKENDS="main1:8000 main2:8000"
-# Если не задан — используем один локальный бэкенд.
 MAIN_BACKENDS="${MAIN_BACKENDS:-main1:8000}"
-
-MAIN_BACKEND=""
-for b in $MAIN_BACKENDS; do
-    MAIN_BACKEND="$b"
-    break
-done
-
-# Список бэкендов ml_for_all_types через пробел, например:
-#   ML_BACKENDS="ml1:8000 ml2:8000"
-# Если не задан — используем один локальный бэкенд.
 ML_BACKENDS="${ML_BACKENDS:-ml1:8000}"
 
-ML_BACKEND=""
-for b in $ML_BACKENDS; do
-    ML_BACKEND="$b"
-    break
-done
-
-# Генерируем set-директивы для каждого бэкенда. Имена резолвятся через
+# Генерируем upstream-блоки для каждого набора бэкендов. Имена резолвятся через
 # resolver в момент запроса, поэтому nginx не падает, если бэкенд недоступен.
-SET_DIRECTIVES=""
-SET_DIRECTIVES="${SET_DIRECTIVES}        set \$gliner_backend ${GLINER_BACKEND};
+# Round-robin распределяет запросы между всеми перечисленными бэкендами.
+gen_upstream() {
+    name="$1"
+    backends="$2"
+    echo "    upstream ${name} {"
+    for b in $backends; do
+        echo "        server ${b};"
+    done
+    echo "    }"
+}
+
+UPSTREAM_DIRECTIVES=""
+UPSTREAM_DIRECTIVES="${UPSTREAM_DIRECTIVES}$(gen_upstream gliner_upstream "$GLINER_BACKENDS")
 "
-SET_DIRECTIVES="${SET_DIRECTIVES}        set \$llm_backend ${LLM_BACKEND};
+UPSTREAM_DIRECTIVES="${UPSTREAM_DIRECTIVES}$(gen_upstream llm_upstream "$LLM_BACKENDS")
 "
-SET_DIRECTIVES="${SET_DIRECTIVES}        set \$regex_backend ${REGEX_BACKEND};
+UPSTREAM_DIRECTIVES="${UPSTREAM_DIRECTIVES}$(gen_upstream regex_upstream "$REGEX_BACKENDS")
 "
-SET_DIRECTIVES="${SET_DIRECTIVES}        set \$main_backend ${MAIN_BACKEND};
+UPSTREAM_DIRECTIVES="${UPSTREAM_DIRECTIVES}$(gen_upstream main_upstream "$MAIN_BACKENDS")
 "
-SET_DIRECTIVES="${SET_DIRECTIVES}        set \$ml_backend ${ML_BACKEND};
+UPSTREAM_DIRECTIVES="${UPSTREAM_DIRECTIVES}$(gen_upstream ml_upstream "$ML_BACKENDS")
 "
 
-# Подставляем set-директивы в шаблон и кладём в рабочий конфиг.
-export SET_DIRECTIVES
-envsubst '${SET_DIRECTIVES}' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
+# Подставляем upstream-блоки в шаблон и кладём в рабочий конфиг.
+export UPSTREAM_DIRECTIVES
+envsubst '${UPSTREAM_DIRECTIVES}' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
 
 exec nginx -g "daemon off;"
