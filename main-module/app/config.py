@@ -5,11 +5,22 @@ from pydantic import BaseModel, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
+class WebSocketPoolConfig(BaseModel):
+    """Настройки автоматически расширяемого пула WebSocket-соединений."""
+
+    min_connections: int = Field(default=4, ge=0)
+    max_connections: int = Field(default=64, ge=1)
+    idle_shrink_interval: float = Field(default=5.0, gt=0)
+    idle_shrink_ratio: float = Field(default=0.5, gt=0, le=1.0)
+    connect_timeout: float = Field(default=10.0, gt=0)
+
+
 class MaskingServiceConfig(BaseModel):
     name: str
     protocol: Literal["rest", "websocket"]
     url: str
     timeout: float = Field(default=10.0, gt=0)
+    pool: WebSocketPoolConfig = Field(default_factory=WebSocketPoolConfig)
 
 
 class Settings(BaseSettings):
@@ -24,6 +35,7 @@ class Settings(BaseSettings):
     debug: bool = True
     host: str = "0.0.0.0"
     port: int = 8000
+    workers: int = 4
     log_level: str = "info"
 
     # Внешние сервисы маскирования (REST и/или WebSocket)

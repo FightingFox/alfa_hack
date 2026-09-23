@@ -6,10 +6,10 @@ set -e
 # Если не задан — используем один локальный бэкенд.
 BACKENDS="${GLINER_BACKENDS:-gliner1:8000}"
 
-UPSTREAM=""
+GLINER_BACKEND=""
 for b in $BACKENDS; do
-    UPSTREAM="${UPSTREAM}    server ${b};
-"
+    GLINER_BACKEND="$b"
+    break
 done
 
 # Список бэкендов llm_service через пробел, например:
@@ -17,10 +17,32 @@ done
 # Если не задан — используем один локальный бэкенд.
 LLM_BACKENDS="${LLM_BACKENDS:-llm1:8000}"
 
-LLM_UPSTREAM=""
+LLM_BACKEND=""
 for b in $LLM_BACKENDS; do
-    LLM_UPSTREAM="${LLM_UPSTREAM}    server ${b};
-"
+    LLM_BACKEND="$b"
+    break
+done
+
+# Список бэкендов regex_module через пробел, например:
+#   REGEX_BACKENDS="regex1:8000 regex2:8000"
+# Если не задан — используем один локальный бэкенд.
+REGEX_BACKENDS="${REGEX_BACKENDS:-regex1:8000}"
+
+REGEX_BACKEND=""
+for b in $REGEX_BACKENDS; do
+    REGEX_BACKEND="$b"
+    break
+done
+
+# Список бэкендов main_module через пробел, например:
+#   MAIN_BACKENDS="main1:8000 main2:8000"
+# Если не задан — используем один локальный бэкенд.
+MAIN_BACKENDS="${MAIN_BACKENDS:-main1:8000}"
+
+MAIN_BACKEND=""
+for b in $MAIN_BACKENDS; do
+    MAIN_BACKEND="$b"
+    break
 done
 
 # Список бэкендов ml_for_all_types через пробел, например:
@@ -28,16 +50,28 @@ done
 # Если не задан — используем один локальный бэкенд.
 ML_BACKENDS="${ML_BACKENDS:-ml1:8000}"
 
-ML_UPSTREAM=""
+ML_BACKEND=""
 for b in $ML_BACKENDS; do
-    ML_UPSTREAM="${ML_UPSTREAM}    server ${b};
-"
+    ML_BACKEND="$b"
+    break
 done
 
-# Подставляем upstream-блоки в шаблон и кладём в рабочий конфиг.
-export GLINER_UPSTREAM="$UPSTREAM"
-export LLM_UPSTREAM="$LLM_UPSTREAM"
-export ML_UPSTREAM="$ML_UPSTREAM"
-envsubst '${GLINER_UPSTREAM} ${LLM_UPSTREAM} ${ML_UPSTREAM}' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
+# Генерируем set-директивы для каждого бэкенда. Имена резолвятся через
+# resolver в момент запроса, поэтому nginx не падает, если бэкенд недоступен.
+SET_DIRECTIVES=""
+SET_DIRECTIVES="${SET_DIRECTIVES}        set \$gliner_backend ${GLINER_BACKEND};
+"
+SET_DIRECTIVES="${SET_DIRECTIVES}        set \$llm_backend ${LLM_BACKEND};
+"
+SET_DIRECTIVES="${SET_DIRECTIVES}        set \$regex_backend ${REGEX_BACKEND};
+"
+SET_DIRECTIVES="${SET_DIRECTIVES}        set \$main_backend ${MAIN_BACKEND};
+"
+SET_DIRECTIVES="${SET_DIRECTIVES}        set \$ml_backend ${ML_BACKEND};
+"
+
+# Подставляем set-директивы в шаблон и кладём в рабочий конфиг.
+export SET_DIRECTIVES
+envsubst '${SET_DIRECTIVES}' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
 
 exec nginx -g "daemon off;"

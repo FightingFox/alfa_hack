@@ -10,43 +10,53 @@ class MaskingOrchestrator:
     def __init__(self, providers: list[MaskingProvider]) -> None:
         self._providers = providers
 
-    async def mask(self, text: str) -> str:
+    async def start(self) -> None:
+        """Инициализирует провайдеров (например, прогревает пулы соединений)."""
+        for provider in self._providers:
+            start = getattr(provider, "start", None)
+            if start is not None:
+                await start()
+
+    async def close(self) -> None:
+        """Освобождает ресурсы провайдеров (закрывает пулы соединений)."""
+        for provider in self._providers:
+            close = getattr(provider, "close", None)
+            if close is not None:
+                await close()
+
+    async def mask(self, text: str) -> dict[str, dict[str, list[dict] | float | None]]:
         """Маскирует строку всеми провайдерами параллельно.
 
-        Дожидается завершения всех провайдеров (самого медленного) и возвращает
-        результат последнего завершившегося успешного провайдера.
-        Если все провайдеры упали — поднимает MaskingProviderError.
+        Возвращает словарь, где ключ — имя сервиса, а значение — словарь с
+        результатом и временем выполнения в секундах. Если сервис не дал
+        успешного ответа, результат будет None.
         """
         if not self._providers:
             raise MaskingProviderError("no masking providers configured")
 
-        async def _run(provider: MaskingProvider) -> str:
+        async def _run(
+            provider: MaskingProvider,
+        ) -> tuple[str, dict[str, list[dict] | float | None]]:
+            start = asyncio.get_running_loop().time()
             try:
-                return await asyncio.wait_for(
-                    provider.mask(text),
-                    timeout=provider.config.timeout,
-                )
+                result = await provider.mask(text)
+                elapsed = asyncio.get_running_loop().time() - start
+                return provider.config.name, {"result": result, "elapsed": elapsed}
             except MaskingProviderError:
-                raise
-            except Exception as exc:
-                raise MaskingProviderError(
-                    f"provider '{provider.config.name}' failed: {exc}"
-                ) from exc
+                elapsed = asyncio.get_running_loop().time() - start
+                return provider.config.name, {"result": None, "elapsed": elapsed}
+            except Exception:
+                elapsed = asyncio.get_running_loop().time() - start
+                return provider.config.name, {"result": None, "elapsed": elapsed}
 
         tasks = [_run(p) for p in self._providers]
 
-        # Ждём завершения всех, запоминая порядок завершения
-        completed: list[str] = []
+        results: dict[str, dict[str, list[dict] | float | None]] = {}
         for coro in asyncio.as_completed(tasks):
-            try:
-                completed.append(await coro)
-            except MaskingProviderError:
-                continue
+            name, entry = await coro
+            results[name] = entry
 
-        if completed:
-            return completed[-1]
-
-        raise MaskingProviderError("all masking providers failed")
+        return results
 
 
 _orchestrator: MaskingOrchestrator | None = None

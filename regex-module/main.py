@@ -1,11 +1,11 @@
 """FastAPI-приложение: WebSocket-эндпоинт для определения персональных данных.
 
-Принимает строку текста по WebSocket и возвращает результат scan() из scan.py.
+Принимает строку текста по WebSocket и возвращает результат process_text() из scan.py.
 """
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 
-from scan import scan
+from scan import process_text
 
 app = FastAPI(
     title="PII Scanner", description="Определение персональных данных в тексте"
@@ -19,6 +19,6 @@ async def scan_endpoint(websocket: WebSocket) -> None:
     try:
         while True:
             text = await websocket.receive_text()
-            await websocket.send_json(scan(text))
+            await websocket.send_json(process_text(text).model_dump())
     except WebSocketDisconnect:
         return

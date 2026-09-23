@@ -1,0 +1,8 @@
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.git/
+test_cases.csv
+test_csv.py
+test_main.py
