@@ -102,22 +102,100 @@ def test_process_mask_then_unmask(monkeypatch) -> None:
     assert unmask_resp.json()["results"] == original
 
 
-def test_process_unknown_payload_id_returns_400(monkeypatch) -> None:
-    _patch_deps(monkeypatch)
-    payload_id = "unknown-id"
+def test_process_unmask_restores_from_replacements(monkeypatch) -> None:
+    """Демаскирование восстанавливает оригинал, заменяя маски из replacements."""
+    fake_orchestrator, _ = _patch_deps(monkeypatch)
+    payload_id = "unmask-restore-id"
+    original = "Клиент Иванов Иван Иванович, паспорт 4509 123456"
 
-    # Сначала зарегистрируем payload_id
-    client.post(
+    mask_resp = client.post(
         "/process",
-        json={"payload": "Иванов Иван Иванович, паспорт 4509 123456", "payload_id": payload_id},
+        json={"payload": original, "payload_id": payload_id},
     )
+    assert mask_resp.status_code == 200
+    masked_text = mask_resp.json()["masked_text"]
 
-    # Отправляем несовпадающую строку
+    # Демаскирование по замаскированному тексту
+    unmask_resp = client.post(
+        "/process",
+        json={"payload": masked_text, "payload_id": payload_id},
+    )
+    assert unmask_resp.status_code == 200
+    assert unmask_resp.json()["results"] == original
+
+
+def test_process_unmask_multiple_replacements(monkeypatch) -> None:
+    """Несколько масок в тексте восстанавливаются в правильном порядке."""
+    fake_orchestrator, _ = _patch_deps(
+        monkeypatch,
+        fake_orchestrator=FakeOrchestrator(
+            result={
+                "regex": {
+                    "result": [
+                        {
+                            "text": "Иванов Иван",
+                            "type": ["FIO"],
+                            "score": 1.0,
+                            "slice": [0, 11],
+                            "will_be_used": True,
+                        },
+                        {
+                            "text": "+7 900 123-45-67",
+                            "type": ["PHONE"],
+                            "score": 1.0,
+                            "slice": [18, 33],
+                            "will_be_used": True,
+                        },
+                    ],
+                    "elapsed": 0.1,
+                }
+            }
+        ),
+    )
+    payload_id = "unmask-multi-id"
+    original = "Иванов Иван, тел. +7 900 123-45-67"
+
+    mask_resp = client.post(
+        "/process",
+        json={"payload": original, "payload_id": payload_id},
+    )
+    assert mask_resp.status_code == 200
+    body = mask_resp.json()
+    assert len(body["replacements"]) == 2
+
+    unmask_resp = client.post(
+        "/process",
+        json={"payload": body["masked_text"], "payload_id": payload_id},
+    )
+    assert unmask_resp.status_code == 200
+    assert unmask_resp.json()["results"] == original
+
+
+def test_process_unmask_unknown_payload_id_masks_instead(monkeypatch) -> None:
+    """Неизвестный payload_id трактуется как маскирование (новая запись)."""
+    fake_orchestrator, _ = _patch_deps(monkeypatch)
     resp = client.post(
         "/process",
-        json={"payload": "Совсем другая строка", "payload_id": payload_id},
+        json={"payload": "Иванов Иван", "payload_id": "never-registered"},
     )
-    assert resp.status_code == 400
+    assert resp.status_code == 200
+    assert resp.json()["masked_text"] == "{{ FIO 1 }}"
+
+
+def test_process_unmask_non_string_payload_returns_422(monkeypatch) -> None:
+    """payload_id известен, но payload не строка и не валидный dict — 422."""
+    fake_orchestrator, _ = _patch_deps(monkeypatch)
+    payload_id = "non-string-id"
+    client.post(
+        "/process",
+        json={"payload": "Иванов Иван", "payload_id": payload_id},
+    )
+
+    resp = client.post(
+        "/process",
+        json={"payload": {"some": "dict"}, "payload_id": payload_id},
+    )
+    assert resp.status_code == 422
 
 
 def test_process_missing_fields_returns_422() -> None:
