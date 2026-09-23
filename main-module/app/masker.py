@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 
+from app.postprocess import filter_fio_entities
+
 EXPLICIT_PII_TYPES = {
     "FIO",
     "PHONE",
@@ -56,7 +58,7 @@ def mask_text(text: str, results: dict[str, dict]) -> MaskResult:
         result = entry.get("result")
         if result is None:
             continue
-        for entity in result:
+        for entity in filter_fio_entities(result):
             if _is_explicit(entity):
                 entities.append((service, entity))
 
