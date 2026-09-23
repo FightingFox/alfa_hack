@@ -58,14 +58,14 @@
         "textMode": "auto"
       },
       "pluginVersion": "10.0.0",
-      "targets": [
-        {
-          "expr": "up",
-          "legendFormat": "{{job}}",
-          "refId": "A"
-        }
-      ],
-      "title": "Статус сервисов (up)",
+"targets": [
+    {
+      "expr": "min(up) by (job)",
+      "legendFormat": "{{job}}",
+      "refId": "A"
+    }
+  ],
+  "title": "Статус сервисов (up)",
       "type": "stat"
     },
     {

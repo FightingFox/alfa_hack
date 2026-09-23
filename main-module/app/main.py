@@ -26,6 +26,7 @@ def create_app() -> FastAPI:
         version="0.1.0",
         debug=settings.debug,
         lifespan=lifespan,
+        root_path=settings.root_path,
     )
 
     app.include_router(health.router)

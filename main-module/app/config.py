@@ -40,6 +40,11 @@ class Settings(BaseSettings):
     workers: int = 4
     log_level: str = "info"
 
+    # Префикс пути, под которым сервис доступен через балансировщик
+    # (например, "/main-module"). Используется для генерации корректных
+    # URL в Swagger UI / OpenAPI-спецификации.
+    root_path: str = ""
+
     # Внешние сервисы маскирования (REST и/или WebSocket)
     masking_services: list[MaskingServiceConfig] = [
         MaskingServiceConfig(name="default", protocol="rest", url="http://localhost:9000")
