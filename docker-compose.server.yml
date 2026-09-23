@@ -1,0 +1,80 @@
+services:
+  main-module:
+    image: cr.yandex/crpjr8em43c2vgubc740/main-module:latest
+    container_name: main-module
+    ports:
+      - "8000:8000"
+    environment:
+      APP_ENV: production
+      DEBUG: "false"
+      HOST: 0.0.0.0
+      PORT: 8000
+      WORKERS: 4
+      REDIS_URL: redis://redis:6379/0
+      MASKING_SERVICES: '[{"name":"regex","protocol":"websocket","url":"ws://load-balancer/regex-module/scan","timeout":10.0,"pool":{"min_connections":4,"max_connections":64}},{"name":"llm","protocol":"rest","url":"http://load-balancer/llm-service/process","timeout":10.0},{"name":"gliner","protocol":"rest","url":"http://load-balancer/gliner-famous/process","timeout":10.0},{"name":"ml","protocol":"rest","url":"http://load-balancer/ml-for-all-types/process","timeout":10.0}]'
+    depends_on:
+      redis:
+        condition: service_healthy
+      load-balancer:
+        condition: service_started
+    restart: unless-stopped
+
+  regex-module:
+    image: cr.yandex/crpjr8em43c2vgubc740/regex-module:latest
+    container_name: regex-module
+    expose:
+      - "8000"
+    restart: unless-stopped
+
+  llm-service:
+    image: cr.yandex/crpjr8em43c2vgubc740/llm-service:latest
+    container_name: llm-service
+    env_file:
+      - ./llm_service.env
+    expose:
+      - "8000"
+    restart: unless-stopped
+
+  gliner-famous:
+    image: cr.yandex/crpjr8em43c2vgubc740/gliner-famous:latest
+    container_name: gliner-famous
+    expose:
+      - "8000"
+    restart: unless-stopped
+
+  ml-for-all-types:
+    image: cr.yandex/crpjr8em43c2vgubc740/ml-for-all-types:latest
+    container_name: ml-for-all-types
+    expose:
+      - "8000"
+    restart: unless-stopped
+
+  load-balancer:
+    image: cr.yandex/crpjr8em43c2vgubc740/load-balancer:latest
+    container_name: load-balancer
+    ports:
+      - "8080:80"
+    environment:
+      GLINER_BACKENDS: "gliner-famous:8000"
+      LLM_BACKENDS: "llm-service:8000"
+      REGEX_BACKENDS: "regex-module:8000"
+      MAIN_BACKENDS: "main-module:8000"
+      ML_BACKENDS: "ml-for-all-types:8000"
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: main-module-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  redis-data:

@@ -8,6 +8,8 @@ training_data/
 .pytest_cache/
 .ruff_cache/
 .env
+llm_service.env
+.docker-certs/
 *.egg-info/
 dist/
 build/
