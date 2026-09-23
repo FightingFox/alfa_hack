@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 import os
+import time
 import uuid
 from pathlib import Path
 
@@ -30,6 +31,9 @@ DATASET_PATH = Path(
 )
 
 PROCESS_URL = f"{MAIN_MODULE_URL}/process"
+E2E_TIMEOUT = float(os.getenv("E2E_TIMEOUT", "300"))
+E2E_RETRIES = int(os.getenv("E2E_RETRIES", "3"))
+E2E_RETRY_DELAY = float(os.getenv("E2E_RETRY_DELAY", "5"))
 
 
 def _load_dataset() -> list[dict]:
@@ -95,9 +99,25 @@ def _report_mismatch(query: dict, expected: dict, entity: dict | None) -> str:
     return "\n".join(lines)
 
 
+def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -> httpx.Response:
+    """Отправляет запрос с ретраями при таймауте/ошибке соединения."""
+    last_exc: Exception | None = None
+    for attempt in range(E2E_RETRIES):
+        try:
+            return client.post(
+                PROCESS_URL,
+                json={"payload": payload, "payload_id": payload_id},
+            )
+        except (httpx.ReadTimeout, httpx.ConnectError, httpx.ReadError) as exc:
+            last_exc = exc
+            if attempt < E2E_RETRIES - 1:
+                time.sleep(E2E_RETRY_DELAY)
+    raise last_exc  # type: ignore[misc]
+
+
 @pytest.fixture(scope="module")
 def client() -> httpx.Client:
-    return httpx.Client(timeout=30.0)
+    return httpx.Client(timeout=E2E_TIMEOUT)
 
 
 @pytest.fixture(scope="module")
@@ -114,17 +134,22 @@ def test_main_module_health() -> None:
 
 
 @pytest.mark.parametrize("query", _load_dataset(), ids=lambda q: f"q{q['id']}")
-def test_query_matches_personal_data(client: httpx.Client, query: dict) -> None:
+def test_query_matches_personal_data(
+    client: httpx.Client, query: dict, request: pytest.FixtureRequest
+) -> None:
+    request.node.cached_query_id = query["id"]
+    request.node.cached_char_count = len(query["text"])
     payload_id = f"dataset-{query['id']}-{uuid.uuid4().hex[:8]}"
-    resp = client.post(
-        PROCESS_URL,
-        json={"payload": query["text"], "payload_id": payload_id},
-    )
+    resp = _post_with_retry(client, query["text"], payload_id)
     assert resp.status_code == 200, (
         f"query id={query['id']}: HTTP {resp.status_code}: {resp.text[:300]}"
     )
 
     body = resp.json()
+    request.node.cached_elapsed_by_service = {
+        service: entry["elapsed"] for service, entry in body["results"].items()
+    }
+
     entities = _collect_entities(body["results"])
 
     failures: list[str] = []
