@@ -19,78 +19,1846 @@
 </head>
 <body>
 <h1>E2E отчёт: время работы сервисов</h1>
-<p>Всего тестов: <b>68</b>; успешно: <b class='ok'>68</b>; неудачно: <b class='fail'>0</b></p>
+<p>Всего тестов: <b>68</b>; успешно: <b class='ok'>0</b>; неудачно: <b class='fail'>68</b></p>
 <table>
-<thead><tr><th>Тест</th><th>Символов</th><th>regex</th><th>ml</th><th>llm</th><th>gliner</th><th>Результат</th></tr></thead>
+<thead><tr><th>Тест</th><th>Символов</th><th>Результат</th></tr></thead>
 <tbody>
-<tr><td>q1</td><td>101</td><td class="time">0.173 с</td><td class="time">0.527 с</td><td class="time">0.706 с</td><td class="time">3.618 с</td><td class="ok">OK</td></tr>
-<tr><td>q2</td><td>153</td><td class="time">0.065 с</td><td class="time">0.166 с</td><td class="time">0.171 с</td><td class="time">2.723 с</td><td class="ok">OK</td></tr>
-<tr><td>q3</td><td>170</td><td class="time">0.028 с</td><td class="time">0.059 с</td><td class="time">0.149 с</td><td class="time">2.666 с</td><td class="ok">OK</td></tr>
-<tr><td>q16</td><td>153</td><td class="time">0.026 с</td><td class="time">0.046 с</td><td class="time">0.107 с</td><td class="time">2.941 с</td><td class="ok">OK</td></tr>
-<tr><td>q17</td><td>264</td><td class="time">0.087 с</td><td class="time">0.068 с</td><td class="time">0.157 с</td><td class="time">2.275 с</td><td class="ok">OK</td></tr>
-<tr><td>q18</td><td>232</td><td class="time">0.014 с</td><td class="time">0.047 с</td><td class="time">0.119 с</td><td class="time">2.808 с</td><td class="ok">OK</td></tr>
-<tr><td>q19</td><td>144</td><td class="time">0.033 с</td><td class="time">0.050 с</td><td class="time">0.118 с</td><td class="time">2.618 с</td><td class="ok">OK</td></tr>
-<tr><td>q20</td><td>262</td><td class="time">0.018 с</td><td class="time">0.060 с</td><td class="time">0.160 с</td><td class="time">2.659 с</td><td class="ok">OK</td></tr>
-<tr><td>q36</td><td>122</td><td class="time">0.022 с</td><td class="time">0.035 с</td><td class="time">0.113 с</td><td class="time">2.102 с</td><td class="ok">OK</td></tr>
-<tr><td>q37</td><td>139</td><td class="time">0.019 с</td><td class="time">0.036 с</td><td class="time">0.135 с</td><td class="time">2.312 с</td><td class="ok">OK</td></tr>
-<tr><td>q38</td><td>139</td><td class="time">0.042 с</td><td class="time">0.038 с</td><td class="time">0.126 с</td><td class="time">2.770 с</td><td class="ok">OK</td></tr>
-<tr><td>q45</td><td>161</td><td class="time">0.049 с</td><td class="time">0.095 с</td><td class="time">0.178 с</td><td class="time">3.327 с</td><td class="ok">OK</td></tr>
-<tr><td>q46</td><td>140</td><td class="time">0.067 с</td><td class="time">0.045 с</td><td class="time">0.147 с</td><td class="time">3.033 с</td><td class="ok">OK</td></tr>
-<tr><td>q51</td><td>138</td><td class="time">0.063 с</td><td class="time">0.062 с</td><td class="time">0.141 с</td><td class="time">2.760 с</td><td class="ok">OK</td></tr>
-<tr><td>q55</td><td>1515</td><td class="time">0.130 с</td><td class="time">0.672 с</td><td class="time">0.137 с</td><td class="time">8.984 с</td><td class="ok">OK</td></tr>
-<tr><td>q59</td><td>4801</td><td class="time">0.165 с</td><td class="time">0.942 с</td><td class="time">0.117 с</td><td class="time">30.338 с</td><td class="ok">OK</td></tr>
-<tr><td>q63</td><td>2994</td><td class="time">0.084 с</td><td class="time">0.568 с</td><td class="time">0.206 с</td><td class="time">37.289 с</td><td class="ok">OK</td></tr>
-<tr><td>q67</td><td>4261</td><td class="time">0.409 с</td><td class="time">1.583 с</td><td class="time">0.410 с</td><td class="time">0.147 с</td><td class="ok">OK</td></tr>
-<tr><td>q4</td><td>317</td><td class="time">0.111 с</td><td class="time">0.464 с</td><td class="time">0.810 с</td><td class="time">3.581 с</td><td class="ok">OK</td></tr>
-<tr><td>q5</td><td>334</td><td class="time">0.022 с</td><td class="time">0.132 с</td><td class="time">0.187 с</td><td class="time">3.284 с</td><td class="ok">OK</td></tr>
-<tr><td>q6</td><td>70</td><td class="time">0.007 с</td><td class="time">0.014 с</td><td class="time">0.130 с</td><td class="time">2.652 с</td><td class="ok">OK</td></tr>
-<tr><td>q7</td><td>491</td><td class="time">0.072 с</td><td class="time">0.146 с</td><td class="time">0.190 с</td><td class="time">5.032 с</td><td class="ok">OK</td></tr>
-<tr><td>q21</td><td>166</td><td class="time">0.012 с</td><td class="time">0.040 с</td><td class="time">0.165 с</td><td class="time">2.568 с</td><td class="ok">OK</td></tr>
-<tr><td>q22</td><td>139</td><td class="time">0.006 с</td><td class="time">0.035 с</td><td class="time">0.127 с</td><td class="time">2.451 с</td><td class="ok">OK</td></tr>
-<tr><td>q23</td><td>267</td><td class="time">0.016 с</td><td class="time">0.049 с</td><td class="time">0.128 с</td><td class="time">2.991 с</td><td class="ok">OK</td></tr>
-<tr><td>q24</td><td>171</td><td class="time">0.008 с</td><td class="time">0.040 с</td><td class="time">0.137 с</td><td class="time">2.603 с</td><td class="ok">OK</td></tr>
-<tr><td>q25</td><td>227</td><td class="time">0.008 с</td><td class="time">0.042 с</td><td class="time">0.125 с</td><td class="time">2.843 с</td><td class="ok">OK</td></tr>
-<tr><td>q41</td><td>144</td><td class="time">0.030 с</td><td class="time">0.057 с</td><td class="time">0.158 с</td><td class="time">4.087 с</td><td class="ok">OK</td></tr>
-<tr><td>q42</td><td>151</td><td class="time">0.011 с</td><td class="time">0.034 с</td><td class="time">0.135 с</td><td class="time">3.036 с</td><td class="ok">OK</td></tr>
-<tr><td>q49</td><td>223</td><td class="time">0.012 с</td><td class="time">0.178 с</td><td class="time">0.207 с</td><td class="time">3.499 с</td><td class="ok">OK</td></tr>
-<tr><td>q53</td><td>315</td><td class="time">0.145 с</td><td class="time">0.202 с</td><td class="time">0.148 с</td><td class="time">6.035 с</td><td class="ok">OK</td></tr>
-<tr><td>q58</td><td>1612</td><td class="time">0.090 с</td><td class="time">0.293 с</td><td class="time">0.194 с</td><td class="time">9.501 с</td><td class="ok">OK</td></tr>
-<tr><td>q61</td><td>3333</td><td class="time">0.109 с</td><td class="time">0.572 с</td><td class="time">0.162 с</td><td class="time">34.859 с</td><td class="ok">OK</td></tr>
-<tr><td>q65</td><td>3200</td><td class="time">0.257 с</td><td class="time">0.873 с</td><td class="time">0.558 с</td><td class="time">26.168 с</td><td class="ok">OK</td></tr>
-<tr><td>q8</td><td>599</td><td class="time">0.222 с</td><td class="time">0.585 с</td><td class="time">0.737 с</td><td class="time">4.287 с</td><td class="ok">OK</td></tr>
-<tr><td>q9</td><td>155</td><td class="time">0.037 с</td><td class="time">0.041 с</td><td class="time">0.187 с</td><td class="time">2.825 с</td><td class="ok">OK</td></tr>
-<tr><td>q10</td><td>144</td><td class="time">0.028 с</td><td class="time">0.038 с</td><td class="time">0.129 с</td><td class="time">2.760 с</td><td class="ok">OK</td></tr>
-<tr><td>q11</td><td>139</td><td class="time">0.051 с</td><td class="time">0.049 с</td><td class="time">0.134 с</td><td class="time">2.752 с</td><td class="ok">OK</td></tr>
-<tr><td>q30</td><td>239</td><td class="time">0.031 с</td><td class="time">0.053 с</td><td class="time">0.139 с</td><td class="time">2.350 с</td><td class="ok">OK</td></tr>
-<tr><td>q31</td><td>154</td><td class="time">0.040 с</td><td class="time">0.041 с</td><td class="time">0.122 с</td><td class="time">2.464 с</td><td class="ok">OK</td></tr>
-<tr><td>q32</td><td>170</td><td class="time">0.057 с</td><td class="time">0.037 с</td><td class="time">0.123 с</td><td class="time">2.526 с</td><td class="ok">OK</td></tr>
-<tr><td>q33</td><td>152</td><td class="time">0.061 с</td><td class="time">0.062 с</td><td class="time">0.134 с</td><td class="time">2.584 с</td><td class="ok">OK</td></tr>
-<tr><td>q34</td><td>154</td><td class="time">0.027 с</td><td class="time">0.042 с</td><td class="time">0.118 с</td><td class="time">2.856 с</td><td class="ok">OK</td></tr>
-<tr><td>q35</td><td>120</td><td class="time">0.038 с</td><td class="time">0.055 с</td><td class="time">0.146 с</td><td class="time">2.540 с</td><td class="ok">OK</td></tr>
-<tr><td>q43</td><td>171</td><td class="time">0.036 с</td><td class="time">0.045 с</td><td class="time">0.119 с</td><td class="time">3.872 с</td><td class="ok">OK</td></tr>
-<tr><td>q44</td><td>150</td><td class="time">0.024 с</td><td class="time">0.035 с</td><td class="time">0.147 с</td><td class="time">2.762 с</td><td class="ok">OK</td></tr>
-<tr><td>q48</td><td>152</td><td class="time">0.057 с</td><td class="time">0.074 с</td><td class="time">0.165 с</td><td class="time">2.736 с</td><td class="ok">OK</td></tr>
-<tr><td>q52</td><td>266</td><td class="time">0.047 с</td><td class="time">0.051 с</td><td class="time">0.139 с</td><td class="time">3.739 с</td><td class="ok">OK</td></tr>
-<tr><td>q56</td><td>1514</td><td class="time">0.169 с</td><td class="time">0.335 с</td><td class="time">0.178 с</td><td class="time">9.813 с</td><td class="ok">OK</td></tr>
-<tr><td>q60</td><td>4447</td><td class="time">0.155 с</td><td class="time">0.651 с</td><td class="time">0.141 с</td><td class="time">33.654 с</td><td class="ok">OK</td></tr>
-<tr><td>q64</td><td>3316</td><td class="time">0.205 с</td><td class="time">0.897 с</td><td class="time">0.252 с</td><td class="time">30.687 с</td><td class="ok">OK</td></tr>
-<tr><td>q68</td><td>3655</td><td class="time">0.482 с</td><td class="time">1.429 с</td><td class="time">0.440 с</td><td class="time">0.276 с</td><td class="ok">OK</td></tr>
-<tr><td>q12</td><td>182</td><td class="time">0.144 с</td><td class="time">0.456 с</td><td class="time">0.825 с</td><td class="time">3.667 с</td><td class="ok">OK</td></tr>
-<tr><td>q13</td><td>218</td><td class="time">0.094 с</td><td class="time">0.172 с</td><td class="time">0.281 с</td><td class="time">2.915 с</td><td class="ok">OK</td></tr>
-<tr><td>q14</td><td>251</td><td class="time">0.042 с</td><td class="time">0.060 с</td><td class="time">0.126 с</td><td class="time">3.040 с</td><td class="ok">OK</td></tr>
-<tr><td>q15</td><td>207</td><td class="time">0.071 с</td><td class="time">0.097 с</td><td class="time">0.172 с</td><td class="time">4.812 с</td><td class="ok">OK</td></tr>
-<tr><td>q26</td><td>205</td><td class="time">0.063 с</td><td class="time">0.044 с</td><td class="time">0.139 с</td><td class="time">2.958 с</td><td class="ok">OK</td></tr>
-<tr><td>q27</td><td>193</td><td class="time">0.022 с</td><td class="time">0.040 с</td><td class="time">0.142 с</td><td class="time">2.552 с</td><td class="ok">OK</td></tr>
-<tr><td>q28</td><td>289</td><td class="time">0.030 с</td><td class="time">0.068 с</td><td class="time">0.128 с</td><td class="time">2.690 с</td><td class="ok">OK</td></tr>
-<tr><td>q29</td><td>201</td><td class="time">0.029 с</td><td class="time">0.059 с</td><td class="time">0.115 с</td><td class="time">2.615 с</td><td class="ok">OK</td></tr>
-<tr><td>q39</td><td>128</td><td class="time">0.054 с</td><td class="time">0.038 с</td><td class="time">0.143 с</td><td class="time">2.904 с</td><td class="ok">OK</td></tr>
-<tr><td>q40</td><td>158</td><td class="time">0.018 с</td><td class="time">0.040 с</td><td class="time">0.138 с</td><td class="time">4.087 с</td><td class="ok">OK</td></tr>
-<tr><td>q47</td><td>150</td><td class="time">0.031 с</td><td class="time">0.042 с</td><td class="time">0.154 с</td><td class="time">2.930 с</td><td class="ok">OK</td></tr>
-<tr><td>q50</td><td>242</td><td class="time">0.061 с</td><td class="time">0.131 с</td><td class="time">0.170 с</td><td class="time">3.418 с</td><td class="ok">OK</td></tr>
-<tr><td>q54</td><td>1545</td><td class="time">0.169 с</td><td class="time">0.585 с</td><td class="time">0.196 с</td><td class="time">9.060 с</td><td class="ok">OK</td></tr>
-<tr><td>q57</td><td>1403</td><td class="time">0.039 с</td><td class="time">0.469 с</td><td class="time">0.151 с</td><td class="time">8.216 с</td><td class="ok">OK</td></tr>
-<tr><td>q62</td><td>3508</td><td class="time">0.063 с</td><td class="time">0.499 с</td><td class="time">0.128 с</td><td class="time">36.723 с</td><td class="ok">OK</td></tr>
-<tr><td>q66</td><td>4320</td><td class="time">0.085 с</td><td class="time">0.832 с</td><td class="time">0.135 с</td><td class="time">22.781 с</td><td class="ok">OK</td></tr>
+<tr><td>q1</td><td>101</td><td class="fail" title="client = &lt;httpx.Client object at 0x10681a1f0&gt;
+query = {&#x27;id&#x27;: 1, &#x27;length_sentences&#x27;: 1, &#x27;personal_data&#x27;: [{&#x27;slice&#x27;: [43, 55], &#x27;type&#x27;: &#x27;INN&#x27;, &#x27;value&#x27;: &#x27;770123456789&#x27;}], &#x27;text&#x27;: &#x27;Привет! Подскажи, пожалуйста, мой ИНН 770123456789 — я его забыл, можешь напомнить, что это за номер?&#x27;}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q1]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x10681a1f0&gt;
+payload = &#x27;Привет! Подскажи, пожалуйста, мой ИНН 770123456789 — я его забыл, можешь напомнить, что это за номер?&#x27;
+payload_id = &#x27;dataset-1-41474253&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q43</td><td>171</td><td class="fail" title="client = &lt;httpx.Client object at 0x10681a1f0&gt;
+query = {&#x27;category&#x27;: &#x27;dummy&#x27;, &#x27;id&#x27;: 43, &#x27;length_words&#x27;: 42, &#x27;personal_data&#x27;: [], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q43]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x10681a1f0&gt;
+payload = &#x27;Помоги составить план тренировок на неделю для начинающего. У меня есть доступ только к базовому оборудованию: гантели, скакалка, турник. Цель — общее укрепление здоровья.&#x27;
+payload_id = &#x27;dataset-43-703ac933&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q61</td><td>3333</td><td class="fail" title="client = &lt;httpx.Client object at 0x10681a1f0&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 61, &#x27;length_words&#x27;: 1057, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Сергей ...11 1111 1111 1111&#x27;}, {&#x27;type&#x27;: &#x27;SNILS&#x27;, &#x27;value&#x27;: &#x27;112-233-445 95&#x27;}, {&#x27;type&#x27;: &#x27;PHONE&#x27;, &#x27;value&#x27;: &#x27;8 495 123-45-67&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q61]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x10681a1f0&gt;
+payload = &#x27;Приветствую! Я пишу к вам с просьбой, которая, возможно, покажется необычной, но для меня она крайне важна. Я работаю...й ответ, поскольку от качества этих материалов зависит финансовое благополучие многих людей, которые будут их изучать.&#x27;
+payload_id = &#x27;dataset-61-f7404839&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q2</td><td>153</td><td class="fail" title="client = &lt;httpx.Client object at 0x124f0bc70&gt;
+query = {&#x27;id&#x27;: 2, &#x27;length_sentences&#x27;: 3, &#x27;personal_data&#x27;: [{&#x27;slice&#x27;: [66, 85], &#x27;type&#x27;: &#x27;EMAIL&#x27;, &#x27;value&#x27;: &#x27;ivan.petrov@mail.ru&#x27;...зюме, вот мои контакты: ivan.petrov@mail.ru и телефон +7 (916) 123-45-67. Ещё укажите, пожалуйста, что я Иван Петров.&#x27;}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q2]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x124f0bc70&gt;
+payload = &#x27;Здравствуйте. Мне нужно отправить резюме, вот мои контакты: ivan.petrov@mail.ru и телефон +7 (916) 123-45-67. Ещё укажите, пожалуйста, что я Иван Петров.&#x27;
+payload_id = &#x27;dataset-2-51ea5204&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q3</td><td>170</td><td class="fail" title="client = &lt;httpx.Client object at 0x124f0bc70&gt;
+query = {&#x27;id&#x27;: 3, &#x27;length_sentences&#x27;: 5, &#x27;personal_data&#x27;: [{&#x27;slice&#x27;: [32, 51], &#x27;type&#x27;: &#x27;CARD_NUMBER&#x27;, &#x27;value&#x27;: &#x27;4111 1111 1111... срок действия 12/26. CVV 123, пин-код 1234. Cardholder IVAN PETROV. Помогите разобраться, почему платёж не проходит?&#x27;}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q3]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x124f0bc70&gt;
+payload = &#x27;У меня проблема с оплатой. Карта 4111 1111 1111 1111, срок действия 12/26. CVV 123, пин-код 1234. Cardholder IVAN PETROV. Помогите разобраться, почему платёж не проходит?&#x27;
+payload_id = &#x27;dataset-3-3dc1c11d&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q23</td><td>267</td><td class="fail" title="client = &lt;httpx.Client object at 0x124f0bc70&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 23, &#x27;length_words&#x27;: 61, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Иван Петр...5 95&#x27;}, {&#x27;type&#x27;: &#x27;PHONE&#x27;, &#x27;value&#x27;: &#x27;+7 (916) 123-45-67&#x27;}, {&#x27;type&#x27;: &#x27;EMAIL&#x27;, &#x27;value&#x27;: &#x27;ivan.petrov@mail.ru&#x27;}, ...], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q23]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x124f0bc70&gt;
+payload = &#x27;Добрый день! Я подаю заявление на визу. Мои данные: ФИО Иван Петров, загранпаспорт 75 №1234567, ИНН 770123456789, СНИ...16) 123-45-67, email ivan.petrov@mail.ru. Карта 4111 1111 1111 1111 для оплаты. Cardholder IVAN PETROV. Что ещё нужно?&#x27;
+payload_id = &#x27;dataset-23-4c6ac7f0&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q36</td><td>122</td><td class="fail" title="client = &lt;httpx.Client object at 0x124f0bc70&gt;
+query = {&#x27;category&#x27;: &#x27;public_figures&#x27;, &#x27;id&#x27;: 36, &#x27;length_words&#x27;: 36, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Антон Павлович Чехов&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q36]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x124f0bc70&gt;
+payload = &#x27;Антон Павлович Чехов родился 29 января 1860 года. Какую пьесу он написал последней? И в каком году состоялась её премьера?&#x27;
+payload_id = &#x27;dataset-36-edb66806&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q41</td><td>144</td><td class="fail" title="client = &lt;httpx.Client object at 0x124f0bc70&gt;
+query = {&#x27;category&#x27;: &#x27;dummy&#x27;, &#x27;id&#x27;: 41, &#x27;length_words&#x27;: 34, &#x27;personal_data&#x27;: [], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q41]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x124f0bc70&gt;
+payload = &#x27;Расскажи, пожалуйста, как работает искусственный интеллект. Какие основные принципы машинного обучения? И какие существуют виды нейронных сетей?&#x27;
+payload_id = &#x27;dataset-41-d371d2f6&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q51</td><td>138</td><td class="fail" title="client = &lt;httpx.Client object at 0x124f0bc70&gt;
+query = {&#x27;category&#x27;: &#x27;public_figures&#x27;, &#x27;id&#x27;: 51, &#x27;length_words&#x27;: 46, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Сергее Александровиче Есенине&#x27;}, {&#x27;type&#x27;: &#x27;DATE&#x27;, &#x27;value&#x27;: &#x27;01-05-1901&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q51]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x124f0bc70&gt;
+payload = &#x27;Привет! Я пишу статью о Сергее Александровиче Есенине. Подскажи, где он жил с 01-05-1901 года? Адрес его музея Москва ул. Новоогорева 36? &#x27;
+payload_id = &#x27;dataset-51-236094ab&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q60</td><td>4447</td><td class="fail" title="client = &lt;httpx.Client object at 0x124f0bc70&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 60, &#x27;length_words&#x27;: 1128, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Анна См...33-445 95&#x27;}, {&#x27;type&#x27;: &#x27;PHONE&#x27;, &#x27;value&#x27;: &#x27;+44 20 7946 0958&#x27;}, {&#x27;type&#x27;: &#x27;EMAIL&#x27;, &#x27;value&#x27;: &#x27;anna.smirnova@mail.ru&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q60]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x124f0bc70&gt;
+payload = &#x27;Здравствуйте! Прежде всего хочу поблагодарить вас за возможность обратиться с таким объёмным и подробным запросом, по...ёрнутый ответ, поскольку от качества этого документа зависит эффективность работы всей сети и доверие наших пациентов.&#x27;
+payload_id = &#x27;dataset-60-5facc36e&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q4</td><td>317</td><td class="fail" title="client = &lt;httpx.Client object at 0x1051df5e0&gt;
+query = {&#x27;id&#x27;: 4, &#x27;length_sentences&#x27;: 8, &#x27;personal_data&#x27;: [{&#x27;slice&#x27;: [53, 66], &#x27;type&#x27;: &#x27;MILITARY_ID&#x27;, &#x27;value&#x27;: &#x27;АБ 12 1234567&#x27;...ждении I-МЮ №123456. Миграционная карта 0012345678. Подскажите, какие документы нужно предъявить при трудоустройстве?&#x27;}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q4]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x1051df5e0&gt;
+payload = &#x27;Добрый день. Я военнообязанный, мой военный билет АБ 12 1234567. Также у меня есть загранпаспорт 75 №1234567. СНИЛС 1...ождении I-МЮ №123456. Миграционная карта 0012345678. Подскажите, какие документы нужно предъявить при трудоустройстве?&#x27;
+payload_id = &#x27;dataset-4-d6112713&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q5</td><td>334</td><td class="fail" title="client = &lt;httpx.Client object at 0x1051df5e0&gt;
+query = {&#x27;id&#x27;: 5, &#x27;length_sentences&#x27;: 12, &#x27;personal_data&#x27;: [{&#x27;slice&#x27;: [61, 74], &#x27;type&#x27;: &#x27;IP_ADDRESS&#x27;, &#x27;value&#x27;: &#x27;192.168.1.105&#x27;...456789. Карта 4111 1111 1111 1111. CVV 123. Пин-код 1234. Cardholder PETR IVANOV. Помогите с настройкой безопасности.&#x27;}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q5]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x1051df5e0&gt;
+payload = &#x27;Привет. Я хочу настроить сервер. Мой IP-адрес 192.168.1.105. MAC-адрес 00:1A:2B:3C:4D:5E. Логин в соцсети @petr_ivano...3456789. Карта 4111 1111 1111 1111. CVV 123. Пин-код 1234. Cardholder PETR IVANOV. Помогите с настройкой безопасности.&#x27;
+payload_id = &#x27;dataset-5-6398cff6&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q28</td><td>289</td><td class="fail" title="client = &lt;httpx.Client object at 0x1051df5e0&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 28, &#x27;length_words&#x27;: 58, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Сергей Ку...&#x27;}, {&#x27;type&#x27;: &#x27;MILITARY_ID&#x27;, &#x27;value&#x27;: &#x27;АБ 12 1234567&#x27;}, {&#x27;type&#x27;: &#x27;FOREIGN_PASSPORT&#x27;, &#x27;value&#x27;: &#x27;75 №1234567&#x27;}, ...], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q28]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x1051df5e0&gt;
+payload = &#x27;Здравствуйте! Я собираю пакет документов для наследства. ФИО Сергей Кузнецов, ИНН 770123456789, СНИЛС 112-233-445 95,...АБ 12 1234567, загранпаспорт 75 №1234567. Миграционная карта 0012345678. Телефон 8 495 123-45-67. Что нужно нотариусу?&#x27;
+payload_id = &#x27;dataset-28-91540adf&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q37</td><td>139</td><td class="fail" title="client = &lt;httpx.Client object at 0x1051df5e0&gt;
+query = {&#x27;category&#x27;: &#x27;public_figures&#x27;, &#x27;id&#x27;: 37, &#x27;length_words&#x27;: 39, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Марина Ивановна Цветаева&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q37]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x1051df5e0&gt;
+payload = &#x27;Марина Ивановна Цветаева родилась 8 октября 1892 года. Какие стихи она написала в эмиграции? И как её творчество связано с Сергеем Эфроном?&#x27;
+payload_id = &#x27;dataset-37-9bebd930&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q47</td><td>150</td><td class="fail" title="client = &lt;httpx.Client object at 0x1051df5e0&gt;
+query = {&#x27;category&#x27;: &#x27;dummy&#x27;, &#x27;id&#x27;: 47, &#x27;length_words&#x27;: 39, &#x27;personal_data&#x27;: [], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q47]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x1051df5e0&gt;
+payload = &#x27;Расскажи о теории относительности Эйнштейна простыми словами. Что такое пространственно-временной континуум? И как гравитация искривляет пространство?&#x27;
+payload_id = &#x27;dataset-47-a591a715&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q56</td><td>1514</td><td class="fail" title="client = &lt;httpx.Client object at 0x1051df5e0&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 56, &#x27;length_words&#x27;: 243, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;CARD_NUMBER&#x27;, &#x27;value&#x27;: &#x27;4111 1111 1111 1111&#x27;}, {&#x27;type&#x27;: &#x27;CARDHOLDER&#x27;, &#x27;value&#x27;: &#x27;IVAN PETROV&#x27;}, {&#x27;type&#x27;: &#x27;CVV&#x27;, &#x27;value&#x27;: &#x27;123&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q56]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x1051df5e0&gt;
+payload = &#x27;Приветствую! Я занимаюсь разработкой и тестированием систем информационной безопасности для крупных корпораций, и в р...ты персональных данных в корпоративной среде. Буду очень признателен за развёрнутый ответ и практические рекомендации.&#x27;
+payload_id = &#x27;dataset-56-d9f7dcc3&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q66</td><td>4320</td><td class="fail" title="client = &lt;httpx.Client object at 0x1051df5e0&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 66, &#x27;length_words&#x27;: 1038, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Анна См...000000000&#x27;}, {&#x27;type&#x27;: &#x27;PHONE&#x27;, &#x27;value&#x27;: &#x27;+44 20 7946 0958&#x27;}, {&#x27;type&#x27;: &#x27;EMAIL&#x27;, &#x27;value&#x27;: &#x27;anna.smirnova@mail.ru&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q66]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x1051df5e0&gt;
+payload = &#x27;Здравствуйте! Обращаюсь к вам с просьбой, которая связана с моей работой в сфере образования и необходимостью подгото... ответ, поскольку от качества этого документа зависит эффективность работы всего учреждения и доверие наших студентов.&#x27;
+payload_id = &#x27;dataset-66-9d01bb8c&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q6</td><td>70</td><td class="fail" title="client = &lt;httpx.Client object at 0x1089ae8b0&gt;
+query = {&#x27;id&#x27;: 6, &#x27;length_sentences&#x27;: 2, &#x27;personal_data&#x27;: [{&#x27;slice&#x27;: [25, 43], &#x27;type&#x27;: &#x27;PASSWORD&#x27;, &#x27;value&#x27;: &#x27;Qwerty!2024#Secure&#x27;}], &#x27;text&#x27;: &#x27;Как мне сменить пароль на Qwerty!2024#Secure? Я боюсь, что его украли.&#x27;}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q6]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x1089ae8b0&gt;
+payload = &#x27;Как мне сменить пароль на Qwerty!2024#Secure? Я боюсь, что его украли.&#x27;
+payload_id = &#x27;dataset-6-193a0137&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q7</td><td>491</td><td class="fail" title="client = &lt;httpx.Client object at 0x1089ae8b0&gt;
+query = {&#x27;id&#x27;: 7, &#x27;length_sentences&#x27;: 15, &#x27;personal_data&#x27;: [{&#x27;slice&#x27;: [49, 62], &#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Анна Смирнова&#x27;}, {&#x27;sl...C:DD:EE:FF. Логин в соцсети @anna_smirnova. Карта 4111 1111 1111 1111. Помогите, пожалуйста, составить план действий.&#x27;}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q7]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x1089ae8b0&gt;
+payload = &#x27;Здравствуйте, у меня много вопросов. Меня зовут Анна Смирнова. Мой email anna.smirnova@mail.ru. Телефон +44 20 7946 0...CC:DD:EE:FF. Логин в соцсети @anna_smirnova. Карта 4111 1111 1111 1111. Помогите, пожалуйста, составить план действий.&#x27;
+payload_id = &#x27;dataset-7-584769be&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q26</td><td>205</td><td class="fail" title="client = &lt;httpx.Client object at 0x1089ae8b0&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 26, &#x27;length_words&#x27;: 46, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;INN&#x27;, &#x27;value&#x27;: &#x27;770123456...&#x27;: &#x27;CVV&#x27;, &#x27;value&#x27;: &#x27;654&#x27;}, {&#x27;type&#x27;: &#x27;PIN&#x27;, &#x27;value&#x27;: &#x27;7890&#x27;}, {&#x27;type&#x27;: &#x27;CARDHOLDER&#x27;, &#x27;value&#x27;: &#x27;SERGEY KUZNETSOV&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q26]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x1089ae8b0&gt;
+payload = &#x27;Добрый вечер. Мне нужно восстановить доступ к банку. Мой ИНН 770123456789, СНИЛС 112-233-445 95. Карта 4111 1111 1111 1111. CVV 654. Пин-код 7890. Cardholder SERGEY KUZNETSOV. Помогите, пожалуйста, срочно!&#x27;
+payload_id = &#x27;dataset-26-2da269bd&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q32</td><td>170</td><td class="fail" title="client = &lt;httpx.Client object at 0x1089ae8b0&gt;
+query = {&#x27;category&#x27;: &#x27;public_figures&#x27;, &#x27;id&#x27;: 32, &#x27;length_words&#x27;: 42, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Александр Сергеевич Пушкин&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q32]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x1089ae8b0&gt;
+payload = &#x27;Александр Сергеевич Пушкин родился 6 июня 1799 года в Москве. Какое произведение он написал последним? И какие события вдохновили его на написание поэмы «Медный всадник»?&#x27;
+payload_id = &#x27;dataset-32-59944d3d&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q44</td><td>150</td><td class="fail" title="client = &lt;httpx.Client object at 0x1089ae8b0&gt;
+query = {&#x27;category&#x27;: &#x27;dummy&#x27;, &#x27;id&#x27;: 44, &#x27;length_words&#x27;: 36, &#x27;personal_data&#x27;: [], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q44]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x1089ae8b0&gt;
+payload = &#x27;Как приготовить борщ по классическому рецепту? Какие ингредиенты нужны? И сколько времени занимает приготовление? Поделись секретами вкусного бульона.&#x27;
+payload_id = &#x27;dataset-44-0d61e2c4&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q55</td><td>1515</td><td class="fail" title="client = &lt;httpx.Client object at 0x1089ae8b0&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 55, &#x27;length_words&#x27;: 231, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Анна Сми...ova@mail.ru&#x27;}, {&#x27;type&#x27;: &#x27;SNILS&#x27;, &#x27;value&#x27;: &#x27;112-233-445 95&#x27;}, {&#x27;type&#x27;: &#x27;SOCIAL_LOGIN&#x27;, &#x27;value&#x27;: &#x27;@anna_smirnova&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q55]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x1089ae8b0&gt;
+payload = &#x27;Здравствуйте! Я готовлю комплексный отчёт для крупной консалтинговой компании, которая специализируется на оптимизаци...ть в анализ, чтобы он был максимально полным и полезным для моих клиентов. Заранее благодарю за помощь и рекомендации.&#x27;
+payload_id = &#x27;dataset-55-02d2d94e&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q64</td><td>3316</td><td class="fail" title="client = &lt;httpx.Client object at 0x1089ae8b0&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 64, &#x27;length_words&#x27;: 1068, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Иван Пе...PIN&#x27;, &#x27;value&#x27;: &#x27;1234&#x27;}, {&#x27;type&#x27;: &#x27;CARDHOLDER&#x27;, &#x27;value&#x27;: &#x27;IVAN PETROV&#x27;}, {&#x27;type&#x27;: &#x27;INN&#x27;, &#x27;value&#x27;: &#x27;770123456789&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q64]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x1089ae8b0&gt;
+payload = &#x27;Добрый день! Я обращаюсь к вам с очень важной для меня просьбой, связанной с подготовкой комплексного документа, кото... развёрнутый ответ, поскольку от качества этого документа зависит доверие наших клиентов и репутация всей организации.&#x27;
+payload_id = &#x27;dataset-64-30c49484&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q8</td><td>599</td><td class="fail" title="client = &lt;httpx.Client object at 0x107f41a60&gt;
+query = {&#x27;id&#x27;: 8, &#x27;length_sentences&#x27;: 20, &#x27;personal_data&#x27;: [{&#x27;slice&#x27;: [57, 72], &#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Сергей Кузнецов&#x27;}, {&#x27;...огин в соцсети @sergey_k. Пароль Qwerty!2024#Secure. Помогите, пожалуйста, проверить, всё ли в порядке с документами.&#x27;}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q8]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x107f41a60&gt;
+payload = &#x27;Добрый день! Я готовлю документы для банка. Меня зовут Сергей Кузнецов. Мой ИНН 770123456789. СНИЛС 112-233-445 95. Т...Логин в соцсети @sergey_k. Пароль Qwerty!2024#Secure. Помогите, пожалуйста, проверить, всё ли в порядке с документами.&#x27;
+payload_id = &#x27;dataset-8-66d0007b&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q9</td><td>155</td><td class="fail" title="client = &lt;httpx.Client object at 0x107f41a60&gt;
+query = {&#x27;id&#x27;: 9, &#x27;length_sentences&#x27;: 6, &#x27;personal_data&#x27;: [{&#x27;slice&#x27;: [43, 60], &#x27;type&#x27;: &#x27;PHONE&#x27;, &#x27;value&#x27;: &#x27;+7 (916) 123-45-67&#x27;}... +7 (916) 123-45-67. Email ivan.petrov@mail.ru. ИНН 770123456789. Карта 4111 1111 1111 1111. CVV 123. Что мне делать?&#x27;}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q9]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x107f41a60&gt;
+payload = &#x27;У меня украли телефон. Вот мои данные: +7 (916) 123-45-67. Email ivan.petrov@mail.ru. ИНН 770123456789. Карта 4111 1111 1111 1111. CVV 123. Что мне делать?&#x27;
+payload_id = &#x27;dataset-9-e42e520e&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q22</td><td>139</td><td class="fail" title="client = &lt;httpx.Client object at 0x107f41a60&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 22, &#x27;length_words&#x27;: 33, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;IP_ADDRESS&#x27;, &#x27;value&#x27;: &#x27;10...:DD:EE:FF&#x27;}, {&#x27;type&#x27;: &#x27;SOCIAL_LOGIN&#x27;, &#x27;value&#x27;: &#x27;@sergey_k&#x27;}, {&#x27;type&#x27;: &#x27;PASSWORD&#x27;, &#x27;value&#x27;: &#x27;Qwerty!2024#Secure&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q22]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x107f41a60&gt;
+payload = &#x27;Помогите настроить VPN. Мой IP-адрес 10.0.0.1, MAC-адрес AA:BB:CC:DD:EE:FF. Логин @sergey_k. Пароль Qwerty!2024#Secure. Ничего не работает.&#x27;
+payload_id = &#x27;dataset-22-e0bd78df&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q30</td><td>239</td><td class="fail" title="client = &lt;httpx.Client object at 0x107f41a60&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 30, &#x27;length_words&#x27;: 50, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Анна Смир...&#x27;type&#x27;: &#x27;EMAIL&#x27;, &#x27;value&#x27;: &#x27;anna.smirnova@mail.ru&#x27;}, {&#x27;type&#x27;: &#x27;CARD_NUMBER&#x27;, &#x27;value&#x27;: &#x27;4111 1111 1111 1111&#x27;}, ...], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q30]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x107f41a60&gt;
+payload = &#x27;Здравствуйте! Я оформляю кредитную карту. Меня зовут Анна Смирнова. Мой ИНН 770123456789, СНИЛС 112-233-445 95, телеф...44 20 7946 0958, email anna.smirnova@mail.ru. Карта 4111 1111 1111 1111. CVV 987. Cardholder ANNA SMIRNOVA. Что нужно?&#x27;
+payload_id = &#x27;dataset-30-93303444&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q38</td><td>139</td><td class="fail" title="client = &lt;httpx.Client object at 0x107f41a60&gt;
+query = {&#x27;category&#x27;: &#x27;public_figures&#x27;, &#x27;id&#x27;: 38, &#x27;length_words&#x27;: 34, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Сергей Александрович Есенин&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q38]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x107f41a60&gt;
+payload = &#x27;Сергей Александрович Есенин родился 3 октября 1895 года. Какое его стихотворение стало последним? И в каком отеле он провёл последнюю ночь?&#x27;
+payload_id = &#x27;dataset-38-9e304101&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q48</td><td>152</td><td class="fail" title="client = &lt;httpx.Client object at 0x107f41a60&gt;
+query = {&#x27;category&#x27;: &#x27;dummy&#x27;, &#x27;id&#x27;: 48, &#x27;length_words&#x27;: 37, &#x27;personal_data&#x27;: [], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q48]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x107f41a60&gt;
+payload = &#x27;Как научиться играть на гитаре с нуля? Какие аккорды нужно выучить первыми? И сколько времени нужно уделять практике, чтобы начать играть простые песни?&#x27;
+payload_id = &#x27;dataset-48-72ddc991&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q58</td><td>1612</td><td class="fail" title="client = &lt;httpx.Client object at 0x107f41a60&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 58, &#x27;length_words&#x27;: 252, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Пётр Сидоров&#x27;}, {&#x27;type&#x27;: &#x27;MILITARY_ID&#x27;, &#x27;value&#x27;: &#x27;АБ 12 1234567&#x27;}, {&#x27;type&#x27;: &#x27;OMS&#x27;, &#x27;value&#x27;: &#x27;5400000000000000&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q58]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x107f41a60&gt;
+payload = &#x27;Здравствуйте! Я работаю в сфере HR и в настоящее время занимаюсь оптимизацией процессов подбора персонала и оформлени...тические советы будут наиболее полезны для новых сотрудников отдела кадров. Буду очень признателен за подробный ответ.&#x27;
+payload_id = &#x27;dataset-58-64ab15ee&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q68</td><td>3655</td><td class="fail" title="client = &lt;httpx.Client object at 0x107f41a60&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 68, &#x27;length_words&#x27;: 1076, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Иван Пе...1111 1111&#x27;}, {&#x27;type&#x27;: &#x27;PHONE&#x27;, &#x27;value&#x27;: &#x27;+7 (916) 123-45-67&#x27;}, {&#x27;type&#x27;: &#x27;EMAIL&#x27;, &#x27;value&#x27;: &#x27;ivan.petrov@mail.ru&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q68]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x107f41a60&gt;
+payload = &#x27;Приветствую! Обращаюсь к вам с просьбой о помощи в подготовке большого справочного материала, который должен стать на...звёрнутый ответ, поскольку от качества этого материала зависит эффективность работы всего ведомства и доверие граждан.&#x27;
+payload_id = &#x27;dataset-68-95d5e522&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q10</td><td>144</td><td class="fail" title="client = &lt;httpx.Client object at 0x110e927f0&gt;
+query = {&#x27;id&#x27;: 10, &#x27;length_sentences&#x27;: 4, &#x27;personal_data&#x27;: [{&#x27;slice&#x27;: [51, 65], &#x27;type&#x27;: &#x27;SOCIAL_LOGIN&#x27;, &#x27;value&#x27;: &#x27;@petr_ivanov...я на сайте. Мой логин @petr_ivanov87. Пароль Qwerty!2024#Secure. IP-адрес 192.168.1.105. MAC-адрес 00:1A:2B:3C:4D:5E.&#x27;}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q10]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x110e927f0&gt;
+payload = &#x27;Мне нужно зарегистрироваться на сайте. Мой логин @petr_ivanov87. Пароль Qwerty!2024#Secure. IP-адрес 192.168.1.105. MAC-адрес 00:1A:2B:3C:4D:5E.&#x27;
+payload_id = &#x27;dataset-10-3c44826f&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q11</td><td>139</td><td class="fail" title="client = &lt;httpx.Client object at 0x110e927f0&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 11, &#x27;length_words&#x27;: 32, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;INN&#x27;, &#x27;value&#x27;: &#x27;770123456789&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q11]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x110e927f0&gt;
+payload = &#x27;Здравствуйте! Помогите, пожалуйста, разобраться с налоговым вычетом. Мой ИНН 770123456789, я хочу подать декларацию. Какие документы нужны?&#x27;
+payload_id = &#x27;dataset-11-41089da1&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q25</td><td>227</td><td class="fail" title="client = &lt;httpx.Client object at 0x110e927f0&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 25, &#x27;length_words&#x27;: 54, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Анна Смир...33-445 95&#x27;}, {&#x27;type&#x27;: &#x27;PHONE&#x27;, &#x27;value&#x27;: &#x27;+44 20 7946 0958&#x27;}, {&#x27;type&#x27;: &#x27;EMAIL&#x27;, &#x27;value&#x27;: &#x27;anna.smirnova@mail.ru&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q25]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x110e927f0&gt;
+payload = &#x27;Здравствуйте! Я оформляю медицинский полис. Меня зовут Анна Смирнова. Мой полис ОМС 5400000000000000, полис ДМС 0123456789, СНИЛС 112-233-445 95. Телефон +44 20 7946 0958. Email anna.smirnova@mail.ru. Какие ещё документы нужны?&#x27;
+payload_id = &#x27;dataset-25-7838151d&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q33</td><td>152</td><td class="fail" title="client = &lt;httpx.Client object at 0x110e927f0&gt;
+query = {&#x27;category&#x27;: &#x27;public_figures&#x27;, &#x27;id&#x27;: 33, &#x27;length_words&#x27;: 35, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Лев Николаевич Толстой&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q33]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x110e927f0&gt;
+payload = &#x27;Лев Николаевич Толстой родился 9 сентября 1828 года. Какое его произведение считается самым длинным? И сколько лет он работал над романом «Война и мир»?&#x27;
+payload_id = &#x27;dataset-33-74c6c157&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q42</td><td>151</td><td class="fail" title="client = &lt;httpx.Client object at 0x110e927f0&gt;
+query = {&#x27;category&#x27;: &#x27;dummy&#x27;, &#x27;id&#x27;: 42, &#x27;length_words&#x27;: 38, &#x27;personal_data&#x27;: [], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q42]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x110e927f0&gt;
+payload = &#x27;Объясни, пожалуйста, разницу между квантовой физикой и классической механикой. Приведи примеры явлений, которые описываются только квантовой механикой.&#x27;
+payload_id = &#x27;dataset-42-1145d138&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q53</td><td>315</td><td class="fail" title="client = &lt;httpx.Client object at 0x110e927f0&gt;
+query = {&#x27;category&#x27;: &#x27;public_figures&#x27;, &#x27;id&#x27;: 53, &#x27;length_words&#x27;: 66, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Владимире Вла...7&#x27;}, {&#x27;type&#x27;: &#x27;EMAIL&#x27;, &#x27;value&#x27;: &#x27;mayakovsky@mail.ru&#x27;}, {&#x27;type&#x27;: &#x27;SOCIAL_LOGIN&#x27;, &#x27;value&#x27;: &#x27;@vladimir_mayakovsky&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q53]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x110e927f0&gt;
+payload = &#x27;Добрый день! Я готовлю биографический очерк о Владимире Владимировиче Маяковском. Подскажите, пожалуйста, его номер т... социальных сетях @vladimir_mayakovsky, которые он использовал при жизни? Информация нужна для документального фильма.&#x27;
+payload_id = &#x27;dataset-53-c83eab3c&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q63</td><td>2994</td><td class="fail" title="client = &lt;httpx.Client object at 0x110e927f0&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 63, &#x27;length_words&#x27;: 1023, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;MILITARY_ID&#x27;, &#x27;value&#x27;: ...5 №1234567&#x27;}, {&#x27;type&#x27;: &#x27;BIRTH_CERT&#x27;, &#x27;value&#x27;: &#x27;I-МЮ №123456&#x27;}, {&#x27;type&#x27;: &#x27;MIGRATION_CARD&#x27;, &#x27;value&#x27;: &#x27;0012345678&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q63]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x110e927f0&gt;
+payload = &#x27;Здравствуйте! Хочу обратиться к вам с просьбой, которая связана с моей научной работой и необходимостью обработать бо...обный и развёрнутый ответ, поскольку от качества этого материала зависит понимание многих важных социальных процессов.&#x27;
+payload_id = &#x27;dataset-63-d6575b6b&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q12</td><td>182</td><td class="fail" title="client = &lt;httpx.Client object at 0x107306250&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 12, &#x27;length_words&#x27;: 41, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;EMAIL&#x27;, &#x27;value&#x27;: &#x27;anna.sm...mail.ru&#x27;}, {&#x27;type&#x27;: &#x27;PHONE&#x27;, &#x27;value&#x27;: &#x27;+7 (916) 123-45-67&#x27;}, {&#x27;type&#x27;: &#x27;SOCIAL_LOGIN&#x27;, &#x27;value&#x27;: &#x27;@anna_smirnova&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q12]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x107306250&gt;
+payload = &#x27;Добрый день. Мне нужно восстановить доступ к аккаунту. Моя почта anna.smirnova@mail.ru и телефон +7 (916) 123-45-67. Ещё логин @anna_smirnova. Помогите, пожалуйста, всё восстановить.&#x27;
+payload_id = &#x27;dataset-12-7ae2ab04&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q13</td><td>218</td><td class="fail" title="client = &lt;httpx.Client object at 0x107306250&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 13, &#x27;length_words&#x27;: 55, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;CARD_NUMBER&#x27;, &#x27;value&#x27;: &#x27;4...ype&#x27;: &#x27;CVV&#x27;, &#x27;value&#x27;: &#x27;456&#x27;}, {&#x27;type&#x27;: &#x27;CARDHOLDER&#x27;, &#x27;value&#x27;: &#x27;ANNA SMIRNOVA&#x27;}, {&#x27;type&#x27;: &#x27;PIN&#x27;, &#x27;value&#x27;: &#x27;5678&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q13]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x107306250&gt;
+payload = &#x27;У меня возникла проблема с банковской картой. Номер карты 4111 1111 1111 1111, срок действия 09/27, CVV 456. Cardholder ANNA SMIRNOVA. Пин-код 5678. Платёж не проходит уже второй день, помогите разобраться, пожалуйста.&#x27;
+payload_id = &#x27;dataset-13-2e253db3&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q24</td><td>171</td><td class="fail" title="client = &lt;httpx.Client object at 0x107306250&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 24, &#x27;length_words&#x27;: 38, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;EMAIL&#x27;, &#x27;value&#x27;: &#x27;petr.iv....com&#x27;}, {&#x27;type&#x27;: &#x27;PASSWORD&#x27;, &#x27;value&#x27;: &#x27;Qwerty!2024#Secure&#x27;}, {&#x27;type&#x27;: &#x27;SOCIAL_LOGIN&#x27;, &#x27;value&#x27;: &#x27;@petr_ivanov87&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q24]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x107306250&gt;
+payload = &#x27;Привет! Я хочу сменить пароль. Мой email petr.ivanov@example.com, старый пароль Qwerty!2024#Secure. Логин @petr_ivanov87. Помогите, пожалуйста, с настройками безопасности.&#x27;
+payload_id = &#x27;dataset-24-1aaa701b&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q35</td><td>120</td><td class="fail" title="client = &lt;httpx.Client object at 0x107306250&gt;
+query = {&#x27;category&#x27;: &#x27;public_figures&#x27;, &#x27;id&#x27;: 35, &#x27;length_words&#x27;: 33, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Михаил Юрьевич Лермонтов&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q35]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x107306250&gt;
+payload = &#x27;Михаил Юрьевич Лермонтов родился 15 октября 1814 года. Какое его стихотворение стало последним? И где он погиб на дуэли?&#x27;
+payload_id = &#x27;dataset-35-9039b901&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q45</td><td>161</td><td class="fail" title="client = &lt;httpx.Client object at 0x107306250&gt;
+query = {&#x27;category&#x27;: &#x27;dummy&#x27;, &#x27;id&#x27;: 45, &#x27;length_words&#x27;: 40, &#x27;personal_data&#x27;: [], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q45]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x107306250&gt;
+payload = &#x27;Объясни, как работает блокчейн. Что такое смарт-контракты? И какие существуют основные типы консенсус-алгоритмов? Приведи примеры использования в реальной жизни.&#x27;
+payload_id = &#x27;dataset-45-2cf62211&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q54</td><td>1545</td><td class="fail" title="client = &lt;httpx.Client object at 0x107306250&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 54, &#x27;length_words&#x27;: 218, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;INN&#x27;, &#x27;value&#x27;: &#x27;770123456789&#x27;}, {&#x27;type&#x27;: &#x27;PHONE&#x27;, &#x27;value&#x27;: &#x27;+7 (916) 123-45-67&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q54]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x107306250&gt;
+payload = &#x27;Добрый день! Я работаю над большим исследовательским проектом, посвящённым анализу банковских операций и финансовых п...ание при проведении такого исследования. Буду очень признателен за подробный ответ и рекомендации по дальнейшим шагам.&#x27;
+payload_id = &#x27;dataset-54-a56b13df&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q65</td><td>3200</td><td class="fail" title="client = &lt;httpx.Client object at 0x107306250&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 65, &#x27;length_words&#x27;: 1015, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;IP_ADDRESS&#x27;, &#x27;value&#x27;: &#x27;...petrov&#x27;}, {&#x27;type&#x27;: &#x27;PASSWORD&#x27;, &#x27;value&#x27;: &#x27;Qwerty!2024#Secure&#x27;}, {&#x27;type&#x27;: &#x27;EMAIL&#x27;, &#x27;value&#x27;: &#x27;ivan.petrov@mail.ru&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q65]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x107306250&gt;
+payload = &#x27;Приветствую! Я пишу к вам с просьбой о помощи в подготовке большого методического пособия, которое должно помочь людя...лен за подробный и развёрнутый ответ, поскольку от качества этого материала зависит цифровая грамотность многих людей.&#x27;
+payload_id = &#x27;dataset-65-e83ec515&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q14</td><td>251</td><td class="fail" title="client = &lt;httpx.Client object at 0x1057b35e0&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 14, &#x27;length_words&#x27;: 68, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;SNILS&#x27;, &#x27;value&#x27;: &#x27;112-233...1234567&#x27;}, {&#x27;type&#x27;: &#x27;FOREIGN_PASSPORT&#x27;, &#x27;value&#x27;: &#x27;75 №1234567&#x27;}, {&#x27;type&#x27;: &#x27;BIRTH_CERT&#x27;, &#x27;value&#x27;: &#x27;I-МЮ №123456&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q14]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x1057b35e0&gt;
+payload = &#x27;Здравствуйте. Я собираю документы для оформления на работу. Мой СНИЛС 112-233-445 95, полис ОМС 5400000000000000, пол...9. Военный билет АБ 12 1234567, загранпаспорт 75 №1234567. Свидетельство о рождении I-МЮ №123456. Что ещё понадобится?&#x27;
+payload_id = &#x27;dataset-14-4034f718&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q15</td><td>207</td><td class="fail" title="client = &lt;httpx.Client object at 0x1057b35e0&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 15, &#x27;length_words&#x27;: 45, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;IP_ADDRESS&#x27;, &#x27;value&#x27;: &#x27;19...petrov&#x27;}, {&#x27;type&#x27;: &#x27;PASSWORD&#x27;, &#x27;value&#x27;: &#x27;Qwerty!2024#Secure&#x27;}, {&#x27;type&#x27;: &#x27;EMAIL&#x27;, &#x27;value&#x27;: &#x27;ivan.petrov@mail.ru&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q15]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x1057b35e0&gt;
+payload = &#x27;Привет, у меня сломался компьютер. Мой IP-адрес 192.168.1.105, MAC-адрес 00:1A:2B:3C:4D:5E. Логин в соцсети @ivan_petrov. Пароль Qwerty!2024#Secure. Email ivan.petrov@mail.ru. Помогите настроить сеть заново.&#x27;
+payload_id = &#x27;dataset-15-a6c83aef&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q20</td><td>262</td><td class="fail" title="client = &lt;httpx.Client object at 0x1057b35e0&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 20, &#x27;length_words&#x27;: 57, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Анна Смир...456789&#x27;}, {&#x27;type&#x27;: &#x27;SNILS&#x27;, &#x27;value&#x27;: &#x27;112-233-445 95&#x27;}, {&#x27;type&#x27;: &#x27;SOCIAL_LOGIN&#x27;, &#x27;value&#x27;: &#x27;@anna_smirnova&#x27;}, ...], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q20]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x1057b35e0&gt;
+payload = &#x27;Добрый день! Я готовлюсь к собеседованию. Меня зовут Анна Смирнова. Мой email anna.smirnova@mail.ru, телефон +44 20 7... СНИЛС 112-233-445 95. Логин в соцсети @anna_smirnova. Пароль Qwerty!2024#Secure. Подскажите, как лучше представиться?&#x27;
+payload_id = &#x27;dataset-20-c37a33ef&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q29</td><td>201</td><td class="fail" title="client = &lt;httpx.Client object at 0x1057b35e0&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 29, &#x27;length_words&#x27;: 44, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;EMAIL&#x27;, &#x27;value&#x27;: &#x27;petr.si...45-67&#x27;}, {&#x27;type&#x27;: &#x27;SOCIAL_LOGIN&#x27;, &#x27;value&#x27;: &#x27;@petr_sidorov&#x27;}, {&#x27;type&#x27;: &#x27;PASSWORD&#x27;, &#x27;value&#x27;: &#x27;Qwerty!2024#Secure&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q29]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x1057b35e0&gt;
+payload = &#x27;Добрый день! У меня проблема с доступом к личному кабинету. Мой email petr.sidorov@example.com, телефон +7 (916) 123-45-67, логин @petr_sidorov. Пароль Qwerty!2024#Secure. Помогите восстановить доступ.&#x27;
+payload_id = &#x27;dataset-29-201329ee&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q39</td><td>128</td><td class="fail" title="client = &lt;httpx.Client object at 0x1057b35e0&gt;
+query = {&#x27;category&#x27;: &#x27;public_figures&#x27;, &#x27;id&#x27;: 39, &#x27;length_words&#x27;: 37, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Владимир Владимирович Маяковский&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q39]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x1057b35e0&gt;
+payload = &#x27;Владимир Владимирович Маяковский родился 19 июля 1893 года. Какое его произведение было последним? И как он связан с Лилей Брик?&#x27;
+payload_id = &#x27;dataset-39-aee50ab8&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q49</td><td>223</td><td class="fail" title="client = &lt;httpx.Client object at 0x1057b35e0&gt;
+query = {&#x27;category&#x27;: &#x27;public_figures&#x27;, &#x27;id&#x27;: 49, &#x27;length_words&#x27;: 48, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Александр Сергеевич Пушкин&#x27;}, {&#x27;type&#x27;: &#x27;EMAIL&#x27;, &#x27;value&#x27;: &#x27;Ivanov@literature.ru&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q49]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x1057b35e0&gt;
+payload = &#x27;Здравствуйте! Я готовлю доклад о русских поэтах. Подскажите, пожалуйста, куда писал письма Александр Сергеевич Пушкин, и на каком сайте можно найти его полное собрание сочинений? Дайте ответ на адрес — Ivanov@literature.ru.&#x27;
+payload_id = &#x27;dataset-49-64ae7204&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q59</td><td>4801</td><td class="fail" title="client = &lt;httpx.Client object at 0x1057b35e0&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 59, &#x27;length_words&#x27;: 1043, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Иван Пе...&#x27;: &#x27;+7 (916) 123-45-67&#x27;}, {&#x27;type&#x27;: &#x27;INN&#x27;, &#x27;value&#x27;: &#x27;770123456789&#x27;}, {&#x27;type&#x27;: &#x27;SNILS&#x27;, &#x27;value&#x27;: &#x27;112-233-445 95&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q59]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x1057b35e0&gt;
+payload = &#x27;Добрый день! Я обращаюсь к вам с довольно необычной и в то же время очень важной просьбой, связанной с моей профессио...нутый ответ, поскольку от качества этого исследования зависит успех нескольких крупных проектов, в которых я участвую.&#x27;
+payload_id = &#x27;dataset-59-bfa08c8e&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q16</td><td>153</td><td class="fail" title="client = &lt;httpx.Client object at 0x1079a2c10&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 16, &#x27;length_words&#x27;: 37, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;EMAIL&#x27;, &#x27;value&#x27;: &#x27;petr.sidorov@example.com&#x27;}, {&#x27;type&#x27;: &#x27;PASSWORD&#x27;, &#x27;value&#x27;: &#x27;Qwerty!2024#Secure&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q16]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x1079a2c10&gt;
+payload = &#x27;Добрый вечер. Я забыл свой пароль от почты. Мой email petr.sidorov@example.com. Пароль был Qwerty!2024#Secure. Помогите, пожалуйста, восстановить доступ.&#x27;
+payload_id = &#x27;dataset-16-02637e9f&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q17</td><td>264</td><td class="fail" title="client = &lt;httpx.Client object at 0x1079a2c10&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 17, &#x27;length_words&#x27;: 62, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Сергей Ку...pe&#x27;: &#x27;EMAIL&#x27;, &#x27;value&#x27;: &#x27;sergey.kuznetsov@mail.ru&#x27;}, {&#x27;type&#x27;: &#x27;CARD_NUMBER&#x27;, &#x27;value&#x27;: &#x27;4111 1111 1111 1111&#x27;}, ...], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q17]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x1079a2c10&gt;
+payload = &#x27;Здравствуйте! Я оформляю ипотеку. Меня зовут Сергей Кузнецов. Мой ИНН 770123456789, СНИЛС 112-233-445 95, телефон 8 4...znetsov@mail.ru. Карта 4111 1111 1111 1111. CVV 789. Пин-код 9012. Cardholder SERGEY KUZNETSOV. Какие документы нужны?&#x27;
+payload_id = &#x27;dataset-17-87d7d907&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q21</td><td>166</td><td class="fail" title="client = &lt;httpx.Client object at 0x1079a2c10&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 21, &#x27;length_words&#x27;: 42, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;CARD_NUMBER&#x27;, &#x27;value&#x27;: &#x27;4...&#x27;type&#x27;: &#x27;CVV&#x27;, &#x27;value&#x27;: &#x27;321&#x27;}, {&#x27;type&#x27;: &#x27;PIN&#x27;, &#x27;value&#x27;: &#x27;4321&#x27;}, {&#x27;type&#x27;: &#x27;CARDHOLDER&#x27;, &#x27;value&#x27;: &#x27;IVAN PETROV&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q21]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x1079a2c10&gt;
+payload = &#x27;Здравствуйте! У меня украли кошелёк с картой. Карта 4111 1111 1111 1111, CVV 321, пин-код 4321, cardholder IVAN PETROV. Помогите заблокировать карту как можно скорее!&#x27;
+payload_id = &#x27;dataset-21-8a92fcdc&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q31</td><td>154</td><td class="fail" title="client = &lt;httpx.Client object at 0x1079a2c10&gt;
+query = {&#x27;category&#x27;: &#x27;public_figures&#x27;, &#x27;id&#x27;: 31, &#x27;length_words&#x27;: 38, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Николай Алексеевич Некрасов&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q31]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x1079a2c10&gt;
+payload = &#x27;Николай Алексеевич Некрасов родился 10 декабря 1821 года. Как называется последнее стихотворение, написанное этим поэтом? И в каком году оно было создано?&#x27;
+payload_id = &#x27;dataset-31-e71db1d3&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q40</td><td>158</td><td class="fail" title="client = &lt;httpx.Client object at 0x1079a2c10&gt;
+query = {&#x27;category&#x27;: &#x27;public_figures&#x27;, &#x27;id&#x27;: 40, &#x27;length_words&#x27;: 41, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Анна Андреевна Ахматова&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q40]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x1079a2c10&gt;
+payload = &#x27;Анна Андреевна Ахматова родилась 23 июня 1889 года. Какие произведения она написала после Второй мировой войны? И как на неё повлияло постановление 1946 года?&#x27;
+payload_id = &#x27;dataset-40-4fe8d6c5&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q50</td><td>242</td><td class="fail" title="client = &lt;httpx.Client object at 0x1079a2c10&gt;
+query = {&#x27;category&#x27;: &#x27;public_figures&#x27;, &#x27;id&#x27;: 50, &#x27;length_words&#x27;: 54, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Льва Николаевича Толстого&#x27;}, {&#x27;type&#x27;: &#x27;PHONE&#x27;, &#x27;value&#x27;: &#x27;+7 (4872) 36-40-14&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q50]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x1079a2c10&gt;
+payload = &#x27;Добрый день! Я изучаю жизнь Льва Николаевича Толстого. Не подскажете, по какому номеру телефона можно связаться с муз...дьбой «Ясная Поляна»? Контактный телефон музея: +7 (4872) 36-40-14 правильный? И где находится официальный сайт музея?&#x27;
+payload_id = &#x27;dataset-50-d27fe745&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q57</td><td>1403</td><td class="fail" title="client = &lt;httpx.Client object at 0x1079a2c10&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 57, &#x27;length_words&#x27;: 226, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;IP_ADDRESS&#x27;, &#x27;value&#x27;: &#x27;1...05&#x27;}, {&#x27;type&#x27;: &#x27;MAC_ADDRESS&#x27;, &#x27;value&#x27;: &#x27;00:1A:2B:3C:4D:5E&#x27;}, {&#x27;type&#x27;: &#x27;PASSWORD&#x27;, &#x27;value&#x27;: &#x27;Qwerty!2024#Secure&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q57]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x1079a2c10&gt;
+payload = &#x27;Добрый вечер! Я готовлю материал для научно-популярной статьи, посвящённой вопросам цифровой гигиены и защиты личной ...ит обратить особое внимание, чтобы статья была полезной и понятной для широкой аудитории. Заранее благодарю за помощь.&#x27;
+payload_id = &#x27;dataset-57-6ae1db40&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q67</td><td>4261</td><td class="fail" title="client = &lt;httpx.Client object at 0x1079a2c10&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 67, &#x27;length_words&#x27;: 1052, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Сергей ...CARD_NUMBER&#x27;, &#x27;value&#x27;: &#x27;4111 1111 1111 1111&#x27;}, {&#x27;type&#x27;: &#x27;CVV&#x27;, &#x27;value&#x27;: &#x27;123&#x27;}, {&#x27;type&#x27;: &#x27;PIN&#x27;, &#x27;value&#x27;: &#x27;1234&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q67]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x1079a2c10&gt;
+payload = &#x27;Добрый вечер! Я обращаюсь к вам с просьбой, которая связана с моей работой в сфере логистики и необходимостью подгото...скольку от качества этого документа зависит эффективность работы всей компании и доверие наших сотрудников и клиентов.&#x27;
+payload_id = &#x27;dataset-67-34d7bd3e&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q18</td><td>232</td><td class="fail" title="client = &lt;httpx.Client object at 0x10600b6a0&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 18, &#x27;length_words&#x27;: 48, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;MILITARY_ID&#x27;, &#x27;value&#x27;: &#x27;А...D&#x27;, &#x27;value&#x27;: &#x27;0012345678&#x27;}, {&#x27;type&#x27;: &#x27;OMS&#x27;, &#x27;value&#x27;: &#x27;5400000000000000&#x27;}, {&#x27;type&#x27;: &#x27;DMC&#x27;, &#x27;value&#x27;: &#x27;0123456789&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q18]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x10600b6a0&gt;
+payload = &#x27;Мне нужно оформить страховку. Мои данные: военный билет АБ 12 1234567, загранпаспорт 75 №1234567, свидетельство о рождении I-МЮ №123456. Миграционная карта 0012345678. Полис ОМС 5400000000000000. Полис ДМС 0123456789. Что ещё нужно?&#x27;
+payload_id = &#x27;dataset-18-6f7d2523&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q19</td><td>144</td><td class="fail" title="client = &lt;httpx.Client object at 0x10600b6a0&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 19, &#x27;length_words&#x27;: 35, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;SOCIAL_LOGIN&#x27;, &#x27;value&#x27;: &#x27;..._ivanov87&#x27;}, {&#x27;type&#x27;: &#x27;EMAIL&#x27;, &#x27;value&#x27;: &#x27;ivan.petrov@mail.ru&#x27;}, {&#x27;type&#x27;: &#x27;PHONE&#x27;, &#x27;value&#x27;: &#x27;+7 (916) 123-45-67&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q19]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x10600b6a0&gt;
+payload = &#x27;Привет! Я хочу удалить свой аккаунт в соцсети. Мой логин @petr_ivanov87. Email ivan.petrov@mail.ru. Телефон +7 (916) 123-45-67. Как это сделать?&#x27;
+payload_id = &#x27;dataset-19-28cf2f94&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q27</td><td>193</td><td class="fail" title="client = &lt;httpx.Client object at 0x10600b6a0&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 27, &#x27;length_words&#x27;: 39, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;SOCIAL_LOGIN&#x27;, &#x27;value&#x27;: &#x27;...il.ru&#x27;}, {&#x27;type&#x27;: &#x27;IP_ADDRESS&#x27;, &#x27;value&#x27;: &#x27;192.168.1.105&#x27;}, {&#x27;type&#x27;: &#x27;MAC_ADDRESS&#x27;, &#x27;value&#x27;: &#x27;00:1A:2B:3C:4D:5E&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q27]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x10600b6a0&gt;
+payload = &#x27;Привет! Я хочу зарегистрироваться на форуме. Логин @ivan_petrov, пароль Qwerty!2024#Secure, email ivan.petrov@mail.ru, IP-адрес 192.168.1.105, MAC-адрес 00:1A:2B:3C:4D:5E. Помогите, пожалуйста.&#x27;
+payload_id = &#x27;dataset-27-441672a5&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q34</td><td>154</td><td class="fail" title="client = &lt;httpx.Client object at 0x10600b6a0&gt;
+query = {&#x27;category&#x27;: &#x27;public_figures&#x27;, &#x27;id&#x27;: 34, &#x27;length_words&#x27;: 40, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Фёдор Михайлович Достоевский&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q34]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x10600b6a0&gt;
+payload = &#x27;Фёдор Михайлович Достоевский родился 11 ноября 1821 года. Какие произведения он написал после возвращения из ссылки? И как это повлияло на его творчество?&#x27;
+payload_id = &#x27;dataset-34-39fbf265&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q46</td><td>140</td><td class="fail" title="client = &lt;httpx.Client object at 0x10600b6a0&gt;
+query = {&#x27;category&#x27;: &#x27;dummy&#x27;, &#x27;id&#x27;: 46, &#x27;length_words&#x27;: 35, &#x27;personal_data&#x27;: [], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q46]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x10600b6a0&gt;
+payload = &#x27;Посоветуй, какие книги стоит прочитать по саморазвитию. Что такое эмоциональный интеллект? И как его развивать? Дай практические упражнения.&#x27;
+payload_id = &#x27;dataset-46-835183b0&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q52</td><td>266</td><td class="fail" title="client = &lt;httpx.Client object at 0x10600b6a0&gt;
+query = {&#x27;category&#x27;: &#x27;public_figures&#x27;, &#x27;id&#x27;: 52, &#x27;length_words&#x27;: 60, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;FIO&#x27;, &#x27;value&#x27;: &#x27;Марине Ивановне Цветаевой&#x27;}, {&#x27;type&#x27;: &#x27;INN&#x27;, &#x27;value&#x27;: &#x27;770123456789&#x27;}, {&#x27;type&#x27;: &#x27;SNILS&#x27;, &#x27;value&#x27;: &#x27;112-233-445 95&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q52]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x10600b6a0&gt;
+payload = &#x27;Здравствуйте! Я собираю информацию о Марине Ивановне Цветаевой. Подскажите, пожалуйста, её ИНН 770123456789 как физич...3-445 95 и адрес электронной почты, которые использовались в архивах? Мне нужно для исследовательской работы в архиве.&#x27;
+payload_id = &#x27;dataset-52-35dae8fc&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
+<tr><td>q62</td><td>3508</td><td class="fail" title="client = &lt;httpx.Client object at 0x10600b6a0&gt;
+query = {&#x27;category&#x27;: &#x27;with_personal_data&#x27;, &#x27;id&#x27;: 62, &#x27;length_words&#x27;: 1094, &#x27;personal_data&#x27;: [{&#x27;type&#x27;: &#x27;PASSWORD&#x27;, &#x27;value&#x27;: &#x27;Qw...5E&#x27;}, {&#x27;type&#x27;: &#x27;SOCIAL_LOGIN&#x27;, &#x27;value&#x27;: &#x27;@petr_ivanov87&#x27;}, {&#x27;type&#x27;: &#x27;EMAIL&#x27;, &#x27;value&#x27;: &#x27;petr.ivanov@example.com&#x27;}], ...}
+request = &lt;FixtureRequest for &lt;Function test_query_matches_personal_data[q62]&gt;&gt;
+
+    @pytest.mark.parametrize(&quot;query&quot;, _load_dataset(), ids=lambda q: f&quot;q{q[&#x27;id&#x27;]}&quot;)
+    def test_query_matches_personal_data(
+        client: httpx.Client, query: dict, request: pytest.FixtureRequest
+    ) -&gt; None:
+        request.node.cached_query_id = query[&quot;id&quot;]
+        request.node.cached_char_count = len(query[&quot;text&quot;])
+        payload_id = f&quot;dataset-{query[&#x27;id&#x27;]}-{uuid.uuid4().hex[:8]}&quot;
+&gt;       resp = _post_with_retry(client, query[&quot;text&quot;], payload_id)
+
+e2e_tests/test_e2e_dataset.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;httpx.Client object at 0x10600b6a0&gt;
+payload = &#x27;Добрый вечер! Я обращаюсь к вам с просьбой о помощи в подготовке большого исследовательского проекта, который посвящё...ольку от качества этого материала зависит уровень осведомлённости многих людей о вопросах информационной безопасности.&#x27;
+payload_id = &#x27;dataset-62-09f7bec5&#x27;
+
+    def _post_with_retry(client: httpx.Client, payload: str, payload_id: str) -&gt; httpx.Response:
+        &quot;&quot;&quot;Отправляет запрос с ретраями при таймауте/ошибке соединения.&quot;&quot;&quot;
+        last_exc: Exception | None = None
+&gt;       for attempt in range(E2E_RETRIES):
+E       NameError: name &#x27;E2E_RETRIES&#x27; is not defined
+
+e2e_tests/test_e2e_dataset.py:103: NameError">FAIL</td></tr>
 </tbody>
 </table>
 </body>

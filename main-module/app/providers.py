@@ -29,7 +29,7 @@ class RestMaskingProvider(MaskingProvider):
 
     async def mask(self, text: str) -> list[dict]:
         try:
-            async with httpx.AsyncClient(timeout=None) as client:
+            async with httpx.AsyncClient(timeout=self.config.timeout) as client:
                 response = await client.post(
                     self.config.url,
                     json={"text": text},
@@ -60,7 +60,7 @@ class WebSocketMaskingProvider(MaskingProvider):
         try:
             async with self._pool.connection() as ws:
                 await ws.send(text)
-                result = await ws.recv()
+                result = await asyncio.wait_for(ws.recv(), timeout=self.config.timeout)
                 data = json.loads(result)
                 return data["data"]
         except (
