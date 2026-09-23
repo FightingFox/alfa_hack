@@ -1,4 +1,5 @@
 import asyncio
+from typing import cast
 
 import websockets
 
@@ -52,7 +53,7 @@ def test_pool_grows_under_concurrency() -> None:
                 async def worker(i: int) -> str:
                     async with pool.connection() as ws:
                         await ws.send(str(i))
-                        return await ws.recv()
+                        return cast(str, await ws.recv())
 
                 results = await asyncio.gather(*(worker(i) for i in range(8)))
                 assert results == [str(i) for i in range(8)]
@@ -85,7 +86,7 @@ def test_pool_shrinks_when_idle() -> None:
                 async def worker(i: int) -> str:
                     async with pool.connection() as ws:
                         await ws.send(str(i))
-                        return await ws.recv()
+                        return cast(str, await ws.recv())
 
                 await asyncio.gather(*(worker(i) for i in range(8)))
                 grown = pool.total
@@ -149,7 +150,7 @@ def test_pool_respects_max_connections() -> None:
                 async def worker(i: int) -> str:
                     async with pool.connection() as ws:
                         await ws.send(str(i))
-                        return await ws.recv()
+                        return cast(str, await ws.recv())
 
                 await asyncio.gather(*(worker(i) for i in range(10)))
                 assert pool.total <= 3

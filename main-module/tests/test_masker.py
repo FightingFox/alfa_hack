@@ -1,7 +1,7 @@
 from app.masker import mask_text
 
 
-def _entity(text, types, score, start, end, will_be_used=True):
+def _entity(text, types, score, start, end, will_be_used=True) -> dict[str, object]:
     return {
         "text": text,
         "type": types,
@@ -11,7 +11,7 @@ def _entity(text, types, score, start, end, will_be_used=True):
     }
 
 
-def _results(**services):
+def _results(**services) -> dict[str, dict]:
     return {
         name: {"result": entities, "elapsed": 0.1}
         for name, entities in services.items()
@@ -157,7 +157,7 @@ def test_will_be_used_false_is_kept() -> None:
 
 def test_none_result_is_skipped() -> None:
     text = "Иванов"
-    results = {
+    results: dict[str, dict] = {
         "regex": {"result": [_entity("Иванов", ["FIO"], 1.0, 0, 6)], "elapsed": 0.1},
         "llm": {"result": None, "elapsed": 0.1},
     }

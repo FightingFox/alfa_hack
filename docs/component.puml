@@ -36,12 +36,21 @@ package "main-module" #E8F0FE {
     component "MaskingOrchestrator" as Orchestrator #D2E3FC
     component "RestMaskingProvider" as RestProvider #E3EEFF
     component "WebSocketMaskingProvider" as WsProvider #E3EEFF
+    component "Masker (merge + mask)" as Masker #E3EEFF
+    component "FIO name checker" as NameCheck #E3EEFF
     component "CorrelationStore" as Store #E3EEFF
     component "Redis" as Redis #FDE9D9
 }
 
 ' ===== load_balanser =====
 component "Nginx Load Balancer" as LB #FCE8E6
+
+' ===== regex-module =====
+package "regex-module" #FFF8E1 {
+    component "FastAPI (WS /scan)" as RegexApi #FFECB3
+    component "Regex scanner" as RegexScan #FFF3CD
+    component "Address book (КЛАДР)" as AddressBook #FFF3CD
+}
 
 ' ===== gliner_famous =====
 package "gliner_famous" #E6F4EA {
@@ -63,10 +72,12 @@ package "ml_for_all_types" #E0F2F1 {
     component "Ensemble of numpy detectors" as MlEnsemble #B2DFDB
 }
 
-' ===== regex-module =====
-package "regex-module" #FFF8E1 {
-    component "FastAPI (WS /scan)" as RegexApi #FFECB3
-    component "Regex scanner" as RegexScan #FFF3CD
+' ===== monitoring =====
+package "monitoring" #FBE9E7 {
+    component "Prometheus" as Prom #FFCCBC
+    component "Grafana" as Grafana #FFCCBC
+    component "cAdvisor" as Cadvisor #FFCCBC
+    component "nginx-prometheus-exporter" as NginxExp #FFCCBC
 }
 
 ' ===== training_data =====
@@ -74,31 +85,55 @@ package "training_data" #ECEFF1 {
     component "Dataset & training scripts" as Training #CFD8DC
 }
 
+' ===== e2e_tests / test-data =====
+package "e2e_tests / test-data" #EDE7F6 {
+    component "E2E tests (pytest)" as E2E #D1C4E9
+    component "Datasets" as TestData #D1C4E9
+}
+
 ' ===== Связи =====
-Client --> MainApp : POST /process (payload, payload_id)
+Client --> MainApp : POST /process {payload, payload_id}
 Client --> LB : WS /gliner-famous/ws, /llm-service/ws, /ml-for-all-types/ws
 
 MainApp --> Orchestrator : mask(text)
 Orchestrator --> RestProvider : parallel, timeout
 Orchestrator --> WsProvider : parallel, timeout
 RestProvider --> LB : POST /gliner-famous/process, /llm-service/process, /ml-for-all-types/process
-WsProvider --> LB : WS /gliner-famous/ws, /llm-service/ws, /ml-for-all-types/ws
+WsProvider --> LB : WS /regex-module/scan, /gliner-famous/ws, /llm-service/ws, /ml-for-all-types/ws
+Orchestrator --> Masker : merge + mask
+Masker --> NameCheck : filter FIO by names.txt
 MainApp --> Store : put/get payload_id
 Store --> Redis : pd:{payload_id}
 
+LB --> RegexApi : WS /regex-module/scan
 LB --> GlinerApi : round-robin
 LB --> LlmApi : round-robin
 LB --> MlApi : round-robin
+LB --> MainApp : /main-module/process, /main-module/health
 
+RegexApi --> RegexScan : scan(text)
+RegexScan --> AddressBook : КЛАДР lookup
 GlinerApi --> GlinerModel : extract_entities_long()
 GlinerApi --> PiiMapper : map_to_pii_types()
 GlinerApi --> FamousCheck : is_famous()
 LlmApi --> LlmClient : /chat/completions (SSE)
 MlApi --> MlEnsemble : detect_spans_with_positions()
 
-RegexApi --> RegexScan : scan(text)
+' ===== Мониторинг =====
+MainApp --> Prom : /metrics
+RegexApi --> Prom : /metrics
+GlinerApi --> Prom : /metrics
+LlmApi --> Prom : /metrics
+MlApi --> Prom : /metrics
+LB --> NginxExp : /nginx_status
+NginxExp --> Prom : scrape
+Cadvisor --> Prom : container metrics
+Prom --> Grafana : datasource
 
+' ===== Данные и тесты =====
 Training ..> GlinerModel : обученная модель
 Training ..> FamousCheck : база известных персон
+TestData ..> E2E : датасеты
+E2E --> MainApp : POST /process (проверка)
 
 @enduml

@@ -58,6 +58,8 @@ def test_runs_providers_concurrently() -> None:
     result = asyncio.run(run())
     assert result["p1"]["result"] == [{"text": "masked_by_p1", "type": ["FIO"]}]
     assert result["p2"]["result"] == [{"text": "masked_by_p2", "type": ["FIO"]}]
+    assert isinstance(result["p1"]["elapsed"], float)
+    assert isinstance(result["p2"]["elapsed"], float)
     assert result["p1"]["elapsed"] >= 0
     assert result["p2"]["elapsed"] >= 0
 
@@ -87,6 +89,8 @@ def test_waits_for_slowest_provider() -> None:
     result = asyncio.run(run())
     assert result["p1"]["result"] == [{"text": "slow", "type": ["FIO"]}]
     assert result["p2"]["result"] == [{"text": "fast", "type": ["FIO"]}]
+    assert isinstance(result["p1"]["elapsed"], float)
+    assert isinstance(result["p2"]["elapsed"], float)
     assert result["p1"]["elapsed"] >= result["p2"]["elapsed"]
 
 
@@ -98,6 +102,7 @@ def test_failed_provider_returns_none() -> None:
     result = asyncio.run(orch.mask("text"))
     assert result["p1"]["result"] == [{"text": "ok", "type": ["FIO"]}]
     assert result["p2"]["result"] is None
+    assert isinstance(result["p2"]["elapsed"], float)
     assert result["p2"]["elapsed"] >= 0
 
 

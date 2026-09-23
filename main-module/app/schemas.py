@@ -10,7 +10,7 @@ class Entity(BaseModel):
 
 
 class ServiceResult(BaseModel):
-    result: list[Entity] | None = Field(description="Результат обработки сервиса")
+    result: list[dict] | None = Field(description="Результат обработки сервиса")
     elapsed: float = Field(description="Время выполнения сервиса в секундах")
 
 
@@ -29,7 +29,7 @@ class Replacement(BaseModel):
 
 
 class ProcessResponse(BaseModel):
-    results: dict[str, ServiceResult] | str = Field(
+    results: dict[str, dict[str, list[dict] | float | None]] | str = Field(
         description="Результаты обработки по каждому сервису или исходная строка при демаскировании"
     )
     masked_text: str | None = Field(

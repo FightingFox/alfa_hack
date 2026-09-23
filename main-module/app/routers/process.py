@@ -4,7 +4,7 @@ from fastapi import APIRouter, HTTPException, status
 
 from app.masker import mask_text
 from app.orchestrator import MaskingProviderError, get_orchestrator
-from app.schemas import ProcessRequest, ProcessResponse
+from app.schemas import ProcessRequest, ProcessResponse, Replacement
 from app.store import Record, get_store
 
 router = APIRouter(tags=["process"])
@@ -23,7 +23,14 @@ async def process(request: ProcessRequest) -> ProcessResponse:
     existing = store.get(request.payload_id)
 
     if existing is None:
-        # Прямой шаг: маскирование через внешние сервисы
+        # Прямой шаг: маскирование через внешние сервисы.
+        # Маскирование выполняется только для строки; словарь результатов
+        # используется исключительно при демаскировании (existing is not None).
+        if not isinstance(request.payload, str):
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="payload должен быть строкой для маскирования",
+            )
         try:
             masked = await get_orchestrator().mask(request.payload)
         except MaskingProviderError as exc:
@@ -32,6 +39,7 @@ async def process(request: ProcessRequest) -> ProcessResponse:
                 detail=str(exc),
             ) from exc
         mask_result = mask_text(request.payload, masked)
+        replacements = [Replacement(**asdict(r)) for r in mask_result.replacements]
         store.put(
             request.payload_id,
             Record(
@@ -44,7 +52,7 @@ async def process(request: ProcessRequest) -> ProcessResponse:
         return ProcessResponse(
             results=masked,
             masked_text=mask_result.masked_text,
-            replacements=[asdict(r) for r in mask_result.replacements],
+            replacements=replacements,
         )
 
     # Обратный шаг: демаскирование
