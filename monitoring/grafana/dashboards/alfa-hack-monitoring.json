@@ -470,7 +470,7 @@
       },
       "targets": [
         {
-          "expr": "sum by (container) (label_replace(label_replace(rate(container_cpu_usage_seconds_total{id=~\"/docker/.*\", name!~\"buildkit|buildx|restricted\"}[5m]), \"container\", \"$1\", \"id\", \"/docker/(.+)\"), \"container\", \"$1\", \"name\", \"(.+)\")) * 100",
+          "expr": "sum by (container) (label_replace(rate(container_cpu_usage_seconds_total{name!~\"buildkit|buildx|restricted|cadvisor|prometheus|grafana\"}[5m]), \"container\", \"$1\", \"name\", \"(.+)\")) * 100",
           "legendFormat": "{{container}}",
           "refId": "A"
         }
@@ -522,7 +522,7 @@
       },
       "targets": [
         {
-          "expr": "sum by (container) (label_replace(label_replace(container_memory_working_set_bytes{id=~\"/docker/.*\", name!~\"buildkit|buildx|restricted\"}, \"container\", \"$1\", \"id\", \"/docker/(.+)\"), \"container\", \"$1\", \"name\", \"(.+)\"))",
+          "expr": "sum by (container) (label_replace(container_memory_working_set_bytes{name!~\"buildkit|buildx|restricted|cadvisor|prometheus|grafana\"}, \"container\", \"$1\", \"name\", \"(.+)\"))",
           "legendFormat": "{{container}}",
           "refId": "A"
         }
