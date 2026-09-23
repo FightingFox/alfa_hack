@@ -3,12 +3,24 @@
 Принимает строку текста по WebSocket и возвращает результат process_text() из scan.py.
 """
 
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 
-from scan import process_text
+from scan import preload_address_book, process_text
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Загружает справочник адресов (КЛАДР) при старте сервиса."""
+    preload_address_book()
+    yield
+
 
 app = FastAPI(
-    title="PII Scanner", description="Определение персональных данных в тексте"
+    title="PII Scanner",
+    description="Определение персональных данных в тексте",
+    lifespan=lifespan,
 )
 
 

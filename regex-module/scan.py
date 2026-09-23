@@ -9,6 +9,23 @@ from typing import Any
 
 from data_type import DataType
 from models import Entity, ProcessResponse
+from address_book import AddressBook
+
+# Справочник адресов (КЛАДР). Загружается лениво при первом обращении.
+_address_book: AddressBook | None = None
+
+
+def _get_address_book() -> AddressBook:
+    """Возвращает загруженный справочник адресов (с ленивой загрузкой)."""
+    global _address_book
+    if _address_book is None:
+        _address_book = AddressBook()
+    return _address_book
+
+
+def preload_address_book() -> None:
+    """Принудительно загружает справочник адресов (вызывается при старте сервиса)."""
+    _get_address_book()
 
 # Типы ПДн и соответствующие регулярные выражения.
 # Порядок в словаре определяет порядок результатов в scan().
@@ -49,18 +66,6 @@ RULES: dict[DataType, re.Pattern[str]] = {
         r")"
         r"(?!\d)"
     ),
-    # Адрес: структурированная строка «индекс, город, улица, дом, квартира».
-    DataType.ADDRESS: re.compile(
-        r"(?=.*(?:ул\.|д\.|кв\.|пр-т|г\.|\d{6}))"
-        r"(?:\d{6},\s*)?"
-        r"(?:[А-ЯЁ][а-яё]+(?:[\s-][А-ЯЁа-яё]+)*|"
-        r"г\.?\s*[А-ЯЁ][а-яё]+|"
-        r"ул\.?\s*[А-ЯЁа-яё0-9.\-]+|"
-        r"пр-т\.?\s*[А-ЯЁа-яё0-9.\-]+|"
-        r"д\.?\s*\d+|"
-        r"кв\.?\s*\d+)"
-        r"(?:\s*,\s*(?:[А-ЯЁ][а-яё]+(?:[\s-][А-ЯЁа-яё]+)*|г\.?\s*[А-ЯЁ][а-яё]+|ул\.?\s*[А-ЯЁа-яё0-9.\-]+|пр-т\.?\s*[А-ЯЁа-яё0-9.\-]+|д\.?\s*\d+|\d+|кв\.?\s*\d+)){0,3}"
-    ),
     # ФИО: кириллические слова с заглавной буквы (Фамилия Имя Отчество).
     DataType.FIO: re.compile(
         r"(?<![А-ЯЁа-яё])"
@@ -89,13 +94,13 @@ RULES: dict[DataType, re.Pattern[str]] = {
     DataType.CARD_NUMBER: re.compile(
         r"(?<!\d)(?:\d{4}[ -]?){3}\d{4}(?!\d)"
     ),
-    # CVV-код: \d{3,4} рядом с «CVV|CVC».
+    # CVV-код: \d{3} рядом с «CVV|CVC».
     DataType.CVV: re.compile(
-        r"(?:CVV|CVC|cvv|cvc)\s*(?:[:=—-]|<<)?\s*(\d{3,4})"
+        r"(?:CVV|CVC|cvv|cvc)\s*(?:[:=—-]|<<)?\s*(?<!\d)(\d{3})(?!\d)"
     ),
     # Пин-код: \d{4} рядом с «пин|PIN|ПИН-код».
     DataType.PIN: re.compile(
-        r"(?:пин|PIN|pin|ПИН|ПИН-код|Пин-код)\s*(?:[:=—-]|<<)?\s*(\d{4})"
+        r"(?:пин|PIN|pin|ПИН|ПИН-код|Пин-код)\s*(?:[:=—-]|<<)?\s*(?<!\d)(\d{4})(?!\d)"
     ),
     # Имя держателя карты: латиница CAPS (2+ слова).
     DataType.CARDHOLDER: re.compile(
@@ -155,16 +160,16 @@ RULES: dict[DataType, re.Pattern[str]] = {
         r"(?:"
         r"(?:\+[1-9]\d{0,2}|8)[\s.-]?(?:\(\d{1,5}\)|\d{1,5})?(?<!\s)[\s.-]?\d{1,7}(?:[\s.-]?\d{1,7}){1,3}"
         r"|"
-        r"(?=(?:\D*\d){10}(?:\D|$))\d{1,7}(?:[\s.-]?\d{1,7}){1,3}"
+        r"(?=(?:\d[\s.-]?){9}\d(?![\s.-]?\d))\d{1,7}(?:[\s.-]?\d{1,7}){1,3}"
         r")"
     ),
 }
 
 # Слабые правила: совпадения без контекста, score 0.5.
 WEAK_RULES: dict[DataType, re.Pattern[str]] = {
-    # CVV без контекста: 3-4 цифры, изолированные от других чисел.
+    # CVV без контекста: 3 цифры, изолированные от других чисел.
     DataType.CVV: re.compile(
-        r"(?<!\d)(?<!\d[\s.-])(?<!\(\d)\d{3,4}(?!\d)(?![\s.-]\d)(?!\))"
+        r"(?<!\d)(?<!\d[\s.-])(?<!\(\d)\d{3}(?!\d)(?![\s.-]\d)(?!\))"
     ),
     # PIN без контекста: 4 цифры, изолированные от других чисел.
     DataType.PIN: re.compile(
@@ -262,6 +267,18 @@ def scan(text: str) -> list[dict[str, Any]]:
 
     for pii_type, pattern in RULES.items():
         _add(pii_type, pattern, 1.0)
+
+    # Адрес ищется по справочнику КЛАДР (город, улица, дом).
+    for address in _get_address_book().find_addresses(text):
+        start = text.find(address)
+        results.append(
+            {
+                "text": address,
+                "type": DataType.ADDRESS,
+                "score": 1.0,
+                "slice": (start, start + len(address)),
+            }
+        )
 
     # Слабые правила (score 0.5), пропускаем пересечения с сильными того же типа.
     strong_spans: dict[DataType, list[tuple[int, int]]] = {}

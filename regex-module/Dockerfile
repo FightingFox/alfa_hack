@@ -12,6 +12,8 @@ COPY main.py .
 COPY scan.py .
 COPY data_type.py .
 COPY models.py .
+COPY address_book.py .
+COPY BASE/ BASE/
 
 EXPOSE 8000
 
