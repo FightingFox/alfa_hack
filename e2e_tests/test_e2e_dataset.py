@@ -114,7 +114,11 @@ def test_main_module_health() -> None:
 
 
 @pytest.mark.parametrize("query", _load_dataset(), ids=lambda q: f"q{q['id']}")
-def test_query_matches_personal_data(client: httpx.Client, query: dict) -> None:
+def test_query_matches_personal_data(
+    client: httpx.Client, query: dict, request: pytest.FixtureRequest
+) -> None:
+    request.node.cached_query_id = query["id"]
+    request.node.cached_char_count = len(query["text"])
     payload_id = f"dataset-{query['id']}-{uuid.uuid4().hex[:8]}"
     resp = client.post(
         PROCESS_URL,
@@ -125,6 +129,10 @@ def test_query_matches_personal_data(client: httpx.Client, query: dict) -> None:
     )
 
     body = resp.json()
+    request.node.cached_elapsed_by_service = {
+        service: entry["elapsed"] for service, entry in body["results"].items()
+    }
+
     entities = _collect_entities(body["results"])
 
     failures: list[str] = []

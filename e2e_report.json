@@ -1,0 +1,22 @@
+{
+  "services": [
+    "regex",
+    "ml",
+    "llm",
+    "gliner"
+  ],
+  "rows": [
+    {
+      "query_id": 1,
+      "char_count": 101,
+      "elapsed_by_service": {
+        "regex": 0.06199999999989814,
+        "ml": 0.09499999999934516,
+        "llm": 0.23599999999896681,
+        "gliner": 0.4599999999991269
+      },
+      "passed": true,
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>E2E отчёт</title>
+<style>
+  body { font-family: -apple-system, Segoe UI, Roboto, sans-serif; margin: 24px; }
+  h1 { font-size: 20px; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  th, td { border: 1px solid #ccc; padding: 6px 10px; text-align: center; }
+  th { background: #f0f0f0; }
+  td.time { font-variant-numeric: tabular-nums; }
+  td.na { color: #999; }
+  td.ok { color: #1a7f37; font-weight: 600; }
+  td.fail { color: #cf222e; font-weight: 600; }
+  .ok { color: #1a7f37; }
+  .fail { color: #cf222e; }
+</style>
+</head>
+<body>
+<h1>E2E отчёт: время работы сервисов</h1>
+<p>Всего тестов: <b>1</b>; успешно: <b class='ok'>1</b>; неудачно: <b class='fail'>0</b></p>
+<table>
+<thead><tr><th>Тест</th><th>Символов</th><th>regex</th><th>ml</th><th>llm</th><th>gliner</th><th>Результат</th></tr></thead>
+<tbody>
+<tr><td>q1</td><td>101</td><td class="time">0.062 с</td><td class="time">0.095 с</td><td class="time">0.236 с</td><td class="time">0.460 с</td><td class="ok">OK</td></tr>
+</tbody>
+</table>
+</body>
+</html>
